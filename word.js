@@ -12,7 +12,7 @@ class Word {
   }
 
   update(dt) {
-    const gravityAcc = gravityUtils.getGravityAcceleration();
+    const gravityAcc = gravityUtils.getGravityAcceleration().mult(dt);
     this.velocity = this.velocity.add(gravityAcc);
     this.position = this.position.add(this.velocity.mult(dt));
 
