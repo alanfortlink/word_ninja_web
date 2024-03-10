@@ -1,0 +1,17 @@
+body {
+  background-color: #000000;
+  display: flex;
+}
+
+canvas {
+  display: block;
+  margin: auto;
+  background-color: #454545;
+}
+
+#gameDiv {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
