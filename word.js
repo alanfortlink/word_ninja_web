@@ -42,7 +42,10 @@ class Word {
       if (this.index === this.word.length) {
         this.onRemoveCallback(this);
       }
+      return true;
     }
+
+    return false;
   }
 }
 
