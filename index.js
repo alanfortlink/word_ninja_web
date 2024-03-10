@@ -528,7 +528,16 @@ function newWord() {
   const width = canvas.width;
   const height = canvas.height;
 
-  const word = textWords[parseInt(Math.random() * textWords.length)];
+  var word = null;
+
+  while (true) {
+    const cand = textWords[parseInt(Math.random() * textWords.length)];
+    const initials = world.map(w => w.getRemainingWord()[0]);
+    if (!initials.includes(cand[0])) {
+      word = cand;
+      break;
+    }
+  }
 
   const x = 0.5 * Math.random() * width + width / 4;
 
