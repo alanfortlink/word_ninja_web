@@ -1,4 +1,3 @@
-import Vec2 from './vec2.js';
 import gravityUtils from './gravity_utils.js';
 
 class Word {
