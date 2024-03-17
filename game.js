@@ -41,6 +41,10 @@ class Game {
       return;
     }
 
+    if (c == " ") {
+      return;
+    }
+
     if (c == "Backspace") {
       for (let word of this.wordShooter.words) {
         word.selected = false;
