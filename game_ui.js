@@ -19,8 +19,8 @@ class GameUI {
   }
 
   static showEndScreen(score) {
-    lastScore.innerHTML = 'Last score: ' + score;
-    status.innerHTML = 'Game over! Press "Start" to play again.';
+    lastScore.innerHTML = 'Score: ' + score;
+    status.innerHTML = 'Press "Start" to play again.';
 
     GameUI.showButtons();
   }
@@ -33,11 +33,15 @@ class GameUI {
   }
 
   static updateInfo(timeLeft, score, lives, multiplier, combo) {
-    divScore.innerHTML = '★: ' + score;
-    divTime.innerHTML = '⌛: ' + timeLeft.toFixed(2);
-    divLives.innerHTML = '♥: ' + lives;
-    divMultiplier.innerHTML = 'x: ' + multiplier;
-    divCombo.innerHTML = '#: ' + combo;
+    divScore.innerHTML = GameUI.leftPad(score) + ' ★';
+    divTime.innerHTML = timeLeft.toFixed(2) + ' ⌛';
+    divLives.innerHTML = GameUI.leftPad(lives) + ' ♥';
+    divMultiplier.innerHTML = GameUI.leftPad(multiplier) + ' x';
+    divCombo.innerHTML = GameUI.leftPad(combo) + ' ♯';
+  }
+
+  static leftPad(n) {
+    return ('00000' + n).slice(-5);
   }
 }
 

@@ -23,6 +23,10 @@ class WordShooter {
       return;
     }
 
+    if(this.wordsWaiting == 0){
+      return;
+    }
+
     this.wordsWaiting--;
     this.timeSinceLastWord = 0;
 
@@ -44,7 +48,7 @@ class WordShooter {
     const launch_x = 0.5 * Math.random() * width + width / 4;
 
     const min_velocity = 0.75 * height;
-    const random_velocity = Math.random() * 0.20 * height;
+    const random_velocity = Math.random() * 0.15 * height;
 
     const throwAngleLimit = 20;
     const throwAngle = Math.random() * throwAngleLimit - throwAngleLimit / 2;
@@ -65,7 +69,7 @@ class WordShooter {
       }
     };
 
-    this.words.push(new Word(word, position, velocity, onRemoveCallback));
+    this.words.push(new Word(this.canvas, word, position, velocity, onRemoveCallback));
   }
 
   update(dt) {
@@ -80,9 +84,9 @@ class WordShooter {
     }
   }
 
-  render(context) {
+  render() {
     for (let word of this.words) {
-      word.render(context);
+      word.render();
     }
   }
 
@@ -95,7 +99,7 @@ class WordShooter {
   }
 
   increaseDifficulty() {
-    this.timeBetweenWords *= 0.95;
+    this.timeBetweenWords *= 0.90;
     if(this.simultaneousWords <= 4){
       this.simultaneousWords++;
     }

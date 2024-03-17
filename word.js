@@ -1,7 +1,9 @@
 import gravityUtils from './gravity_utils.js';
 
 class Word {
-  constructor(word, position, velocity, onRemoveCallback) {
+  constructor(canvas, word, position, velocity, onRemoveCallback) {
+    this.canvas = canvas;
+    this.context = canvas.getContext('2d');
     this.word = word;
     this.position = position;
     this.velocity = velocity;
@@ -21,10 +23,25 @@ class Word {
     }
   }
 
-  render(context) {
-    context.fillStyle = this.selected ? 'white' : 'red';
-    context.font = '30px Arial';
-    context.fillText(this.getRemainingWord(), this.position.x, this.position.y);
+  render() {
+    const textHeight = 20;
+
+    this.context.fillStyle = 'white';
+
+    const padding = 4;
+    const textWidth = this.context.measureText(this.getRemainingWord()).width;
+
+    if (this.selected) {
+      this.context.fillStyle = 'white';
+      this.context.fillRect(this.position.x - padding, this.position.y - padding - textHeight / 1.3, textWidth + 2 * padding, textHeight + 2 * padding);
+    } else {
+      this.context.fillStyle = 'black';
+      this.context.fillText(this.getRemainingWord(), this.position.x + 1, this.position.y + 1);
+      this.context.fillText(this.getRemainingWord(), this.position.x + 2, this.position.y + 2);
+    }
+
+    this.context.fillStyle = this.selected ? 'darkblue' : 'white';
+    this.context.fillText(this.getRemainingWord(), this.position.x, this.position.y);
   }
 
   getWord() {
@@ -35,7 +52,7 @@ class Word {
     return this.word.substring(this.index);
   }
 
-  check(c){
+  check(c) {
     if (this.word[this.index] === c) {
       this.index++;
       if (this.index === this.word.length) {

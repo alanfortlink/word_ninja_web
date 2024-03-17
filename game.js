@@ -1,12 +1,11 @@
-import Word from './word.js';
 import GameUI from './game_ui.js';
 import Vec2 from './vec2.js';
 import WordShooter from './word_shooter.js';
+import Particle from './particle.js';
 
 class Game {
   constructor(dictionary) {
     this.canvas = document.getElementById("gameCanvas");
-    this.context = this.canvas.getContext("2d");
     this.score = 0;
     this.combo = 0;
     this.gameElapsed = 0;
@@ -14,6 +13,10 @@ class Game {
     this.wordShooter = new WordShooter(this.canvas, dictionary, this);
     this.multiplier = 1;
     this.lastSecondChecked = 0;
+    this.particles = [];
+
+    const context = this.canvas.getContext('2d');
+    context.font = '20px ShareTechMono-Regular';
   }
 
   updateOverlay() {
@@ -58,6 +61,9 @@ class Game {
       if (selectedWord.check(c)) {
         this.score += 1 * this.multiplier;
 
+        const particle = new Particle(this.canvas, selectedWord.position, new Vec2(selectedWord.velocity.x, -selectedWord.velocity.y * 1.2), c);
+        this.particles.push(particle);
+
         if (selectedWord.isFinished()) {
           this.combo += 1;
 
@@ -82,6 +88,7 @@ class Game {
     this.gameElapsed = 0;
     this.score = 0;
     this.lives = 3;
+    this.particles = [];
     this.resetCombo();
   }
 
@@ -96,9 +103,13 @@ class Game {
     if (this.gameRunning) {
       this.updateOverlay();
       this.gameElapsed += dt;
-      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.wordShooter.update(dt);
+      for (let particle of this.particles) {
+        particle.update(dt);
+      }
     }
+
+    this.particles = this.particles.filter(p => !p.isDone);
 
     const currentSecond = parseInt(this.gameElapsed);
     if (currentSecond == this.lastSecondChecked) {
@@ -113,7 +124,14 @@ class Game {
   }
 
   render() {
-    this.wordShooter.render(this.context);
+    const context = this.canvas.getContext('2d');
+    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    for (let particle of this.particles) {
+      particle.render();
+    }
+
+    this.wordShooter.render();
   }
 
 }
