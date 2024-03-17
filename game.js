@@ -8,6 +8,7 @@ class Game {
     this.canvas = document.getElementById("gameCanvas");
     this.score = 0;
     this.combo = 0;
+    this.maxCombo = 0;
     this.gameElapsed = 0;
     this.gameRunning = false;
     this.wordShooter = new WordShooter(this.canvas, dictionary, this);
@@ -26,20 +27,25 @@ class Game {
 
   endGame() {
     this.gameRunning = false;
-    GameUI.showEndScreen(this.score);
+    GameUI.showEndScreen(this.score, this.maxCombo, this.gameElapsed);
   }
 
   onkeydown(e) {
+    const c = e.key;
+
     if (!this.gameRunning) {
+      if (c == " ") {
+        this.start();
+      }
+
       return;
     }
-
-    const c = e.key;
 
     if (c == "Backspace") {
       for (let word of this.wordShooter.words) {
         word.selected = false;
       }
+      return;
     }
 
     const selectedWords = this.wordShooter.words.filter(w => w.selected);
@@ -89,6 +95,7 @@ class Game {
     this.score = 0;
     this.lives = 3;
     this.particles = [];
+    this.maxCombo = 0;
     this.resetCombo();
   }
 
@@ -101,6 +108,7 @@ class Game {
 
   update(dt) {
     if (this.gameRunning) {
+      this.maxCombo = Math.max(this.maxCombo, this.combo);
       this.updateOverlay();
       this.gameElapsed += dt;
       this.wordShooter.update(dt);

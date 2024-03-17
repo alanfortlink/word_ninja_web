@@ -85,10 +85,46 @@ body {
   font-family: 'ShareTechMono-Regular', monospace;
 }
 
+#resultDiv {
+  position: absolute;
+  width: 80%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'ShareTechMono-Regular', monospace;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+}
+
 #lastScore {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  font-size: 30px;
+  color: #ffffff;
+  font-family: 'ShareTechMono-Regular', monospace;
+}
+
+#streak {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 30px;
+  color: #ffffff;
+  font-family: 'ShareTechMono-Regular', monospace;
+}
+
+#finalTime {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   font-size: 30px;
   color: #ffffff;
   font-family: 'ShareTechMono-Regular', monospace;
@@ -98,7 +134,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   font-size: 30px;
   color: #ffffff;
+  font-family: 'ShareTechMono-Regular', monospace;
+}
+
+.divider {
+  margin: 10px;
+  height: 2px;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.result-value {
+  font-size: 50px;
+  font-weight: bold;
   font-family: 'ShareTechMono-Regular', monospace;
 }

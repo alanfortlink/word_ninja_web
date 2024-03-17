@@ -2,8 +2,8 @@
 
 <head>
   <title>Home</title>
-  <link rel="stylesheet" type="text/css" href="./index.css"/>
-  <script  type="module" src="./index.js" defer></script>
+  <link rel="stylesheet" type="text/css" href="./index.css" />
+  <script type="module" src="./index.js" defer></script>
 
   <!-- TOOD[ALAN]: Remove this Live.js -->
   <script type="text/javascript" src="https://livejs.com/live.js"></script>
@@ -19,11 +19,14 @@
         <div id="combo">0</div>
       </div>
       <div id="time">0</div>
-      <div id="buttons">
-        <button id="startButton" onClick="startNewGame()">Start</button>
+      <div id="resultDiv">
+        <div id="lastScore"></div>
+        <div id="streak"></div>
+        <div id="finalTime"></div>
+        <div id="status">
+          Press "Space" to play
+        </div>
       </div>
-      <div id="lastScore"></div>
-      <div id="status"></div>
     </div>
     <canvas id="gameCanvas" width="800" height="600">
     </canvas>
