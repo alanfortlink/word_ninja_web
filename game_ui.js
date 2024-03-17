@@ -41,7 +41,7 @@ class GameUI {
   }
 
   static leftPad(n) {
-    return ('00000' + n).slice(-5);
+    return ('000000' + n).slice(-6);
   }
 }
 
