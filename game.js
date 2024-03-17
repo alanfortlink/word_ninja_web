@@ -49,6 +49,9 @@ class Game {
         words[0].selected = true;
         selectedWord = words[0];
       }
+      else {
+        this.resetCombo();
+      }
     }
 
     if (selectedWord != null && selectedWord != undefined) {
