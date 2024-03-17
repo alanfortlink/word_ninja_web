@@ -69,17 +69,14 @@ class Game {
 
     if (selectedWord != null && selectedWord != undefined) {
       if (selectedWord.check(c)) {
+        this.combo += 1;
         this.score += 1 * this.multiplier;
 
         const particle = new Particle(selectedWord.position, new Vec2(selectedWord.velocity.x, -selectedWord.velocity.y * 1.2), c);
         this.particles.push(particle);
 
-        if (selectedWord.isFinished()) {
-          this.combo += 1;
-
-          if (this.combo % 5 == 0) {
-            this.multiplier++;
-          }
+        if (this.combo % 25 == 0) {
+          this.multiplier++;
         }
       } else {
         this.resetCombo();
