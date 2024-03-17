@@ -43,8 +43,8 @@ class WordShooter {
 
     const launch_x = 0.5 * Math.random() * width + width / 4;
 
-    const min_velocity = 0.55 * height;
-    const random_velocity = Math.random() * 0.35 * height;
+    const min_velocity = 0.75 * height;
+    const random_velocity = Math.random() * 0.20 * height;
 
     const throwAngleLimit = 20;
     const throwAngle = Math.random() * throwAngleLimit - throwAngleLimit / 2;
@@ -95,8 +95,10 @@ class WordShooter {
   }
 
   increaseDifficulty() {
-    this.timeBetweenWords *= 0.9;
-    this.simultaneousWords++;
+    this.timeBetweenWords *= 0.95;
+    if(this.simultaneousWords <= 4){
+      this.simultaneousWords++;
+    }
   }
 }
 

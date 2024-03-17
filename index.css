@@ -13,7 +13,8 @@ body {
 canvas {
   display: block;
   margin: auto;
-  background-color: #454545;
+  background-image: url("misc/bg.png");
+  background-size: 100% 100%;
 }
 
 #overlay {
