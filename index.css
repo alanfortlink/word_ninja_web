@@ -1,6 +1,10 @@
 @font-face {
-    font-family: 'ShareTechMono-Regular';
-    src: url('misc/ShareTechMono-Regular.ttf') format('truetype');
+  font-family: 'ShareTechMono-Regular';
+  src: url('misc/ShareTechMono-Regular.ttf') format('truetype');
+}
+
+* {
+  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 body {
@@ -8,13 +12,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 #gameDiv {
   display: block;
   position: relative;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 #gameCanvas {
@@ -23,7 +25,6 @@ body {
   background-image: url("misc/bg.webp");
   background-size: 100% 100%;
   border: 1px solid #ffffff;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 #overlay {
@@ -33,7 +34,6 @@ body {
   top: 0;
   bottom: 0;
   right: 0;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 #time {
@@ -42,8 +42,6 @@ body {
   left: 10px;
   color: #ffffff;
   font-size: 20px;
-  font-family: Arial, sans-serif;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 #gameInfo {
@@ -54,35 +52,28 @@ body {
   right: 10px;
   color: #ffffff;
   font-size: 20px;
-  font-family: Arial, sans-serif;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 #score {
   color: yellow;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 #lives {
   color: #66ff66;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 #multiplier {
   color: #6666ff;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 #combo {
   color: #ff6666;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 #buttons {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 #resultDiv {
@@ -95,49 +86,17 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: 'ShareTechMono-Regular', monospace;
   background-color: rgba(0, 0, 0, 0.8);
   padding: 20px;
 }
 
-#lastScore {
+.info-div {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   font-size: 30px;
   color: #ffffff;
-  font-family: 'ShareTechMono-Regular', monospace;
-}
-
-#streak {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 30px;
-  color: #ffffff;
-  font-family: 'ShareTechMono-Regular', monospace;
-}
-
-#finalTime {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 30px;
-  color: #ffffff;
-  font-family: 'ShareTechMono-Regular', monospace;
-}
-
-#status {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 30px;
-  color: #ffffff;
-  font-family: 'ShareTechMono-Regular', monospace;
 }
 
 .divider {
@@ -150,5 +109,4 @@ body {
 .result-value {
   font-size: 50px;
   font-weight: bold;
-  font-family: 'ShareTechMono-Regular', monospace;
 }

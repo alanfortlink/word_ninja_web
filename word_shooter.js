@@ -1,10 +1,10 @@
 import Word from './word.js';
 import Vec2 from './vec2.js';
+import { canvas } from './utils.js';
 
 class WordShooter {
-  constructor(canvas, dictionary, game) {
+  constructor(dictionary, game) {
     this.words = [];
-    this.canvas = canvas;
     this.dictionary = dictionary;
     this.simultaneousWords = 1;
     this.wordsWaiting = 0;
@@ -23,15 +23,15 @@ class WordShooter {
       return;
     }
 
-    if(this.wordsWaiting == 0){
+    if (this.wordsWaiting == 0) {
       return;
     }
 
     this.wordsWaiting--;
     this.timeSinceLastWord = 0;
 
-    const width = this.canvas.width;
-    const height = this.canvas.height;
+    const width = canvas.width;
+    const height = canvas.height;
 
     var word = null;
 
@@ -69,7 +69,7 @@ class WordShooter {
       }
     };
 
-    this.words.push(new Word(this.canvas, word, position, velocity, onRemoveCallback));
+    this.words.push(new Word(word, position, velocity, onRemoveCallback));
   }
 
   update(dt) {
@@ -100,10 +100,11 @@ class WordShooter {
 
   increaseDifficulty() {
     this.timeBetweenWords *= 0.90;
-    if(this.simultaneousWords <= 4){
+    if (this.simultaneousWords <= 4) {   
       this.simultaneousWords++;
     }
-  }
-}
+    }
+
+} 
 
 export default WordShooter;

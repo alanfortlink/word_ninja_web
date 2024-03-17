@@ -2,21 +2,21 @@ import GameUI from './game_ui.js';
 import Vec2 from './vec2.js';
 import WordShooter from './word_shooter.js';
 import Particle from './particle.js';
+import { canvas, context } from './utils.js';
 
 class Game {
   constructor(dictionary) {
-    this.canvas = document.getElementById("gameCanvas");
     this.score = 0;
     this.combo = 0;
     this.maxCombo = 0;
     this.gameElapsed = 0;
     this.gameRunning = false;
-    this.wordShooter = new WordShooter(this.canvas, dictionary, this);
+    this.wordShooter = new WordShooter(dictionary, this);
     this.multiplier = 1;
     this.lastSecondChecked = 0;
     this.particles = [];
 
-    const context = this.canvas.getContext('2d');
+    const context = canvas.getContext('2d');
     context.font = '20px ShareTechMono-Regular';
   }
 
@@ -67,7 +67,7 @@ class Game {
       if (selectedWord.check(c)) {
         this.score += 1 * this.multiplier;
 
-        const particle = new Particle(this.canvas, selectedWord.position, new Vec2(selectedWord.velocity.x, -selectedWord.velocity.y * 1.2), c);
+        const particle = new Particle(selectedWord.position, new Vec2(selectedWord.velocity.x, -selectedWord.velocity.y * 1.2), c);
         this.particles.push(particle);
 
         if (selectedWord.isFinished()) {
@@ -132,8 +132,7 @@ class Game {
   }
 
   render() {
-    const context = this.canvas.getContext('2d');
-    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let particle of this.particles) {
       particle.render();

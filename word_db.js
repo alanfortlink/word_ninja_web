@@ -34,7 +34,6 @@ class WordDB {
       "that",
       "for",
       "they",
-      "I",
       "with",
       "as",
       "not",

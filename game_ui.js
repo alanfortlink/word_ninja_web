@@ -1,53 +1,57 @@
-const lastScore = document.getElementById('lastScore');
-const status = document.getElementById('status');
-const streakDiv = document.getElementById('streak');
-const finalTimeDiv = document.getElementById('finalTime');
+const $lastScore = document.getElementById('lastScore');
+const $status = document.getElementById('status');
+const $streak = document.getElementById('streak');
+const $finalTime = document.getElementById('finalTime');
 
-const divScore = document.getElementById('score');
-const divTime = document.getElementById('time');
-const divLives = document.getElementById('lives');
-const divMultiplier = document.getElementById('multiplier');
-const divCombo = document.getElementById('combo');
-const resultDiv = document.getElementById('resultDiv');
+const $score = document.getElementById('score');
+const $time = document.getElementById('time');
+const $lives = document.getElementById('lives');
+const $multiplier = document.getElementById('multiplier');
+const $combo = document.getElementById('combo');
+const $result = document.getElementById('resultDiv');
+
+function _buildInfo(title, value) {
+  return `<div class="result-title">${title}</div><div class="result-value">${value}</div>`;
+}
 
 class GameUI {
   static showButtons() {
-    resultDiv.style.display = 'block';
+    $result.style.display = 'block';
   }
 
   static hideButtons() {
-    resultDiv.style.display = 'none';
+    $result.style.display = 'none';
   }
 
   static showEndScreen(score, maxCombo, time) {
-    lastScore.innerHTML = '<div class="result-title">Score</div><div class="result-value">' + score + "</div>";
-    streakDiv.innerHTML = '<div class="result-title">Max Streak</div><div class="result-value">' + maxCombo + "</div>";
-    status.innerHTML = '<div class="divider"></div><div class="result-title">Press "Space" to play again</div>';
+    $lastScore.innerHTML = _buildInfo('Score', score);
+    $streak.innerHTML = _buildInfo('Max Streak', maxCombo);
+    $status.innerHTML = '<div class="divider"></div>' + _buildInfo(`Press "Space" to play again`, "");
 
     const min = Math.floor(time / 60);
     const sec = Math.floor(time % 60);
 
     const time_s = (min > 0 ? min + 'm' : '') + sec + 's';
 
-    finalTimeDiv.innerHTML = '<div class="result-title">Time</div><div class="result-value">' + time_s + "</div>";
+    $finalTime.innerHTML = '<div class="result-title">Time</div><div class="result-value">' + time_s + "</div>";
 
     GameUI.showButtons();
   }
 
   static prepareGame() {
-    lastScore.innerHTML = '';
-    status.innerHTML = '';
-    streakDiv.innerHTML = '';
+    $lastScore.innerHTML = '';
+    $status.innerHTML = '';
+    $streak.innerHTML = '';
 
     GameUI.hideButtons();
   }
 
   static updateInfo(timeLeft, score, lives, multiplier, combo) {
-    divScore.innerHTML = GameUI.leftPad(score) + ' ★';
-    divTime.innerHTML = timeLeft.toFixed(2) + ' ⌛';
-    divLives.innerHTML = GameUI.leftPad(lives) + ' ♥';
-    divMultiplier.innerHTML = GameUI.leftPad(multiplier) + ' x';
-    divCombo.innerHTML = GameUI.leftPad(combo) + ' ♯';
+    $score.innerHTML = GameUI.leftPad(score) + ' ★';
+    $time.innerHTML = timeLeft.toFixed(2) + ' ⌛';
+    $lives.innerHTML = GameUI.leftPad(lives) + ' ♥';
+    $multiplier.innerHTML = GameUI.leftPad(multiplier) + ' x';
+    $combo.innerHTML = GameUI.leftPad(combo) + ' ♯';
   }
 
   static leftPad(n) {
