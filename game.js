@@ -8,23 +8,22 @@ class Game {
     this.canvas = document.getElementById("gameCanvas");
     this.context = this.canvas.getContext("2d");
     this.score = 0;
-    this.duration = 30;
+    this.combo = 0;
     this.gameElapsed = 0;
     this.gameRunning = false;
-    this.wordShooter = new WordShooter(this.canvas, dictionary);
+    this.wordShooter = new WordShooter(this.canvas, dictionary, this);
+    this.multiplier = 1;
+    this.lastSecondChecked = 0;
   }
 
   updateOverlay() {
     if (!this.gameRunning) return;
+    GameUI.updateInfo(this.gameElapsed, this.score, this.lives, this.multiplier, this.combo);
+  }
 
-    const timeLeft = this.duration - this.gameElapsed;
-    if (timeLeft <= 0) {
-      this.gameRunning = false;
-      GameUI.showEndScreen(this.score);
-      return;
-    }
-
-    GameUI.updateInfo(timeLeft, this.score);
+  endGame() {
+    this.gameRunning = false;
+    GameUI.showEndScreen(this.score);
   }
 
   onkeydown(e) {
@@ -54,9 +53,24 @@ class Game {
 
     if (selectedWord != null && selectedWord != undefined) {
       if (selectedWord.check(c)) {
-        this.score += 1;
+        this.score += 1 * this.multiplier;
+
+        if (selectedWord.isFinished()) {
+          this.combo += 1;
+
+          if (this.combo % 5 == 0) {
+            this.multiplier++;
+          }
+        }
+      } else {
+        this.resetCombo();
       }
     }
+  }
+
+  resetCombo() {
+    this.combo = 0;
+    this.multiplier = 1;
   }
 
   reset() {
@@ -64,6 +78,8 @@ class Game {
     this.gameRunning = true;
     this.gameElapsed = 0;
     this.score = 0;
+    this.lives = 3;
+    this.resetCombo();
   }
 
   start() {
@@ -80,6 +96,17 @@ class Game {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.wordShooter.update(dt);
     }
+
+    const currentSecond = parseInt(this.gameElapsed);
+    if (currentSecond == this.lastSecondChecked) {
+      return;
+    }
+
+    this.lastSecondChecked = currentSecond;
+    if (currentSecond % 10 == 0) {
+      this.wordShooter.increaseDifficulty();
+    }
+
   }
 
   render() {

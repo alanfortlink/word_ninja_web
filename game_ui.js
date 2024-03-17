@@ -5,6 +5,9 @@ const status = document.getElementById('status');
 
 const divScore = document.getElementById('score');
 const divTime = document.getElementById('time');
+const divLives = document.getElementById('lives');
+const divMultiplier = document.getElementById('multiplier');
+const divCombo = document.getElementById('combo');
 
 class GameUI {
   static showButtons() {
@@ -29,9 +32,12 @@ class GameUI {
     GameUI.hideButtons();
   }
 
-  static updateInfo(timeLeft, score) {
-    divScore.innerHTML = 'Score: ' + score;
-    divTime.innerHTML = 'Time: ' + timeLeft.toFixed(2);
+  static updateInfo(timeLeft, score, lives, multiplier, combo) {
+    divScore.innerHTML = '★: ' + score;
+    divTime.innerHTML = '⌛: ' + timeLeft.toFixed(2);
+    divLives.innerHTML = '♥: ' + lives;
+    divMultiplier.innerHTML = 'x: ' + multiplier;
+    divCombo.innerHTML = '#: ' + combo;
   }
 }
 

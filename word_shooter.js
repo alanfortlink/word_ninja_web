@@ -2,14 +2,15 @@ import Word from './word.js';
 import Vec2 from './vec2.js';
 
 class WordShooter {
-  constructor(canvas, dictionary) {
+  constructor(canvas, dictionary, game) {
     this.words = [];
     this.canvas = canvas;
     this.dictionary = dictionary;
-    this.simultaneousWords = 5;
+    this.simultaneousWords = 1;
     this.wordsWaiting = 0;
     this.timeSinceLastWord = 0;
-    this.timeBetweenWords = 0.5;
+    this.timeBetweenWords = 1.5;
+    this.game = game;
   }
 
   updateWords(dt) {
@@ -53,7 +54,15 @@ class WordShooter {
 
     const onRemoveCallback = (word) => {
       this.words = this.words.filter(w => w !== word);
-      this.wordsWaiting++;
+      if (!word.isFinished()) {
+        if (this.game.lives > 0) {
+          this.game.lives--;
+          this.game.resetCombo();
+          return;
+        }
+
+        this.game.endGame();
+      }
     };
 
     this.words.push(new Word(word, position, velocity, onRemoveCallback));
@@ -78,6 +87,16 @@ class WordShooter {
   }
 
   reset() {
+    this.words = [];
+    this.wordsWaiting = 0;
+    this.timeSinceLastWord = 0;
+    this.simultaneousWords = 1;
+    this.timeBetweenWords = 1.5;
+  }
+
+  increaseDifficulty() {
+    this.timeBetweenWords *= 0.9;
+    this.simultaneousWords++;
   }
 }
 

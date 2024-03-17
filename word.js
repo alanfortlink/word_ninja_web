@@ -46,6 +46,10 @@ class Word {
 
     return false;
   }
+
+  isFinished() {
+    return this.index === this.word.length;
+  }
 }
 
 export default Word;
