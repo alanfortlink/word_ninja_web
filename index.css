@@ -24,7 +24,6 @@ body {
   margin: auto;
   background-image: url("misc/bg.webp");
   background-size: 100% 100%;
-  border: 1px solid #ffffff;
 }
 
 #overlay {
