@@ -8,14 +8,22 @@ class Word {
     this.onRemoveCallback = onRemoveCallback;
     this.selected = false;
     this.index = 0;
+    this.elapsed = 0;
+    this.isSpecialWord = Math.random() < 0.02;
+    this.isSkull = !this.isSpecialWord && Math.random() < 0.01;
   }
 
   update(dt) {
+    this.elapsed += dt;
     applyMovement(this, dt);
     if (this.position.y >= 600 && this.velocity.y > 0) {
-      this.position.y = 900;
+      this.position.y = 600;
       this.onRemoveCallback(this);
     }
+  }
+
+  getWidth() {
+    return context.measureText(this.getRemainingWord()).width;
   }
 
   render() {
@@ -24,7 +32,19 @@ class Word {
     context.fillStyle = 'yellow';
 
     const padding = 4;
-    const textWidth = context.measureText(this.getRemainingWord()).width;
+    const textWidth = this.getWidth();
+
+    context.font = `${textHeight}px ShareTechMono-Regular`;
+
+    if (this.isSpecialWord) {
+      context.fillText('❤️', this.position.x - 30, this.position.y);
+      context.fillText('❤️', this.position.x + textWidth + 5, this.position.y);
+    }
+
+    if (this.isSkull) {
+      context.fillText('💀', this.position.x - 30, this.position.y);
+      context.fillText('💀', this.position.x + textWidth + 5, this.position.y);
+    }
 
     if (this.selected) {
       context.fillStyle = 'white';

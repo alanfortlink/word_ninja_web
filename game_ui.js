@@ -7,6 +7,8 @@ const $score = document.getElementById('score');
 const $time = document.getElementById('time');
 const $combo = document.getElementById('combo');
 const $result = document.getElementById('resultDiv');
+const $lives = document.getElementById('lives');
+const $slows = document.getElementById('slows');
 
 function _buildInfo(title, value) {
   return `<div class="result-title">${title}</div><div class="result-value">${value}</div>`;
@@ -44,9 +46,27 @@ class GameUI {
     GameUI.hideButtons();
   }
 
-  static updateInfo(timeLeft, score, combo) {
+  static updateInfo(game) {
+    const score = game.score;
+    const combo = game.combo;
+    const elapsed = game.gameElapsed;
+
+    $lives.innerHTML = '❤️'.repeat(game.lives);
+    $slows.innerHTML = '⚡️'.repeat(game.slows);
+
+    let t_str = "";
+    let minutes = Math.floor(elapsed / 60);
+    let seconds = Math.floor(elapsed % 60);
+
+    if (minutes > 0) {
+      t_str += minutes + 'm';
+    }
+
+    t_str += seconds + 's';
+    t_str = elapsed.toFixed(2) + 's';
+
     $score.innerHTML = GameUI.leftPad(score) + ' ★';
-    $time.innerHTML = timeLeft.toFixed(2) + ' ⌛';
+    $time.innerHTML = t_str + ' ⌛';
     $combo.innerHTML = GameUI.leftPad(combo) + ' ♯';
   }
 

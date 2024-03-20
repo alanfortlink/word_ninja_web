@@ -22,7 +22,10 @@ class Particle {
     this.elapsed += dt;
     const p = Math.min(this.elapsed, this.duration) / this.duration;
 
-    if (this.positive) {
+    if (this.char != '') {
+      applyMovement(this, dt);
+    }
+    else if (this.positive) {
       this.position = this.initialPosition.add(this.dir.mult(p));
     } else {
       applyMovement(this, dt);
@@ -46,12 +49,9 @@ class Particle {
       `rgba(4, 217, 255, ${alpha})`,
       `rgba(255, 16, 240, ${alpha})`,
       `rgba(116, 255, 21, ${alpha})`,
-    ][this.multiplier-1];
+    ][this.multiplier - 1];
 
-    const txt = `${this.positive ? '+' : '❌'}${this.positive ? this.multiplier : ''}`;
-
-    // context.fillStyle = `rgba(200, 200, 200, ${alpha * 0.8})`;
-    // context.fillText(txt, 1, 1);
+    const txt = this.char == '' ? `${this.positive ? '+' : '❌'}${this.positive ? this.multiplier : ''}` : this.char;
 
     context.fillStyle = this.positive ? positiveColor : lightRed;
     context.fillText(txt, 0, 0);

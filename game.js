@@ -16,7 +16,11 @@ class Game {
     this.wordShooter = new WordShooter(dictionary, this);
     this.multiplier = 1;
     this.lastSecondChecked = 0;
+    this.slows = 2;
     this.particles = [];
+    this.paused = false;
+    this.isSlow = false;
+    this.slowElapsed = 0;
     this.borders = [
       new Border('top', this),
       new Border('right', this),
@@ -29,9 +33,7 @@ class Game {
   }
 
   updateOverlay() {
-    // alan
-    if (!this.gameRunning) return;
-    GameUI.updateInfo(this.gameElapsed, this.score, this.combo);
+    GameUI.updateInfo(this);
   }
 
   endGame() {
@@ -41,12 +43,31 @@ class Game {
 
   onkeydown(e) {
     const c = e.key;
+    if (c == "Escape") {
+      this.paused = !this.paused;
+      return;
+    }
+
+    if (this.paused) {
+      if (c == " ") {
+        this.paused = false;
+      }
+    }
 
     if (!this.gameRunning) {
       if (c == " ") {
         this.start();
       }
 
+      return;
+    }
+
+    if (c == "Enter") {
+      if (this.slows > 0 && !this.isSlow) {
+        this.isSlow = true;
+        this.slowElapsed = 0;
+        this.slows -= 1;
+      }
       return;
     }
 
@@ -72,21 +93,36 @@ class Game {
         selectedWord = words[0];
       }
       else {
-        const particle = new Particle(this, new Vec2(canvas.width / 2, canvas.height / 2), new Vec2(0, 0), c, false);
+        const particle = new Particle(this, new Vec2(canvas.width / 2, canvas.height / 2), new Vec2(0, 0), '', false);
         this.particles.push(particle);
         this.resetCombo();
       }
     }
 
     if (selectedWord != null && selectedWord != undefined) {
-      if (selectedWord.check(c)) {
-        this.combo += 1;
-        const m = this.multiplier;
-        setTimeout(() => {
-          this.score += m;
-        }, 1000);
+      if (selectedWord.isSkull) {
+        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false);
+        this.particles.push(particle);
+        this.wordShooter.words = this.wordShooter.words.filter(w => w !== selectedWord);
+        this.lives -= 1;
+        this.resetCombo();
 
-        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), c, true);
+        if (this.lives == 0) {
+          this.endGame();
+        }
+
+        return;
+      }
+      if (selectedWord.check(c)) {
+
+        if (selectedWord.isFinished()) {
+          if (selectedWord.isSpecialWord && this.lives < 5) {
+            this.lives += 1;
+          }
+        }
+
+        this.combo += 1;
+        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', true);
         this.particles.push(particle);
 
         if (this.combo % 15 == 0) {
@@ -95,7 +131,7 @@ class Game {
           }
         }
       } else {
-        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), c, false);
+        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false);
         this.particles.push(particle);
         this.resetCombo();
       }
@@ -108,6 +144,7 @@ class Game {
   }
 
   reset() {
+    this.slows = 2;
     this.wordShooter.reset();
     this.gameRunning = true;
     this.gameElapsed = 0;
@@ -130,9 +167,21 @@ class Game {
   }
 
   update(dt) {
+    if (this.paused) {
+      return;
+    }
+
     if (this.gameRunning) {
+
+      if (this.isSlow) {
+        this.slowElapsed += dt;
+        dt = dt / 4;
+        if (this.slowElapsed >= 4) {
+          this.isSlow = false;
+        }
+      }
+
       this.maxCombo = Math.max(this.maxCombo, this.combo);
-      this.updateOverlay();
       this.gameElapsed += dt;
       this.wordShooter.update(dt);
       for (let particle of this.particles) {
@@ -140,8 +189,16 @@ class Game {
       }
     }
 
+    this.updateOverlay();
+
     for (let border of this.borders) {
       border.update(dt);
+    }
+
+    const doneParticles = this.particles.filter(p => p.isDone);
+
+    for (let particle of doneParticles) {
+      this.score += particle.multiplier;
     }
 
     this.particles = this.particles.filter(p => !p.isDone);
@@ -160,6 +217,15 @@ class Game {
   }
 
   render() {
+    if (this.paused) {
+      context.save();
+      context.fillStyle = 'white';
+      context.font = '30px ShareTechMono-Regular';
+      context.fillText('Paused', canvas.width / 2 - 40, canvas.height / 2);
+      context.restore();
+      return;
+    }
+
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let particle of this.particles) {

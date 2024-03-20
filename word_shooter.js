@@ -1,5 +1,6 @@
 import Word from './word.js';
 import Vec2 from './vec2.js';
+import Particle from './particle.js';
 import { canvas } from './utils.js';
 
 class WordShooter {
@@ -58,7 +59,24 @@ class WordShooter {
 
     const onRemoveCallback = (word) => {
       this.words = this.words.filter(w => w !== word);
+
+      if (word.isSkull) {
+        return;
+      }
+
       if (!word.isFinished()) {
+        const v = canvas.height * 0.5;
+        const maxAngle = 60;
+        const diff = word.getWidth() / word.getRemainingWord().length;
+
+        for (let i = 0; i < word.getRemainingWord().length; i++) {
+          let c = word.getRemainingWord()[i];
+          const angle = Math.random() * maxAngle - maxAngle / 2;
+          const velocity = new Vec2(0, -v).rotated(angle);
+          const p = new Particle(this.game, word.position.add(new Vec2(diff * i, 0)), velocity, c, false);
+          this.game.particles.push(p);
+        }
+
         if (this.game.lives == 1) {
           this.game.lives--;
           this.game.endGame();

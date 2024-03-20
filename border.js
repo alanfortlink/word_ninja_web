@@ -66,9 +66,12 @@ class Border {
       factor = 1.0;
     }
 
+    factor = 1.0;
+
     if(opacity == null) opacity = factor;
 
-    context.fillStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`;
+    // context.fillStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`;
+    context.fillStyle = 'white';
 
     switch (this.side) {
       case 'right':
