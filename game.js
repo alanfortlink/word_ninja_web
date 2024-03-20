@@ -72,6 +72,8 @@ class Game {
         selectedWord = words[0];
       }
       else {
+        const particle = new Particle(this, new Vec2(canvas.width / 2, canvas.height / 2), new Vec2(0, 0), c, false);
+        this.particles.push(particle);
         this.resetCombo();
       }
     }
@@ -81,7 +83,7 @@ class Game {
         this.combo += 1;
         this.score += 1 * this.multiplier;
 
-        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), c);
+        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), c, true);
         this.particles.push(particle);
 
         if (this.combo % 10 == 0) {
@@ -90,6 +92,8 @@ class Game {
           }
         }
       } else {
+        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), c, false);
+        this.particles.push(particle);
         this.resetCombo();
       }
     }
