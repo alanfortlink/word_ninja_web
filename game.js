@@ -2,7 +2,9 @@ import GameUI from './game_ui.js';
 import Vec2 from './vec2.js';
 import WordShooter from './word_shooter.js';
 import Particle from './particle.js';
+import Border from './border.js';
 import { canvas, context } from './utils.js';
+// outr
 
 class Game {
   constructor(dictionary) {
@@ -15,14 +17,21 @@ class Game {
     this.multiplier = 1;
     this.lastSecondChecked = 0;
     this.particles = [];
+    this.borders = [
+      new Border('top', this),
+      new Border('right', this),
+      new Border('bottom', this),
+      new Border('left', this),
+    ];
 
     const context = canvas.getContext('2d');
     context.font = '20px ShareTechMono-Regular';
   }
 
   updateOverlay() {
+    // alan
     if (!this.gameRunning) return;
-    GameUI.updateInfo(this.gameElapsed, this.score, this.lives, this.multiplier, this.combo);
+    GameUI.updateInfo(this.gameElapsed, this.score, this.combo);
   }
 
   endGame() {
@@ -72,11 +81,13 @@ class Game {
         this.combo += 1;
         this.score += 1 * this.multiplier;
 
-        const particle = new Particle(selectedWord.position, new Vec2(selectedWord.velocity.x, -selectedWord.velocity.y * 1.2), c);
+        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), c);
         this.particles.push(particle);
 
-        if (this.combo % 25 == 0) {
-          this.multiplier++;
+        if (this.combo % 10 == 0) {
+          if (this.multiplier < 5) {
+            this.multiplier++;
+          }
         }
       } else {
         this.resetCombo();
@@ -94,10 +105,14 @@ class Game {
     this.gameRunning = true;
     this.gameElapsed = 0;
     this.score = 0;
-    this.lives = 3;
+    this.lives = 4;
     this.particles = [];
     this.maxCombo = 0;
     this.resetCombo();
+
+    for (let border of this.borders) {
+      border.reset();
+    }
   }
 
   start() {
@@ -118,6 +133,10 @@ class Game {
       }
     }
 
+    for (let border of this.borders) {
+      border.update(dt);
+    }
+
     this.particles = this.particles.filter(p => !p.isDone);
 
     const currentSecond = parseInt(this.gameElapsed);
@@ -129,6 +148,7 @@ class Game {
     if (currentSecond % 10 == 0) {
       this.wordShooter.increaseDifficulty();
     }
+    // assis
 
   }
 
@@ -137,6 +157,10 @@ class Game {
 
     for (let particle of this.particles) {
       particle.render();
+    }
+
+    for (let border of this.borders) {
+      border.render();
     }
 
     this.wordShooter.render();

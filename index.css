@@ -54,19 +54,13 @@ body {
 }
 
 #score {
-  color: yellow;
-}
-
-#lives {
-  color: #66ff66;
-}
-
-#multiplier {
-  color: #6666ff;
+  color: lightgreen;
+  font-size: 30px;
 }
 
 #combo {
   color: #ff6666;
+  display: none;
 }
 
 #buttons {

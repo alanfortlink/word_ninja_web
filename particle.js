@@ -1,12 +1,14 @@
 import { context, applyMovement } from './utils.js';
 
 class Particle {
-  constructor(position, velocity, char) {
+  constructor(game, position, velocity, char) {
+    this.game = game;
     this.position = position;
     this.velocity = velocity;
     this.char = char;
     this.isDone = false;
     this.elapsed = 0;
+    this.multiplier = this.game.multiplier;
   }
 
   update(dt) {
@@ -22,14 +24,15 @@ class Particle {
   render() {
     context.save();
     context.translate(this.position.x, this.position.y);
-    context.rotate((this.elapsed / 2.0) * (2 * Math.PI));
-    context.globalAlpha = this.elapsed > 0.5 ? 0.0 : (1.0 - this.elapsed / 0.5);
+    // context.rotate((this.elapsed / 2.0) * (2 * Math.PI));
+    const duration = 1.0;
+    context.globalAlpha = this.elapsed > duration ? 0.0 : (0.6 - 0.6 * this.elapsed / duration);
 
     context.fillStyle = 'white';
     context.opacity = 0.5;
 
     context.fillStyle = 'white';
-    context.fillText(this.char, 0, 0);
+    context.fillText(`+${this.multiplier}`, 0, 0);
 
     context.restore();
   }

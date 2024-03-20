@@ -59,13 +59,18 @@ class WordShooter {
     const onRemoveCallback = (word) => {
       this.words = this.words.filter(w => w !== word);
       if (!word.isFinished()) {
-        if (this.game.lives > 0) {
+        if (this.game.lives == 1) {
+          this.game.lives--;
+          this.game.endGame();
+          return;
+        }
+
+        if (this.game.lives > 1) {
           this.game.lives--;
           this.game.resetCombo();
           return;
         }
 
-        this.game.endGame();
       }
     };
 
@@ -99,12 +104,12 @@ class WordShooter {
   }
 
   increaseDifficulty() {
-    this.timeBetweenWords *= 0.90;
-    if (this.simultaneousWords <= 4) {   
+    this.timeBetweenWords -= 0.05;
+    if (this.simultaneousWords <= 4) {
       this.simultaneousWords++;
     }
-    }
+  }
 
-} 
+}
 
 export default WordShooter;

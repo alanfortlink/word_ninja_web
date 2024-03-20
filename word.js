@@ -21,7 +21,7 @@ class Word {
   render() {
     const textHeight = 20;
 
-    context.fillStyle = 'white';
+    context.fillStyle = 'yellow';
 
     const padding = 4;
     const textWidth = context.measureText(this.getRemainingWord()).width;
@@ -35,7 +35,7 @@ class Word {
       context.fillText(this.getRemainingWord(), this.position.x + 2, this.position.y + 2);
     }
 
-    context.fillStyle = this.selected ? 'darkblue' : 'white';
+    context.fillStyle = this.selected ? 'darkblue' : 'yellow';
     context.fillText(this.getRemainingWord(), this.position.x, this.position.y);
   }
 

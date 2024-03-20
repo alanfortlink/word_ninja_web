@@ -5,8 +5,6 @@ const $finalTime = document.getElementById('finalTime');
 
 const $score = document.getElementById('score');
 const $time = document.getElementById('time');
-const $lives = document.getElementById('lives');
-const $multiplier = document.getElementById('multiplier');
 const $combo = document.getElementById('combo');
 const $result = document.getElementById('resultDiv');
 
@@ -46,11 +44,9 @@ class GameUI {
     GameUI.hideButtons();
   }
 
-  static updateInfo(timeLeft, score, lives, multiplier, combo) {
+  static updateInfo(timeLeft, score, combo) {
     $score.innerHTML = GameUI.leftPad(score) + ' ★';
     $time.innerHTML = timeLeft.toFixed(2) + ' ⌛';
-    $lives.innerHTML = GameUI.leftPad(lives) + ' ♥';
-    $multiplier.innerHTML = GameUI.leftPad(multiplier) + ' x';
     $combo.innerHTML = GameUI.leftPad(combo) + ' ♯';
   }
 
