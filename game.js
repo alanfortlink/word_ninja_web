@@ -217,15 +217,6 @@ class Game {
   }
 
   render() {
-    if (this.paused) {
-      context.save();
-      context.fillStyle = 'white';
-      context.font = '30px ShareTechMono-Regular';
-      context.fillText('Paused', canvas.width / 2 - 40, canvas.height / 2);
-      context.restore();
-      return;
-    }
-
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let particle of this.particles) {
@@ -234,6 +225,15 @@ class Game {
 
     for (let border of this.borders) {
       border.render();
+    }
+
+    if (this.paused) {
+      context.save();
+      context.fillStyle = 'white';
+      context.font = '30px ShareTechMono-Regular';
+      context.fillText('Paused', canvas.width / 2 - 40, canvas.height / 2);
+      context.restore();
+      return;
     }
 
     this.wordShooter.render();
