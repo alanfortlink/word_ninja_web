@@ -38,11 +38,23 @@ class Particle {
     context.translate(this.position.x, this.position.y);
     // context.rotate((this.elapsed / this.duration) * (2 * Math.PI));
     const alpha = this.elapsed > this.duration ? 0.0 : (0.9 - 0.9 * this.elapsed / this.duration);
-    const lightGreen = `rgba(0, 255, 0, ${alpha})`;
     const lightRed = `rgba(255, 0, 0, ${alpha})`;
 
-    context.fillStyle = this.positive ? lightGreen : lightRed;
-    context.fillText(`${this.positive ? '+' : '❌'}${this.positive ? this.multiplier : ''}`, 0, 0);
+    const positiveColor = [
+      `rgba(255, 255, 255, ${alpha})`,
+      `rgba(255, 120, 4, ${alpha})`,
+      `rgba(4, 217, 255, ${alpha})`,
+      `rgba(255, 16, 240, ${alpha})`,
+      `rgba(116, 255, 21, ${alpha})`,
+    ][this.multiplier-1];
+
+    const txt = `${this.positive ? '+' : '❌'}${this.positive ? this.multiplier : ''}`;
+
+    // context.fillStyle = `rgba(200, 200, 200, ${alpha * 0.8})`;
+    // context.fillText(txt, 1, 1);
+
+    context.fillStyle = this.positive ? positiveColor : lightRed;
+    context.fillText(txt, 0, 0);
 
     context.restore();
   }
