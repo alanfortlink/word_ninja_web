@@ -81,7 +81,10 @@ class Game {
     if (selectedWord != null && selectedWord != undefined) {
       if (selectedWord.check(c)) {
         this.combo += 1;
-        this.score += 1 * this.multiplier;
+        const m = this.multiplier;
+        setTimeout(() => {
+          this.score += m;
+        }, 1000);
 
         const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), c, true);
         this.particles.push(particle);

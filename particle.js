@@ -19,30 +19,27 @@ class Particle {
   }
 
   update(dt) {
+    this.elapsed += dt;
+    const p = Math.min(this.elapsed, this.duration) / this.duration;
+
     if (this.positive) {
-      this.elapsed += dt;
-      const p = Math.min(this.elapsed, this.duration) / this.duration;
       this.position = this.initialPosition.add(this.dir.mult(p));
     } else {
       applyMovement(this, dt);
-      if (this.position.y >= 600 && this.velocity.y > 0) {
-        this.position.y = 900;
-        this.isDone = true;
-      }
+    }
+
+    if (this.elapsed > this.duration) {
+      this.isDone = true;
     }
   }
 
   render() {
-    const lightGreen = '#00ff00';
-    const lightRed = '#ff0000';
-
     context.save();
     context.translate(this.position.x, this.position.y);
     // context.rotate((this.elapsed / this.duration) * (2 * Math.PI));
-    context.globalAlpha = this.elapsed > this.duration ? 0.0 : (0.9 - 0.9 * this.elapsed / this.duration);
-
-    context.fillStyle = this.positive ? lightGreen : lightRed;
-    context.opacity = 0.5;
+    const alpha = this.elapsed > this.duration ? 0.0 : (0.9 - 0.9 * this.elapsed / this.duration);
+    const lightGreen = `rgba(0, 255, 0, ${alpha})`;
+    const lightRed = `rgba(255, 0, 0, ${alpha})`;
 
     context.fillStyle = this.positive ? lightGreen : lightRed;
     context.fillText(`${this.positive ? '+' : '❌'}${this.positive ? this.multiplier : ''}`, 0, 0);
