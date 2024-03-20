@@ -104,7 +104,7 @@ class WordShooter {
   }
 
   increaseDifficulty() {
-    this.timeBetweenWords -= 0.05;
+    this.timeBetweenWords -= 0.08;
     if (this.simultaneousWords <= 4) {
       this.simultaneousWords++;
     }
