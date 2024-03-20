@@ -89,7 +89,7 @@ class Game {
         const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), c, true);
         this.particles.push(particle);
 
-        if (this.combo % 10 == 0) {
+        if (this.combo % 15 == 0) {
           if (this.multiplier < 5) {
             this.multiplier++;
           }
