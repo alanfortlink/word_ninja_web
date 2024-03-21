@@ -78,9 +78,9 @@ class GameUI {
     t_str += seconds + 's';
     t_str = elapsed.toFixed(2) + 's';
 
-    $score.innerHTML = GameUI.leftPad(score) + ' ★';
-    $time.innerHTML = t_str + ' ⌛';
-    $combo.innerHTML = GameUI.leftPad(combo) + ' ♯';
+    $score.innerHTML = GameUI.leftPad(score) + '⭐️';
+    $time.innerHTML = t_str + '⏱️';
+    $combo.innerHTML = GameUI.leftPad(combo) + '♯';
   }
 
   static leftPad(n) {
