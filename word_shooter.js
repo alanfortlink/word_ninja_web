@@ -92,7 +92,7 @@ class WordShooter {
       }
     };
 
-    this.words.push(new Word(word, position, velocity, onRemoveCallback));
+    this.words.push(new Word(this.game, word, position, velocity, onRemoveCallback));
   }
 
   update(dt) {

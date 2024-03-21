@@ -9,6 +9,7 @@ const $combo = document.getElementById('combo');
 const $result = document.getElementById('resultDiv');
 const $lives = document.getElementById('lives');
 const $slows = document.getElementById('slows');
+const $rank = document.getElementById('rank');
 
 function _buildInfo(title, value) {
   return `<div class="result-title">${title}</div><div class="result-value">${value}</div>`;
@@ -33,7 +34,19 @@ class GameUI {
 
     const time_s = (min > 0 ? min + 'm' : '') + sec + 's';
 
-    $finalTime.innerHTML = '<div class="result-title">Time</div><div class="result-value">' + time_s + "</div>";
+    // ranks based on speed
+    const ranks = ['🐢', '🐇', '🐕', '🐎', '🐆', '🦅', '🚀', '⚡️', '👑', '🔥', '🌟', '🏅', '🥉', '🥈', '🥇'];
+    const rankNames = ['Turtle', 'Rabbit', 'Dog', 'Horse', 'Cheetah', 'Eagle', 'Rocket', 'Lightning', 'King', 'Fire', 'Star', 'Medalist', 'Bronze', 'Silver', 'Gold'];
+
+    const scorePerRank = 500;
+    const rank = Math.floor(score / scorePerRank);
+
+    const c = Math.ceil((score % scorePerRank) / 100);
+
+    const rankIcon = rank < ranks.length ? ranks[rank] : '🏆';
+    const rankName = rank < rankNames.length ? rankNames[rank] : 'Master';
+    $rank.innerHTML = _buildInfo('Rank', rankIcon.repeat(c) + ' ' + rankName);
+    $finalTime.innerHTML = _buildInfo('Time', time_s);
 
     GameUI.showButtons();
   }

@@ -1,7 +1,8 @@
 import { context, applyMovement } from './utils.js';
 
 class Word {
-  constructor(word, position, velocity, onRemoveCallback) {
+  constructor(game, word, position, velocity, onRemoveCallback) {
+    this.game = game;
     this.word = word;
     this.position = position;
     this.velocity = velocity;
@@ -9,8 +10,8 @@ class Word {
     this.selected = false;
     this.index = 0;
     this.elapsed = 0;
-    this.isSpecialWord = Math.random() < 0.02;
-    this.isSkull = !this.isSpecialWord && Math.random() < 0.01;
+    this.isSpecialWord = this.game.gameElapsed >= 30 && Math.random() < 0.02;
+    this.isSkull = this.game.gameElapsed >= 30 && !this.isSpecialWord && Math.random() < 0.01;
   }
 
   update(dt) {

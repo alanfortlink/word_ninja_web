@@ -52,6 +52,7 @@ class Game {
       if (c == " ") {
         this.paused = false;
       }
+      return;
     }
 
     if (!this.gameRunning) {

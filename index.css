@@ -105,7 +105,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  font-size: 30px;
+  font-size: 20px;
   color: #ffffff;
 }
 
@@ -117,6 +117,6 @@ body {
 }
 
 .result-value {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: bold;
 }
