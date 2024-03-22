@@ -10,6 +10,25 @@ const $result = document.getElementById('resultDiv');
 const $lives = document.getElementById('lives');
 const $slows = document.getElementById('slows');
 const $rank = document.getElementById('rank');
+const $currentRank = document.getElementById('currentRank');
+
+function _getRankInfo(score) {
+  // ranks based on speed
+  const ranks = ['🐢', '🐇', '🐕', '🐎', '🐆', '🦅', '🚀', '⚡️', '👑', '🔥', '🌟', '🏅', '🥉', '🥈', '🥇'];
+  const rankNames = ['Turtle', 'Rabbit', 'Dog', 'Horse', 'Cheetah', 'Eagle', 'Rocket', 'Lightning', 'King', 'Fire', 'Star', 'Medalist', 'Bronze', 'Silver', 'Gold'];
+
+  const scorePerRank = 500;
+  const rank = Math.floor(score / scorePerRank);
+
+  const ranksAlt = [...ranks.map(r => (r + ' ')), '🏆'];
+
+  const c = Math.ceil((score % scorePerRank) / 100);
+
+  const rankIcon = rank < ranks.length ? ranks[rank] : '🏆';
+  const rankName = rank < rankNames.length ? rankNames[rank] : 'Master';
+
+  return { rankIcon, rankName, c, ranksAlt };
+}
 
 function _buildInfo(title, value, alt) {
   const hover = alt ? `<div class="result-hover">${alt}</div>` : '';
@@ -35,19 +54,8 @@ class GameUI {
 
     const time_s = (min > 0 ? min + 'm' : '') + sec + 's';
 
-    // ranks based on speed
-    const ranks = ['🐢', '🐇', '🐕', '🐎', '🐆', '🦅', '🚀', '⚡️', '👑', '🔥', '🌟', '🏅', '🥉', '🥈', '🥇'];
-    const rankNames = ['Turtle', 'Rabbit', 'Dog', 'Horse', 'Cheetah', 'Eagle', 'Rocket', 'Lightning', 'King', 'Fire', 'Star', 'Medalist', 'Bronze', 'Silver', 'Gold'];
+    const { rankIcon, rankName, c, ranksAlt } = _getRankInfo(score);
 
-    const scorePerRank = 500;
-    const rank = Math.floor(score / scorePerRank);
-
-    const ranksAlt = [...ranks.map(r => (r + ' ')), '🏆'];
-
-    const c = Math.ceil((score % scorePerRank) / 100);
-
-    const rankIcon = rank < ranks.length ? ranks[rank] : '🏆';
-    const rankName = rank < rankNames.length ? rankNames[rank] : 'Master';
     $rank.innerHTML = _buildInfo('Rank', rankIcon.repeat(c) + ' ' + rankName, ranksAlt.join(''));
     $finalTime.innerHTML = _buildInfo('Time', time_s);
 
@@ -69,6 +77,9 @@ class GameUI {
 
     $lives.innerHTML = '❤️'.repeat(game.lives);
     $slows.innerHTML = '⏳'.repeat(game.slows);
+
+    const { rankIcon, c } = _getRankInfo(score);
+    $currentRank.innerHTML = rankIcon.repeat(c);
 
     let t_str = "";
     let minutes = Math.floor(elapsed / 60);

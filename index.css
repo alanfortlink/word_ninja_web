@@ -143,3 +143,7 @@ body {
 .result-value:hover .result-hover {
   display: block;
 }
+
+#currentRank {
+  color: yellow;
+}
