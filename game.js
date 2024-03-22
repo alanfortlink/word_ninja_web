@@ -28,7 +28,7 @@ class Game {
     ];
 
     const context = canvas.getContext('2d');
-    context.font = '20px ShareTechMono-Regular';
+    context.font = '20px regular';
 
     GameUI.showStartScreen();
   }
@@ -241,7 +241,7 @@ class Game {
     if (this.paused) {
       context.save();
       context.fillStyle = 'white';
-      context.font = '30px ShareTechMono-Regular';
+      context.font = '30px regular';
       context.fillText('Paused', canvas.width / 2 - 40, canvas.height / 2);
       context.restore();
       return;

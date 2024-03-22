@@ -48,7 +48,7 @@ class Word {
     const padding = 4;
     const textWidth = this.getWidth();
 
-    context.font = `${textHeight}px ShareTechMono-Regular`;
+    context.font = `${textHeight}px regular`;
 
     if (this.isSpecialWord) {
       context.fillText('❤️', this.position.x - 30, this.position.y);

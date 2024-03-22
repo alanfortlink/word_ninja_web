@@ -1,10 +1,10 @@
 @font-face {
-  font-family: 'ShareTechMono-Regular';
-  src: url('misc/ShareTechMono-Regular.ttf') format('truetype');
+  font-family: 'regular';
+  src: url('misc/KodeMono-VariableFont_wght.ttf') format('truetype');
 }
 
 * {
-  font-family: 'ShareTechMono-Regular', monospace;
+  font-family: 'regular', monospace;
 }
 
 body {
