@@ -21,10 +21,10 @@ class Game {
     this.isSlow = false;
     this.slowElapsed = 0;
     this.borders = [
-      new Border('top', this),
-      new Border('right', this),
-      new Border('bottom', this),
       new Border('left', this),
+      new Border('right', this),
+      new Border('top', this),
+      new Border('bottom', this),
     ];
 
     const context = canvas.getContext('2d');
