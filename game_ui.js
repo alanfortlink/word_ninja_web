@@ -11,8 +11,9 @@ const $lives = document.getElementById('lives');
 const $slows = document.getElementById('slows');
 const $rank = document.getElementById('rank');
 
-function _buildInfo(title, value) {
-  return `<div class="result-title">${title}</div><div class="result-value">${value}</div>`;
+function _buildInfo(title, value, alt) {
+  const hover = alt ? `<div class="result-hover">${alt}</div>` : '';
+  return `<div class="result-title">${title}</div><div class="result-value">${hover}${value}</div>`;
 }
 
 class GameUI {
@@ -41,11 +42,13 @@ class GameUI {
     const scorePerRank = 500;
     const rank = Math.floor(score / scorePerRank);
 
+    const ranksAlt = [...ranks.map(r => (r + ' ')), '🏆'];
+
     const c = Math.ceil((score % scorePerRank) / 100);
 
     const rankIcon = rank < ranks.length ? ranks[rank] : '🏆';
     const rankName = rank < rankNames.length ? rankNames[rank] : 'Master';
-    $rank.innerHTML = _buildInfo('Rank', rankIcon.repeat(c) + ' ' + rankName);
+    $rank.innerHTML = _buildInfo('Rank', rankIcon.repeat(c) + ' ' + rankName, ranksAlt.join(''));
     $finalTime.innerHTML = _buildInfo('Time', time_s);
 
     GameUI.showButtons();

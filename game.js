@@ -149,6 +149,7 @@ class Game {
     this.wordShooter.reset();
     this.gameRunning = true;
     this.gameElapsed = 0;
+    this.lastSecondChecked = 0;
     this.score = 0;
     this.lives = 4;
     this.particles = [];
@@ -205,7 +206,8 @@ class Game {
     this.particles = this.particles.filter(p => !p.isDone);
 
     const currentSecond = parseInt(this.gameElapsed);
-    if (currentSecond == this.lastSecondChecked) {
+    if (currentSecond == this.lastSecondChecked || this.lastSecondChecked == 0) {
+      this.lastSecondChecked = currentSecond;
       return;
     }
 

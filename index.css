@@ -118,6 +118,28 @@ body {
 }
 
 .result-value {
+  position: relative;
   font-size: 40px;
   font-weight: bold;
+}
+
+.result-value .result-hover {
+  display: none;
+  font-size: 20px;
+  font-weight: normal;
+  color: #ffffff;
+  background-color: #333333;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 100;
+  border: 1px solid #ffffff;
+  width: 480px;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+}
+
+.result-value:hover .result-hover {
+  display: block;
 }
