@@ -22,7 +22,7 @@ function _getRankInfo(score) {
 
   const ranksAlt = [...ranks.map(r => (r + ' ')), '🏆'];
 
-  const c = Math.ceil((score % scorePerRank) / 100);
+  const c = Math.max(1, Math.ceil((score % scorePerRank) / 100));
 
   const rankIcon = rank < ranks.length ? ranks[rank] : '🏆';
   const rankName = rank < rankNames.length ? rankNames[rank] : 'Master';

@@ -51,7 +51,7 @@ class WordShooter {
     const min_velocity = 0.75 * height;
     const random_velocity = Math.random() * 0.15 * height;
 
-    const throwAngleLimit = 20;
+    const throwAngleLimit = 60;
     const throwAngle = Math.random() * throwAngleLimit - throwAngleLimit / 2;
 
     const position = new Vec2(launch_x, height + 20);

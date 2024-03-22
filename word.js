@@ -1,4 +1,4 @@
-import { context, applyMovement } from './utils.js';
+import { context, applyMovement, canvas } from './utils.js';
 
 class Word {
   constructor(game, word, position, velocity, onRemoveCallback) {
@@ -17,9 +17,22 @@ class Word {
   update(dt) {
     this.elapsed += dt;
     applyMovement(this, dt);
-    if (this.position.y >= 600 && this.velocity.y > 0) {
-      this.position.y = 600;
+    if (this.position.y >= canvas.height && this.velocity.y > 0) {
+      this.position.y = canvas.height;
       this.onRemoveCallback(this);
+    }
+
+    const width = this.getWidth();
+    if (this.position.x + width >= canvas.width && this.velocity.x > 0) {
+      this.position.x = canvas.width - width;
+      this.velocity.x *= -1;
+      this.velocity.y -= 0.1 * canvas.height;
+    }
+
+    if (this.position.x <= 0 && this.velocity.x < 0) {
+      this.position.x = 0;
+      this.velocity.x *= -1;
+      this.velocity.y -= 0.1 * canvas.height;
     }
   }
 

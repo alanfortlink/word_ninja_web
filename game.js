@@ -221,6 +221,8 @@ class Game {
 
   render() {
     context.clearRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = 'rgba(0, 0, 0, 0.75)';
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
     for (let particle of this.particles) {
       particle.render();
