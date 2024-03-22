@@ -65,7 +65,7 @@ class GameUI {
     const elapsed = game.gameElapsed;
 
     $lives.innerHTML = '❤️'.repeat(game.lives);
-    $slows.innerHTML = '⚡️'.repeat(game.slows);
+    $slows.innerHTML = '⏳'.repeat(game.slows);
 
     let t_str = "";
     let minutes = Math.floor(elapsed / 60);
