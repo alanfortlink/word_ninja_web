@@ -1,5 +1,6 @@
 import Game from './game.js';
 import { language, updateLanguage } from './language.js';
+import { updateSoundProfile } from './sounds.js';
 
 let game = new Game();
 let lastTimestamp = 0.0;
@@ -17,6 +18,12 @@ function gameLoop(timestamp) {
 document.onkeydown = (e) => {
   if(e.key == 'l' && !game.gameRunning && game.gameElapsed == 0 && !game.paused) {
     updateLanguage(language == 'en' ? 'ptbr' : 'en');
+    game = new Game();
+    return;
+  }
+
+  if(e.key == 'k' && !game.gameRunning && game.gameElapsed == 0 && !game.paused) {
+    updateSoundProfile();
     game = new Game();
     return;
   }

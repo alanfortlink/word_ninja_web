@@ -4,6 +4,7 @@ import WordShooter from './word_shooter.js';
 import Particle from './particle.js';
 import Border from './border.js';
 import { canvas, context } from './utils.js';
+import { playSound, loadSounds } from './sounds.js';
 
 class Game {
   constructor() {
@@ -26,6 +27,7 @@ class Game {
       new Border('top', this),
       new Border('bottom', this),
     ];
+    loadSounds();
 
     const context = canvas.getContext('2d');
     context.font = '20px regular';
@@ -88,6 +90,8 @@ class Game {
       }
       return;
     }
+
+    playSound();
 
     const selectedWords = this.wordShooter.words.filter(w => w.selected);
     var selectedWord = null;

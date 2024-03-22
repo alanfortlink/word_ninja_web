@@ -1,5 +1,7 @@
 import { language } from './language.js';
 
+import { sound_profile, getProfile } from './sounds.js';
+
 const $lastScore = document.getElementById('lastScore');
 const $status = document.getElementById('status');
 const $streak = document.getElementById('streak');
@@ -72,13 +74,14 @@ class GameUI {
   }
 
   static showStartScreen() {
+    const soundProfile = getProfile();
     if (language == 'en') {
       $status.innerHTML =
-        `"Space" -> Play <br /> "Esc" -> Pause <br /> "Enter" -> Powerup <br /> "Backspace" -> Switch <br /> "L" -> Language`;
+        `"Space" -> Play <br /> "Esc" -> Pause <br /> "Enter" -> Powerup <br /> "Backspace" -> Switch <br /> "L" -> Language <br /> "K" -> Keyboard Sound (${soundProfile})`;
     }
     else {
       $status.innerHTML =
-        `"Espaço" -> Jogar <br /> "Esc" -> Pausar <br /> "Enter" -> Especial <br /> "Backspace" -> Trocar <br /> "L" -> Idioma`;
+        `"Espaço" -> Jogar <br /> "Esc" -> Pausar <br /> "Enter" -> Especial <br /> "Backspace" -> Trocar <br /> "L" -> Idioma <br /> "K" -> Som do Teclado (${soundProfile})`;
     }
     GameUI.showButtons();
   }

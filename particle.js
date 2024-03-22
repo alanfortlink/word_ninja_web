@@ -40,9 +40,6 @@ class Particle {
     context.save();
     context.translate(this.position.x, this.position.y);
 
-    if(this.char != '' && !this.positive) {
-      // context.rotate((this.elapsed % this.duration) * (2 * Math.PI));
-    }
     const alpha = this.elapsed > this.duration ? 0.0 : (0.9 - 0.9 * this.elapsed / this.duration);
     const lightRed = `rgba(255, 0, 0, ${alpha})`;
 
