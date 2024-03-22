@@ -66,7 +66,7 @@ const profiles = [
       "press_key3.mp3",
       "press_key4.mp3",
       "press_key5.mp3",
-      // "press_space.mp3",
+      "press_space.mp3",
       // "profile.yaml",
       // "release_back.mp3",
       // "release_enter.mp3",
@@ -76,11 +76,10 @@ const profiles = [
   },
   {
     name: "typewriter", keySounds: [
-      // "enter.wav",
       "key.wav",
       "key2.wav",
       // "profile.yaml",
-      // "space.wav",
+      "space.wav",
     ],
   },
 ];
