@@ -1,5 +1,8 @@
 var sound_profile = 'default';
 
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
+
 let sounds = [
 ];
 
@@ -90,6 +93,9 @@ function updateSoundProfile() {
 }
 
 function playSound() {
+  if (sounds.length == 0) {
+    return;
+  }
   const audio = sounds[lastSoundUsed++ % sounds.length];
   audio.currentTime = audio.duration * 0.2;
   audio.play();
@@ -100,7 +106,10 @@ function loadSounds() {
   const sp = getProfile();
   const profile = profiles.find(p => p.name == sp);
   for (const keySound of profile.keySounds) {
-    const audio = new Audio(`misc/sounds/${sp}/${keySound}`);
+    const audio = document.createElement('audio');
+    audio.volume = 0.5;
+    audio.loop = false;
+    audio.src = `misc/sounds/${sp}/${keySound}`;
     sounds.push(audio);
   }
 }
