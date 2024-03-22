@@ -13,7 +13,7 @@ function getProfile() {
 
 const profiles = [
   {
-    name: "gateron-black-ink", keySounds: [
+    name: "mx-brown", keySounds: [
       // "press_back.mp3",
       // "press_enter.mp3",
       "press_key1.mp3",
@@ -58,7 +58,7 @@ const profiles = [
     ],
   },
   {
-    name: "mx-brown", keySounds: [
+    name: "gateron-black-ink", keySounds: [
       // "press_back.mp3",
       // "press_enter.mp3",
       "press_key1.mp3",
@@ -81,6 +81,9 @@ const profiles = [
       // "profile.yaml",
       "space.wav",
     ],
+  },
+  {
+    name: 'muted', keySounds: [],
   },
 ];
 

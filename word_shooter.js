@@ -9,10 +9,12 @@ class WordShooter {
   constructor(game) {
     this.words = [];
     this.simultaneousWords = 1;
+    this.maxChars = 4;
     this.wordsWaiting = 0;
     this.timeSinceLastWord = 0;
     this.timeBetweenWords = 1.5;
     this.game = game;
+    this.difficulty = 1;
     this.dictionary = WordDB.languages()[language];
   }
 
@@ -36,17 +38,10 @@ class WordShooter {
     const width = canvas.width;
     const height = canvas.height;
 
-    var word = null;
-
     // Select a word that doesn't conflict with the initials of the existing words
-    while (true) {
-      const cand = this.dictionary[parseInt(Math.random() * this.dictionary.length)];
-      const initials = this.words.map(w => w.getRemainingWord()[0]);
-      if (!initials.includes(cand[0])) {
-        word = cand;
-        break;
-      }
-    }
+    const initials = this.words.map(w => w.getRemainingWord()[0]);
+    const candidates = this.dictionary.filter(w => w.length <= this.maxChars).filter(w => !initials.includes(w[0]));
+    const word = candidates[Math.floor(Math.random() * candidates.length)];
 
     const launch_x = 0.5 * Math.random() * width + width / 4;
 
@@ -120,13 +115,19 @@ class WordShooter {
     this.wordsWaiting = 0;
     this.timeSinceLastWord = 0;
     this.simultaneousWords = 1;
+    this.maxChars = 4;
     this.timeBetweenWords = 1.5;
+    this.difficulty = 1;
   }
 
   increaseDifficulty() {
+    this.difficulty++;
     this.timeBetweenWords -= 0.08;
     if (this.simultaneousWords <= 4) {
       this.simultaneousWords++;
+    }
+    if(this.difficulty % 3 == 0) {
+      this.maxChars++;
     }
   }
 
