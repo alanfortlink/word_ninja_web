@@ -7,7 +7,8 @@ import { canvas, context } from './utils.js';
 // outr
 
 class Game {
-  constructor(dictionary) {
+  constructor(dictionary, language) {
+    this.language = language;
     this.score = 0;
     this.combo = 0;
     this.maxCombo = 0;
@@ -30,6 +31,8 @@ class Game {
 
     const context = canvas.getContext('2d');
     context.font = '20px ShareTechMono-Regular';
+
+    GameUI.showStartScreen(this.language);
   }
 
   updateOverlay() {
@@ -38,10 +41,15 @@ class Game {
 
   endGame() {
     this.gameRunning = false;
-    GameUI.showEndScreen(this.score, this.maxCombo, this.gameElapsed);
+    GameUI.showEndScreen(this);
   }
 
   onkeydown(e) {
+    const ignoreKeys = ['Shift', 'Alt', 'Control', 'Meta', 'Dead'];
+    if (ignoreKeys.includes(e.key)) {
+      return;
+    }
+
     const c = e.key;
     if (c == "Escape") {
       this.paused = !this.paused;

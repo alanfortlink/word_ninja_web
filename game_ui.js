@@ -12,10 +12,13 @@ const $slows = document.getElementById('slows');
 const $rank = document.getElementById('rank');
 const $currentRank = document.getElementById('currentRank');
 
-function _getRankInfo(score) {
+function _getRankInfo(score, game) {
   // ranks based on speed
   const ranks = ['🐢', '🐇', '🐕', '🐎', '🐆', '🦅', '🚀', '⚡️', '👑', '🔥', '🌟', '🏅', '🥉', '🥈', '🥇'];
-  const rankNames = ['Turtle', 'Rabbit', 'Dog', 'Horse', 'Cheetah', 'Eagle', 'Rocket', 'Lightning', 'King', 'Fire', 'Star', 'Medalist', 'Bronze', 'Silver', 'Gold'];
+  const rankNamesEn = ['Turtle', 'Rabbit', 'Dog', 'Horse', 'Cheetah', 'Eagle', 'Rocket', 'Lightning', 'King', 'Fire', 'Star', 'Medalist', 'Bronze', 'Silver', 'Gold'];
+  const rankNamesPtbr = ['Tartaruga', 'Coelho', 'Cachorro', 'Cavalo', 'Guepardo', 'Águia', 'Foguete', 'Raio', 'Rei', 'Fogo', 'Estrela', 'Medalhista', 'Bronze', 'Prata', 'Ouro'];
+
+  const rankNames = game.language == 'en' ? rankNamesEn : rankNamesPtbr;
 
   const scorePerRank = 500;
   const rank = Math.floor(score / scorePerRank);
@@ -44,21 +47,37 @@ class GameUI {
     $result.style.display = 'none';
   }
 
-  static showEndScreen(score, maxCombo, time) {
-    $lastScore.innerHTML = _buildInfo('Score', score);
-    $streak.innerHTML = _buildInfo('Max Streak', maxCombo);
-    $status.innerHTML = '<div class="divider"></div>' + _buildInfo(`Press "Space" to play again`, "");
+  static showEndScreen(game) {
+    const score = game.score;
+    const maxCombo = game.maxCombo;
+    const time = game.gameElapsed;
+
+    $lastScore.innerHTML = _buildInfo(game.language == 'en' ? 'Score' : 'Pontuação', score);
+    $streak.innerHTML = _buildInfo(game.language == 'en' ? 'Max Streak' : 'Maior Sequência', maxCombo);
+    $status.innerHTML = '<div class="divider"></div>' + _buildInfo(game.language == 'en' ? 'Press "Space" to play again' : 'Pressione "Espaço" para jogar novamente', "");
 
     const min = Math.floor(time / 60);
     const sec = Math.floor(time % 60);
 
     const time_s = (min > 0 ? min + 'm' : '') + sec + 's';
 
-    const { rankIcon, rankName, c, ranksAlt } = _getRankInfo(score);
+    const { rankIcon, rankName, c, ranksAlt } = _getRankInfo(score, game);
 
     $rank.innerHTML = _buildInfo('Rank', rankIcon.repeat(c) + ' ' + rankName, ranksAlt.join(''));
-    $finalTime.innerHTML = _buildInfo('Time', time_s);
+    $finalTime.innerHTML = _buildInfo(game.language == 'en' ? 'Time' : 'Duração', time_s);
 
+    GameUI.showButtons();
+  }
+
+  static showStartScreen(language) {
+    if (language == 'en') {
+      $status.innerHTML =
+        `"Space" -> Play <br /> "Esc" -> Pause <br /> "Enter" -> Powerup <br /> "Backspace" -> Switch <br /> "L" -> Language`;
+    }
+    else {
+      $status.innerHTML =
+        `"Espaço" -> Jogar <br /> "Esc" -> Pausar <br /> "Enter" -> Especial <br /> "Backspace" -> Trocar <br /> "L" -> Idioma`;
+    }
     GameUI.showButtons();
   }
 
@@ -78,7 +97,7 @@ class GameUI {
     $lives.innerHTML = '❤️'.repeat(game.lives);
     $slows.innerHTML = '⏳'.repeat(game.slows);
 
-    const { rankIcon, c } = _getRankInfo(score);
+    const { rankIcon, c } = _getRankInfo(score, game);
     $currentRank.innerHTML = rankIcon.repeat(c);
 
     let t_str = "";
