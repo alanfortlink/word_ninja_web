@@ -74,7 +74,7 @@ class Border {
     context.fillStyle = '#555555';
     const steps = canvas.width;
 
-    const isWordBeingDestroyed = this.game.particles.some(p => p.char != ' ' && !p.positive);
+    const isWordBeingDestroyed = this.game.particles.some(p => p.char != '' && !p.positive);
 
     switch (this.side) {
       case 'right':
