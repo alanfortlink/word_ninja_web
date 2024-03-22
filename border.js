@@ -98,7 +98,7 @@ class Border {
         context.fillRect(0, 0, padding * factor, canvas.height - 2 * padding);
         break;
       case 'bottom':
-        context.fillStyle = '#ffffff';
+        context.fillStyle = isWordBeingDestroyed ? '#f00' : '#fff';
         context.fillRect(0, canvas.height - 5 * padding, 3 * padding, canvas.height + padding);
         context.fillRect(canvas.width - 3 * padding, canvas.height - 5 * padding, canvas.width - 2 * padding, canvas.height + padding);
 
