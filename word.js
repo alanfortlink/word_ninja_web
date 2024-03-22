@@ -28,7 +28,7 @@ class Word {
   }
 
   render() {
-    const textHeight = 20;
+    const textHeight = 30;
 
     context.fillStyle = 'yellow';
 
