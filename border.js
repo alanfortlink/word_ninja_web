@@ -68,29 +68,52 @@ class Border {
 
     factor = 1.0;
 
-    if(opacity == null) opacity = factor;
+    if (opacity == null) opacity = factor;
 
     // context.fillStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${opacity})`;
     context.fillStyle = '#555555';
+    const steps = canvas.width;
+
+    const isWordBeingDestroyed = this.game.particles.some(p => p.char != ' ' && !p.positive);
 
     switch (this.side) {
       case 'right':
         context.fillRect(canvas.width - padding * factor, 0, padding * factor, canvas.height);
         break;
       case 'top':
-        context.fillRect(0, 0, canvas.width, padding * factor);
+        context.beginPath();
+        context.lineWidth = 2;
+        context.strokeStyle = '#555';
+        context.moveTo(0, 10);
+        for (let i = 0; i < steps - 1; i++) {
+          const x = (i) * canvas.width / steps;
+          const y = Math.sin(Math.PI * ((4 * this.elapsed) % 2) + i / 10) * 2.5 + 2.5;
+          context.lineTo(x, y);
+        }
+        context.lineTo(canvas.width, 0);
+        context.stroke();
         break;
       case 'left':
         context.fillRect(0, 0, padding * factor, canvas.height);
         break;
       case 'bottom':
-        context.fillRect(0, canvas.height - padding * factor, canvas.width, padding * factor);
+        context.beginPath();
+        context.lineWidth = 2;
+        context.strokeStyle = isWordBeingDestroyed ? '#f00' : '#fff';
+        context.moveTo(0, canvas.height - 10);
+        for (let i = 0; i < steps - 1; i++) {
+          const x = (i) * canvas.width / steps;
+          const y = Math.sin(Math.PI * ((4 * this.elapsed) % 2) + i / 10) * 2.5 + canvas.height - 2.5;
+          context.lineTo(x, y);
+        }
+        context.lineTo(canvas.width, canvas.height);
+        context.stroke();
         break;
     }
     context.restore();
   }
 
-  reset(){
+  reset() {
     this.state = 'entering';
     this.elapsed = 0;
   }
