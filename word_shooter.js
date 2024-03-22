@@ -73,7 +73,7 @@ class WordShooter {
 
         for (let i = 0; i < word.getRemainingWord().length; i++) {
           let c = word.getRemainingWord()[i];
-          const angle = Math.random() * maxAngle - maxAngle / 2;
+          const angle = (i / word.getRemainingWord().length) * maxAngle - maxAngle / 2;
           const velocity = new Vec2(0, -v).rotated(angle);
           const p = new Particle(this.game, word.position.add(new Vec2(diff * i, 0)), velocity, c, false);
           this.game.particles.push(p);
