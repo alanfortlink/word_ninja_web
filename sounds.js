@@ -1,7 +1,6 @@
 var sound_profile = 'default';
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
 let sounds = [
 ];
@@ -92,25 +91,42 @@ function updateSoundProfile() {
   sound_profile = profiles[(i + 1) % profiles.length].name;
 }
 
-function playSound() {
+async function getAudioSource(src) {
+  const response = await fetch(src);
+  const arrayBuffer = await response.arrayBuffer();
+  const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+  const audioSource = audioContext.createBufferSource();
+  audioSource.buffer = audioBuffer;
+  audioSource.connect(audioContext.destination);
+  audioSource.loop = false;
+
+  return audioSource;
+}
+
+async function playSound() {
   if (sounds.length == 0) {
     return;
   }
-  const audio = sounds[lastSoundUsed++ % sounds.length];
-  audio.currentTime = audio.duration * 0.2;
-  audio.play();
+
+  const src = sounds[lastSoundUsed++ % sounds.length];
+  const audioSource = await getAudioSource(src);
+
+  if (audioContext.state === 'suspended') {
+    await audioContext.resume();
+  }
+
+  audioSource.start(0);
 }
 
-function loadSounds() {
+async function loadSounds() {
   sounds = [];
   const sp = getProfile();
   const profile = profiles.find(p => p.name == sp);
   for (const keySound of profile.keySounds) {
-    const audio = document.createElement('audio');
-    audio.volume = 0.5;
-    audio.loop = false;
-    audio.src = `misc/sounds/${sp}/${keySound}`;
-    sounds.push(audio);
+    const src = `misc/sounds/${sp}/${keySound}`;
+    const audioSource = await getAudioSource(src);
+    sounds.push(src);
   }
 }
 
