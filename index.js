@@ -1,9 +1,7 @@
 import Game from './game.js';
-import WordDB from './word_db.js';
+import { language, updateLanguage } from './language.js';
 
-let dict = 'en';
-
-let game = new Game(dict == 'en' ? WordDB.getEn() : WordDB.getPtbr(), dict);
+let game = new Game();
 let lastTimestamp = 0.0;
 
 function gameLoop(timestamp) {
@@ -17,20 +15,13 @@ function gameLoop(timestamp) {
 }
 
 document.onkeydown = (e) => {
-  if(e.key == 'l' && !game.gameRunning && !game.paused) {
-    dict = dict == 'en' ? 'ptbr' : 'en';
-    game = new Game(dict == 'en' ? WordDB.getEn() : WordDB.getPtbr(), dict);
+  if(e.key == 'l' && !game.gameRunning && game.gameElapsed == 0 && !game.paused) {
+    updateLanguage(language == 'en' ? 'ptbr' : 'en');
+    game = new Game();
     return;
   }
 
   game.onkeydown(e);
 };
-
-document.changeLanguage = () => {
-  const $select = document.getElementById('language');
-  const lang = $select.options[$select.selectedIndex].value;
-  dict = lang;
-  game = new Game(dict == 'en' ? WordDB.getEn() : WordDB.getPtbr(), dict);
-}
 
 requestAnimationFrame(gameLoop);

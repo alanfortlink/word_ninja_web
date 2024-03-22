@@ -1,17 +1,19 @@
 import Word from './word.js';
 import Vec2 from './vec2.js';
 import Particle from './particle.js';
+import WordDB from './word_db.js';
 import { canvas } from './utils.js';
+import { language } from './language.js';
 
 class WordShooter {
-  constructor(dictionary, game) {
+  constructor(game) {
     this.words = [];
-    this.dictionary = dictionary;
     this.simultaneousWords = 1;
     this.wordsWaiting = 0;
     this.timeSinceLastWord = 0;
     this.timeBetweenWords = 1.5;
     this.game = game;
+    this.dictionary = WordDB.languages()[language];
   }
 
   updateWords(dt) {

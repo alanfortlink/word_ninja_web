@@ -4,17 +4,15 @@ import WordShooter from './word_shooter.js';
 import Particle from './particle.js';
 import Border from './border.js';
 import { canvas, context } from './utils.js';
-// outr
 
 class Game {
-  constructor(dictionary, language) {
-    this.language = language;
+  constructor() {
     this.score = 0;
     this.combo = 0;
     this.maxCombo = 0;
     this.gameElapsed = 0;
     this.gameRunning = false;
-    this.wordShooter = new WordShooter(dictionary, this);
+    this.wordShooter = new WordShooter(this);
     this.multiplier = 1;
     this.lastSecondChecked = 0;
     this.slows = 2;
@@ -32,7 +30,7 @@ class Game {
     const context = canvas.getContext('2d');
     context.font = '20px ShareTechMono-Regular';
 
-    GameUI.showStartScreen(this.language);
+    GameUI.showStartScreen();
   }
 
   updateOverlay() {

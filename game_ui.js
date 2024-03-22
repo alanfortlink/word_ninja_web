@@ -1,3 +1,5 @@
+import { language } from './language.js';
+
 const $lastScore = document.getElementById('lastScore');
 const $status = document.getElementById('status');
 const $streak = document.getElementById('streak');
@@ -18,7 +20,7 @@ function _getRankInfo(score, game) {
   const rankNamesEn = ['Turtle', 'Rabbit', 'Dog', 'Horse', 'Cheetah', 'Eagle', 'Rocket', 'Lightning', 'King', 'Fire', 'Star', 'Medalist', 'Bronze', 'Silver', 'Gold'];
   const rankNamesPtbr = ['Tartaruga', 'Coelho', 'Cachorro', 'Cavalo', 'Guepardo', 'Águia', 'Foguete', 'Raio', 'Rei', 'Fogo', 'Estrela', 'Medalhista', 'Bronze', 'Prata', 'Ouro'];
 
-  const rankNames = game.language == 'en' ? rankNamesEn : rankNamesPtbr;
+  const rankNames = language == 'en' ? rankNamesEn : rankNamesPtbr;
 
   const scorePerRank = 500;
   const rank = Math.floor(score / scorePerRank);
@@ -52,9 +54,9 @@ class GameUI {
     const maxCombo = game.maxCombo;
     const time = game.gameElapsed;
 
-    $lastScore.innerHTML = _buildInfo(game.language == 'en' ? 'Score' : 'Pontuação', score);
-    $streak.innerHTML = _buildInfo(game.language == 'en' ? 'Max Streak' : 'Maior Sequência', maxCombo);
-    $status.innerHTML = '<div class="divider"></div>' + _buildInfo(game.language == 'en' ? 'Press "Space" to play again' : 'Pressione "Espaço" para jogar novamente', "");
+    $lastScore.innerHTML = _buildInfo(language == 'en' ? 'Score' : 'Pontuação', score);
+    $streak.innerHTML = _buildInfo(language == 'en' ? 'Max Streak' : 'Maior Sequência', maxCombo);
+    $status.innerHTML = '<div class="divider"></div>' + _buildInfo(language == 'en' ? 'Press "Space" to play again' : 'Pressione "Espaço" para jogar novamente', "");
 
     const min = Math.floor(time / 60);
     const sec = Math.floor(time % 60);
@@ -64,12 +66,12 @@ class GameUI {
     const { rankIcon, rankName, c, ranksAlt } = _getRankInfo(score, game);
 
     $rank.innerHTML = _buildInfo('Rank', rankIcon.repeat(c) + ' ' + rankName, ranksAlt.join(''));
-    $finalTime.innerHTML = _buildInfo(game.language == 'en' ? 'Time' : 'Duração', time_s);
+    $finalTime.innerHTML = _buildInfo(language == 'en' ? 'Time' : 'Duração', time_s);
 
     GameUI.showButtons();
   }
 
-  static showStartScreen(language) {
+  static showStartScreen() {
     if (language == 'en') {
       $status.innerHTML =
         `"Space" -> Play <br /> "Esc" -> Pause <br /> "Enter" -> Powerup <br /> "Backspace" -> Switch <br /> "L" -> Language`;
