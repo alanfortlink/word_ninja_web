@@ -45,6 +45,8 @@ class Game {
   }
 
   onkeydown(e) {
+    playSound();
+
     const ignoreKeys = ['Shift', 'Alt', 'Control', 'Meta', 'Dead'];
     if (ignoreKeys.includes(e.key)) {
       return;
@@ -90,8 +92,6 @@ class Game {
       }
       return;
     }
-
-    playSound();
 
     const selectedWords = this.wordShooter.words.filter(w => w.selected);
     var selectedWord = null;
