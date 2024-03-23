@@ -108,7 +108,7 @@ class Border {
         context.moveTo(0, canvas.height - 10);
         for (let i = 0; i < steps; i++) {
           const x = (i) * canvas.width / steps;
-          const y = Math.sin(Math.PI * ((4 * this.elapsed) % 2) + i / 10) * 2.5 + canvas.height - 2 * padding;
+          const y = Math.sin(Math.PI * ((4 * this.elapsed) % 2) + i / 10) * 4.5 + canvas.height - 2.5 * padding;
           context.lineTo(x, y);
         }
         context.lineTo(canvas.width, canvas.height);
