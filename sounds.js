@@ -2,6 +2,9 @@ var sound_profile = 'default';
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
+const cache = {
+};
+
 let sounds = [
 ];
 
@@ -93,17 +96,26 @@ function updateSoundProfile() {
   sound_profile = profiles[(i + 1) % profiles.length].name;
 }
 
-async function getAudioSource(src) {
-  const response = await fetch(src);
-  const arrayBuffer = await response.arrayBuffer();
-  const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-
+async function _getAudioSource(audioBuffer) {
   const audioSource = audioContext.createBufferSource();
   audioSource.buffer = audioBuffer;
   audioSource.connect(audioContext.destination);
   audioSource.loop = false;
 
   return audioSource;
+}
+
+async function getAudioSource(src) {
+  if (cache[src]) {
+    return _getAudioSource(cache[src]);
+  }
+
+  const response = await fetch(src);
+  const arrayBuffer = await response.arrayBuffer();
+  const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+  cache[src] = audioBuffer;
+
+  return _getAudioSource(audioBuffer);
 }
 
 async function playSound() {
