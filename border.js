@@ -77,26 +77,26 @@ class Border {
     const isWordBeingDestroyed = this.game.particles.some(p => p.char != '' && !p.positive);
 
     switch (this.side) {
-      case 'right':
-        context.fillRect(canvas.width - padding * factor, 0, padding * factor, canvas.height - 2 * padding);
-        break;
-      case 'top':
-        context.fillRect(0, 0, canvas.width, padding * factor);
-        // context.beginPath();
-        // context.lineWidth = 2;
-        // context.strokeStyle = '#555';
-        // context.moveTo(0, 10);
-        // for (let i = 0; i < steps; i++) {
-        //   const x = (i) * canvas.width / steps;
-        //   const y = Math.sin(Math.PI * ((4 * this.elapsed) % 2) + i / 10) * 2.5 + 2.5;
-        //   context.lineTo(x, y);
-        // }
-        // context.lineTo(canvas.width, 0);
-        // context.stroke();
-        break;
-      case 'left':
-        context.fillRect(0, 0, padding * factor, canvas.height - 2 * padding);
-        break;
+      // case 'right':
+      //   context.fillRect(canvas.width - padding * factor, 0, padding * factor, canvas.height - 2 * padding);
+      //   break;
+      // case 'top':
+      //   context.fillRect(0, 0, canvas.width, padding * factor);
+      //   // context.beginPath();
+      //   // context.lineWidth = 2;
+      //   // context.strokeStyle = '#555';
+      //   // context.moveTo(0, 10);
+      //   // for (let i = 0; i < steps; i++) {
+      //   //   const x = (i) * canvas.width / steps;
+      //   //   const y = Math.sin(Math.PI * ((4 * this.elapsed) % 2) + i / 10) * 2.5 + 2.5;
+      //   //   context.lineTo(x, y);
+      //   // }
+      //   // context.lineTo(canvas.width, 0);
+      //   // context.stroke();
+      //   break;
+      // case 'left':
+      //   context.fillRect(0, 0, padding * factor, canvas.height - 2 * padding);
+      //   break;
       case 'bottom':
         context.fillStyle = isWordBeingDestroyed ? '#f00' : '#fff';
         context.fillRect(0, canvas.height - 5 * padding, 3 * padding, canvas.height + padding);

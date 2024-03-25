@@ -77,7 +77,7 @@ class GameUI {
     const soundProfile = getProfile();
     if (language == 'en') {
       $status.innerHTML =
-        `"Space" -> Play <br /> "Esc" -> Pause <br /> "Enter" -> Powerup <br /> "Backspace" -> Switch <br /> "L" -> Language <br /> "K" -> Keyboard Sound (${soundProfile})`;
+        `"Space" -> Play <br /> "Esc" -> Pause <br /> "Enter" -> Power-up <br /> "Backspace" -> Switch <br /> "L" -> Language <br /> "K" -> Keyboard Sound (${soundProfile})`;
     }
     else {
       $status.innerHTML =
