@@ -4,10 +4,10 @@ import WordShooter from './word_shooter.js';
 import Particle from './particle.js';
 import Border from './border.js';
 import { canvas, context } from './utils.js';
-import { playSound, loadSounds } from './sounds.js';
+import { loadSounds } from './sounds.js';
 
 class Game {
-  constructor() {
+  constructor(goBack) {
     this.score = 0;
     this.combo = 0;
     this.maxCombo = 0;
@@ -21,6 +21,7 @@ class Game {
     this.paused = false;
     this.isSlow = false;
     this.slowElapsed = 0;
+    this.goBack = goBack;
     this.borders = [
       new Border('left', this),
       new Border('right', this),
@@ -51,7 +52,7 @@ class Game {
     }
 
     const c = e.key;
-    if (c == "Escape") {
+    if (c == "Escape" && this.gameRunning) {
       this.paused = !this.paused;
       return;
     }
@@ -59,13 +60,18 @@ class Game {
     if (this.paused) {
       if (c == " ") {
         this.paused = false;
+      } else if (c == "b") {
+        this.goBack();
       }
+
       return;
     }
 
     if (!this.gameRunning) {
       if (c == " ") {
         this.start();
+      } else if (c == "b") {
+        this.goBack();
       }
 
       return;
@@ -102,7 +108,7 @@ class Game {
         selectedWord = words[0];
       }
       else {
-        const particle = new Particle(this, new Vec2(canvas.width / 2, canvas.height / 2), new Vec2(0, 0), '', false);
+        const particle = new Particle(this, new Vec2(canvas.width / 2, canvas.height / 2), new Vec2(0, 0), '', false, 0);
         this.particles.push(particle);
         this.resetCombo();
       }
@@ -110,7 +116,7 @@ class Game {
 
     if (selectedWord != null && selectedWord != undefined) {
       if (selectedWord.isSkull) {
-        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false);
+        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false, 0);
         this.particles.push(particle);
         this.wordShooter.words = this.wordShooter.words.filter(w => w !== selectedWord);
         this.lives -= 1;
@@ -131,7 +137,7 @@ class Game {
         }
 
         this.combo += 1;
-        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', true);
+        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', true, this.multiplier);
         this.particles.push(particle);
 
         if (this.combo % 15 == 0) {
@@ -140,7 +146,7 @@ class Game {
           }
         }
       } else {
-        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false);
+        const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false, 0);
         this.particles.push(particle);
         this.resetCombo();
       }
@@ -244,7 +250,15 @@ class Game {
       context.save();
       context.fillStyle = 'white';
       context.font = '30px regular';
-      context.fillText('Paused', canvas.width / 2 - 40, canvas.height / 2);
+
+      const resumeText = 'Press <Space> to resume';
+      const resumeTextWidth = context.measureText(resumeText).width;
+      context.fillText(resumeText, canvas.width / 2 - resumeTextWidth / 2, canvas.height / 2 - 20);
+
+      const backText = 'Press <b> to go back to menu';
+      const backTextWidth = context.measureText(backText).width;
+
+      context.fillText(backText, canvas.width / 2 - backTextWidth / 2, canvas.height / 2 + 20);
       context.restore();
       return;
     }

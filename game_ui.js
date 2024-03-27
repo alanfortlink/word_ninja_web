@@ -4,6 +4,7 @@ import { sound_profile, getProfile } from './sounds.js';
 
 const $lastScore = document.getElementById('lastScore');
 const $status = document.getElementById('status');
+const $back = document.getElementById('back');
 const $streak = document.getElementById('streak');
 const $finalTime = document.getElementById('finalTime');
 
@@ -59,6 +60,7 @@ class GameUI {
     $lastScore.innerHTML = _buildInfo(language == 'en' ? 'Score' : 'Pontuação', score);
     $streak.innerHTML = _buildInfo(language == 'en' ? 'Max Streak' : 'Maior Sequência', maxCombo);
     $status.innerHTML = '<div class="divider"></div>' + _buildInfo(language == 'en' ? 'Press "Space" to play again' : 'Pressione "Espaço" para jogar novamente', "");
+    $back.innerHTML = _buildInfo(language == 'en' ? 'Press "b" go back to main menu' : 'Pressione "b" para voltar ao menu principal', "");
 
     const min = Math.floor(time / 60);
     const sec = Math.floor(time % 60);
@@ -75,20 +77,50 @@ class GameUI {
 
   static showStartScreen() {
     const soundProfile = getProfile();
-    if (language == 'en') {
-      $status.innerHTML =
-        `"Space" -> Play <br /> "Esc" -> Pause <br /> "Enter" -> Power-up <br /> "Backspace" -> Switch <br /> "L" -> Language <br /> "K" -> Keyboard Sound (${soundProfile})`;
+
+    const allOptions = {
+      'en': [
+        ["Space", "Play"],
+        ["Esc", "Pause"],
+        ["Enter", "Power-up"],
+        ["Backspace", "Switch"],
+        ["L", "Language"],
+        ["K", `Keyboard Sound (${sound_profile})`],
+      ],
+      'ptbr': [
+        ["Espaço", "Jogar"],
+        ["Esc", "Pausar"],
+        ["Enter", "Especial"],
+        ["Backspace", "Trocar"],
+        ["L", "Idioma"],
+        ["K", `Som do Teclado (${sound_profile})`],
+      ]
+    };
+
+    const options = allOptions[language];
+
+    let $table = "<table id='instructions'>";
+
+    for (let [key, value] of options) {
+      $table += `<tr><td>${key}</td><td>-></td><td>${value}</td></tr>`;
     }
-    else {
-      $status.innerHTML =
-        `"Espaço" -> Jogar <br /> "Esc" -> Pausar <br /> "Enter" -> Especial <br /> "Backspace" -> Trocar <br /> "L" -> Idioma <br /> "K" -> Som do Teclado (${soundProfile})`;
-    }
+
+    $table += "</table>";
+
+    $lastScore.innerHTML = $table;
+    $streak.innerHTML = "";
+    $status.innerHTML = "";
+    $back.innerHTML = "";
+    $rank.innerHTML = "";
+    $finalTime.innerHTML = "";
+
     GameUI.showButtons();
   }
 
   static prepareGame() {
     $lastScore.innerHTML = '';
     $status.innerHTML = '';
+    $back.innerHTML = '';
     $streak.innerHTML = '';
 
     GameUI.hideButtons();

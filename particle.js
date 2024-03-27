@@ -4,7 +4,7 @@ import Vec2 from './vec2.js';
 const topRight = new Vec2(canvas.width - 50, 30);
 
 class Particle {
-  constructor(game, position, velocity, char, positive) {
+  constructor(game, position, velocity, char, positive, multiplier) {
     this.game = game;
     this.initialPosition = position;
     this.position = position;
@@ -12,8 +12,8 @@ class Particle {
     this.char = char;
     this.isDone = false;
     this.elapsed = 0;
-    this.multiplier = this.game.multiplier;
     this.positive = positive;
+    this.multiplier = multiplier;
     this.dir = topRight.sub(position);
     this.duration = 1.0;
   }

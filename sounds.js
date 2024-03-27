@@ -135,13 +135,25 @@ async function playSound() {
 
 async function loadSounds() {
   sounds = [];
+  const sources = [];
   const sp = getProfile();
   const profile = profiles.find(p => p.name == sp);
   for (const keySound of profile.keySounds) {
     const src = `misc/sounds/${sp}/${keySound}`;
     const audioSource = await getAudioSource(src);
+    sources.push(audioSource);
     sounds.push(src);
   }
+
+  if (sounds.length == 0) {
+    return;
+  }
+
+  if (audioContext.state === 'suspended') {
+    await audioContext.resume();
+  }
+
+  sources[0].start(0);
 }
 
 export { sound_profile, updateSoundProfile, playSound, getProfile, loadSounds };

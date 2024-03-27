@@ -2,7 +2,11 @@ import Game from './game.js';
 import { language, updateLanguage } from './language.js';
 import { updateSoundProfile, playSound } from './sounds.js';
 
-let game = new Game();
+function goBack(){
+  game = new Game(goBack);
+}
+
+let game = new Game(goBack);
 let lastTimestamp = 0.0;
 
 function gameLoop(timestamp) {
@@ -18,7 +22,7 @@ function gameLoop(timestamp) {
 document.onkeydown = (e) => {
   if (e.key == 'k' && !game.gameRunning && game.gameElapsed == 0 && !game.paused) {
     updateSoundProfile();
-    game = new Game();
+    game = new Game(goBack);
     return;
   }
 
@@ -26,7 +30,7 @@ document.onkeydown = (e) => {
 
   if (e.key == 'l' && !game.gameRunning && game.gameElapsed == 0 && !game.paused) {
     updateLanguage(language == 'en' ? 'ptbr' : 'en');
-    game = new Game();
+    game = new Game(goBack);
     return;
   }
 
