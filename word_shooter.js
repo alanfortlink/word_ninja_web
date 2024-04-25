@@ -126,7 +126,7 @@ class WordShooter {
     if (this.simultaneousWords <= 4) {
       this.simultaneousWords++;
     }
-    if(this.difficulty % 3 == 0) {
+    if (this.difficulty % 3 == 0) {
       this.maxChars++;
     }
   }

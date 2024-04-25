@@ -6,8 +6,17 @@ import Border from './border.js';
 import { canvas, context } from './utils.js';
 import { loadSounds } from './sounds.js';
 
+class GameEvent {
+  constructor(type, duration, multiplier) {
+    this.type = type;
+    this.duration = duration;
+    this.multiplier = multiplier;
+  }
+}
+
 class Game {
   constructor(goBack) {
+    this.events = [];
     this.score = 0;
     this.combo = 0;
     this.maxCombo = 0;
@@ -22,6 +31,7 @@ class Game {
     this.isSlow = false;
     this.slowElapsed = 0;
     this.goBack = goBack;
+    this.timeSinceLastEvent = 0;
     this.borders = [
       new Border('left', this),
       new Border('right', this),
@@ -110,6 +120,8 @@ class Game {
       else {
         const particle = new Particle(this, new Vec2(canvas.width / 2, canvas.height / 2), new Vec2(0, 0), '', false, 0);
         this.particles.push(particle);
+        this.events.push(new GameEvent('miss', this.timeSinceLastEvent, this.multiplier));
+        this.timeSinceLastEvent = 0;
         this.resetCombo();
       }
     }
@@ -118,6 +130,8 @@ class Game {
       if (selectedWord.isSkull) {
         const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false, 0);
         this.particles.push(particle);
+        this.events.push(new GameEvent('skull', this.timeSinceLastEvent, this.multiplier));
+        this.timeSinceLastEvent = 0;
         this.wordShooter.words = this.wordShooter.words.filter(w => w !== selectedWord);
         this.lives -= 1;
         this.resetCombo();
@@ -139,6 +153,8 @@ class Game {
         this.combo += 1;
         const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', true, this.multiplier);
         this.particles.push(particle);
+        this.events.push(new GameEvent('hit', this.timeSinceLastEvent, this.multiplier));
+        this.timeSinceLastEvent = 0;
 
         if (this.combo % 15 == 0) {
           if (this.multiplier < 5) {
@@ -147,6 +163,8 @@ class Game {
         }
       } else {
         const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false, 0);
+        this.events.push(new GameEvent('miss', this.timeSinceLastEvent, this.multiplier));
+        this.timeSinceLastEvent = 0;
         this.particles.push(particle);
         this.resetCombo();
       }
@@ -188,6 +206,7 @@ class Game {
     }
 
     if (this.gameRunning) {
+      this.timeSinceLastEvent += dt;
 
       if (this.isSlow) {
         this.slowElapsed += dt;

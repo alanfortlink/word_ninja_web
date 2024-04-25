@@ -1,6 +1,7 @@
 import { language } from './language.js';
 
 import { sound_profile, getProfile } from './sounds.js';
+import { canvas } from './utils.js';
 
 const $lastScore = document.getElementById('lastScore');
 const $status = document.getElementById('status');
@@ -16,6 +17,7 @@ const $lives = document.getElementById('lives');
 const $slows = document.getElementById('slows');
 const $rank = document.getElementById('rank');
 const $currentRank = document.getElementById('currentRank');
+const $stats1 = document.getElementById('stats1');
 
 function _getRankInfo(score, game) {
   // ranks based on speed
@@ -52,6 +54,60 @@ class GameUI {
     $result.style.display = 'none';
   }
 
+  static async processStats(game) {
+    const events = game.events;
+    let totalDuration = 0;
+    let totalHits = 0;
+
+    $stats1.innerHTML = '';
+
+    $stats1.style.display = 'block';
+
+    const statsWidth = canvas.width * 0.8;
+    const statsHeight = 200;
+
+    const steps = events.length;
+
+    const jumpX = statsWidth / steps;
+    const jumpY = statsHeight / 150;
+
+    let k = 0;
+    let c = 0;
+
+    const durSum = events.reduce((acc, e) => acc + e.duration, 0);
+
+    let html = "";
+
+    for (let i = 0; i < events.length; i++) {
+      c += 1;
+      const event = events[i];
+      if (event.type == 'hit') {
+        totalHits++;
+      }
+
+      totalDuration += event.duration;
+
+      const averageWordLength = 5;
+      const numberOfWords = Math.floor(totalHits / averageWordLength);
+      const wordsPerMinute = 60 * numberOfWords / totalDuration;
+
+      const x = Math.floor((totalDuration / durSum) * statsWidth);
+      const y = Math.floor(wordsPerMinute * jumpY);
+
+      const multiplierClass = `multiplier-${event.multiplier}`;
+
+      if (event.type == 'hit') {
+        html += `<div class="stats-hit ${multiplierClass}" style="left: ${x}px; bottom: ${y}px;"></div>`;
+      } else {
+        html += `<div class="stats-miss" style="left: ${x}px; bottom: ${y}px;"></div>`;
+      }
+
+      k += 1;
+    }
+
+    $stats1.innerHTML = html;
+  }
+
   static showEndScreen(game) {
     const score = game.score;
     const maxCombo = game.maxCombo;
@@ -61,6 +117,8 @@ class GameUI {
     $streak.innerHTML = _buildInfo(language == 'en' ? 'Max Streak' : 'Maior Sequência', maxCombo);
     $status.innerHTML = '<div class="divider"></div>' + _buildInfo(language == 'en' ? 'Press "Space" to play again' : 'Pressione "Espaço" para jogar novamente', "");
     $back.innerHTML = _buildInfo(language == 'en' ? 'Press "b" go back to main menu' : 'Pressione "b" para voltar ao menu principal', "");
+
+    this.processStats(game);
 
     const min = Math.floor(time / 60);
     const sec = Math.floor(time % 60);
@@ -113,6 +171,7 @@ class GameUI {
     $back.innerHTML = "";
     $rank.innerHTML = "";
     $finalTime.innerHTML = "";
+    $stats1.style.display = 'none';
 
     GameUI.showButtons();
   }

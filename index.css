@@ -162,3 +162,46 @@ body {
 #instructions tr td {
   padding: 5px;
 }
+
+div.stats {
+  margin-top: 10px;
+  width: 100%;
+  height: 200px;
+  border: 1px solid #888;
+  display: none;
+  position: relative;
+}
+
+div.stats-hit, div.stats-miss {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+div.stats-hit {
+}
+
+div.multiplier-1 {
+      background-color: rgb(255, 255, 255);
+}
+
+div.multiplier-2 {
+      background-color: rgb(255, 120, 4);
+}
+
+div.multiplier-3 {
+      background-color: rgb(4, 217, 255);
+}
+
+div.multiplier-4 {
+      background-color: rgb(255, 16, 240);
+}
+
+div.multiplier-5 {
+      background-color: rgb(116, 255, 21);
+}
+
+div.stats-miss {
+  background-color: #a00;
+}
