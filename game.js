@@ -195,6 +195,7 @@ class Game {
     this.particles = [];
     this.maxCombo = 0;
     this.resetCombo();
+    this.events = [];
 
     for (let border of this.borders) {
       border.reset();
