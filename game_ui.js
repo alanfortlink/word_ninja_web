@@ -163,7 +163,7 @@ class GameUI {
   }
 
   static showEndScreen(game) {
-    const score = game.score;
+    const score = game.events.reduce((acc, e) => acc + e.multiplier, 0);
     const maxCombo = game.maxCombo;
     const time = game.gameElapsed;
 
@@ -250,7 +250,7 @@ class GameUI {
   }
 
   static updateInfo(game) {
-    const score = game.score;
+    const score = game.events.reduce((acc, e) => acc + e.multiplier, 0);
     const combo = game.combo;
     const elapsed = game.gameElapsed;
 
