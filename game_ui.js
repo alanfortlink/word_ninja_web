@@ -4,6 +4,7 @@ import { sound_profile, getProfile } from './sounds.js';
 import { canvas } from './utils.js';
 
 const $lastScore = document.getElementById('lastScore');
+const $initialInfo = document.getElementById('initialInfo');
 const $status = document.getElementById('status');
 const $back = document.getElementById('back');
 const $streak = document.getElementById('streak');
@@ -21,7 +22,7 @@ const $stats1 = document.getElementById('stats1');
 const $stats2 = document.getElementById('stats2');
 
 const statsHeight = canvas.height * 0.25;
-const statsWidth = canvas.width * 0.4;
+const statsWidth = canvas.width * 0.45;
 
 function _getRankInfo(score, game) {
   // ranks based on speed
@@ -166,6 +167,7 @@ class GameUI {
     const maxCombo = game.maxCombo;
     const time = game.gameElapsed;
 
+    $initialInfo.innerHTML = "";
     $lastScore.innerHTML = _buildInfo(language == 'en' ? 'Score' : 'Pontuação', score);
     $streak.innerHTML = _buildInfo(language == 'en' ? 'Max Streak' : 'Maior Sequência', maxCombo);
     $status.innerHTML = '<div class="divider"></div>' + _buildInfo(language == 'en' ? 'Press "Space" to play again' : 'Pressione "Espaço" para jogar novamente', "");
@@ -180,7 +182,7 @@ class GameUI {
 
     const { rankIcon, rankName, c, ranksAlt } = _getRankInfo(score, game);
 
-    $rank.innerHTML = _buildInfo('Rank', rankIcon.repeat(c) + ' ' + rankName, ranksAlt.join(''));
+    $rank.innerHTML = _buildInfo('<div class="divider" id="secondDivider"></div>', rankIcon.repeat(c) + ' ' + rankName, ranksAlt.join(''));
     $finalTime.innerHTML = _buildInfo(language == 'en' ? 'Time' : 'Duração', time_s);
 
     GameUI.showButtons();
@@ -218,7 +220,8 @@ class GameUI {
 
     $table += "</table>";
 
-    $lastScore.innerHTML = $table;
+    $initialInfo.innerHTML = $table;
+    $lastScore.innerHTML = "";
     $streak.innerHTML = "";
     $status.innerHTML = "";
     $back.innerHTML = "";
@@ -238,6 +241,7 @@ class GameUI {
 
   static prepareGame() {
     $lastScore.innerHTML = '';
+    $initialInfo.innerHTML = '';
     $status.innerHTML = '';
     $back.innerHTML = '';
     $streak.innerHTML = '';

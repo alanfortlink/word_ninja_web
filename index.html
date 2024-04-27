@@ -22,21 +22,32 @@
         <div id="time">0</div>
       </div>
       <div id="resultDiv">
-        <div class="info-div" id="lastScore"></div>
-        <div class="info-div" id="streak"></div>
-        <div class="info-div" id="finalTime"></div>
-        <div class="info-div" id="rank"></div>
-        <div class="info-div" id="status"></div>
-        <div class="info-div" id="back"></div>
-        <div class="divider" id="secondDivider"></div>
+        <div class="info-info" id="initialInfo"></div>
+        <table class="info-table" style="width: 100%;">
+          <tr>
+            <td class="info-info" id="lastScore"></td>
+            <td class="info-info" id="streak"></td>
+            <td class="info-info" id="finalTime"></td>
+          </tr>
+          <tr>
+            <td colspan="3" class="info-info" id="rank"></td>
+          </tr>
+        </table>
+
         <div class="stats-row">
           <div class="stats" id="stats1">
               <div id="bubble1"></div>
           </div>
+          <div style="width: 10px;"></div>
           <div class="stats" id="stats2">
               <div id="bubble2"></div>
           </div>
         </div>
+        <div class="divider" id="secondDivider"></div>
+        <div>
+          <div class="info-div" id="status"></div>
+        </div>
+        <div class="info-div" id="back"></div>
       </div>
     </div>
     <canvas id="gameCanvas" width="800" height="600">
