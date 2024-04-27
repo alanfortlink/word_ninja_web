@@ -120,8 +120,10 @@ class Game {
       else {
         const particle = new Particle(this, new Vec2(canvas.width / 2, canvas.height / 2), new Vec2(0, 0), '', false, 0);
         this.particles.push(particle);
+        this.timeSinceLastEvent -= this.wordShooter.timeWasted;
         this.events.push(new GameEvent('miss', this.timeSinceLastEvent, this.multiplier));
         this.timeSinceLastEvent = 0;
+        this.wordShooter.timeWasted = 0;
         this.resetCombo();
       }
     }
@@ -130,7 +132,9 @@ class Game {
       if (selectedWord.isSkull) {
         const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false, 0);
         this.particles.push(particle);
+        this.timeSinceLastEvent -= this.wordShooter.timeWasted;
         this.events.push(new GameEvent('skull', this.timeSinceLastEvent, this.multiplier));
+        this.wordShooter.timeWasted = 0;
         this.timeSinceLastEvent = 0;
         this.wordShooter.words = this.wordShooter.words.filter(w => w !== selectedWord);
         this.lives -= 1;
@@ -153,7 +157,9 @@ class Game {
         this.combo += 1;
         const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', true, this.multiplier);
         this.particles.push(particle);
+        this.timeSinceLastEvent -= this.wordShooter.timeWasted;
         this.events.push(new GameEvent('hit', this.timeSinceLastEvent, this.multiplier));
+        this.wordShooter.timeWasted = 0;
         this.timeSinceLastEvent = 0;
 
         if (this.combo % 15 == 0) {
@@ -163,7 +169,9 @@ class Game {
         }
       } else {
         const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false, 0);
+        this.timeSinceLastEvent -= this.wordShooter.timeWasted;
         this.events.push(new GameEvent('miss', this.timeSinceLastEvent, this.multiplier));
+        this.wordShooter.timeWasted = 0;
         this.timeSinceLastEvent = 0;
         this.particles.push(particle);
         this.resetCombo();

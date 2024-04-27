@@ -7,6 +7,7 @@ import { language } from './language.js';
 
 class WordShooter {
   constructor(game) {
+    this.timeWasted = 0;
     this.words = [];
     this.simultaneousWords = 1;
     this.maxChars = 4;
@@ -20,15 +21,24 @@ class WordShooter {
 
   updateWords(dt) {
     if (this.words.length >= this.simultaneousWords) {
+      if (this.words.length == 0) {
+        this.timeWasted += dt;
+      }
       return;
     }
 
     if (this.timeSinceLastWord < this.timeBetweenWords) {
       this.timeSinceLastWord += dt;
+      if (this.words.length == 0) {
+        this.timeWasted += dt;
+      }
       return;
     }
 
     if (this.wordsWaiting == 0) {
+      if (this.words.length == 0) {
+        this.timeWasted += dt;
+      }
       return;
     }
 

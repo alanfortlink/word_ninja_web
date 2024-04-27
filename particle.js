@@ -44,8 +44,8 @@ class Particle {
     const lightRed = `rgba(255, 0, 0, ${alpha})`;
 
     const positiveColor = [
-      `rgba(255, 255, 255, ${alpha})`,
-      `rgba(255, 120, 4, ${alpha})`,
+      `rgba(200, 200, 200, ${alpha})`,
+      `rgba(255, 255, 4, ${alpha})`,
       `rgba(4, 217, 255, ${alpha})`,
       `rgba(255, 16, 240, ${alpha})`,
       `rgba(116, 255, 21, ${alpha})`,
