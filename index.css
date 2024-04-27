@@ -180,8 +180,8 @@ div.stats {
 
 div.stats-hit, div.stats-miss {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 8px;
+  height: 8px;
   border-radius: 30%;
   opacity: 0.5;
   transition: all 0.2s;
@@ -200,11 +200,11 @@ div.stats-hit, div.stats-miss {
 }
 
 div.stats-hit:hover {
-  width: 8px;
-  height: 6px;
-  font-size: 2px;
+  width: 10px;
+  height: 7px;
+  font-size: 4px;
   opacity: 1;
-  transform: translateY(-10px) scale(5);
+  transform: translateY(-15px) scale(5);
   display: flex;
   text-align: center;
   justify-content: center;
