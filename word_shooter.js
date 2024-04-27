@@ -124,9 +124,9 @@ class WordShooter {
     this.words = [];
     this.wordsWaiting = 0;
     this.timeSinceLastWord = 0;
-    this.simultaneousWords = 5;
+    this.simultaneousWords = 1;
     this.maxChars = 4;
-    this.timeBetweenWords = 0.5;
+    this.timeBetweenWords = 1.5;
     this.difficulty = 1;
   }
 

@@ -203,7 +203,7 @@ div.stats-hit:hover {
   height: 6px;
   font-size: 2px;
   opacity: 1;
-  transform: scale(5);
+  transform: translateY(-10px) scale(5);
   display: flex;
   text-align: center;
   justify-content: center;
