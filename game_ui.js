@@ -118,6 +118,8 @@ class GameUI {
 
       totalDuration += event.duration;
 
+      // if(i % 4 != 0) continue;
+
       const wpm = this.getWpm(events, i);
 
       const x = Math.floor((totalDuration / durSum) * statsWidth * 0.8);
@@ -129,8 +131,8 @@ class GameUI {
       const multiplierClass = `multiplier-${event.multiplier}`;
 
       if (event.type == 'hit') {
-        html += `<div class="stats-hit ${multiplierClass}" onmouseover="document.getElementById('bubble1').innerHTML='${wpm}'" onmouseout="document.getElementById('bubble1').innerHTML='${maxWpm}'" style="left: ${x}px; bottom: ${y}px;">${wpm}</div>`;
-        html2 += `<div class="stats-hit ${multiplierClass}" onmouseover="document.getElementById('bubble2').innerHTML='${score}'" onmouseout="document.getElementById('bubble2').innerHTML='${totalScore}'" style="left: ${x2}px; bottom: ${y2}px;">${score}</div>`;
+        html += `<div class="stats-hit ${multiplierClass}" style="left: ${x}px; bottom: ${y}px;">${wpm}</div>`;
+        html2 += `<div class="stats-hit ${multiplierClass}" style="left: ${x2}px; bottom: ${y2}px;">${score}</div>`;
       } else {
         html += `<div class="stats-miss" style="left: ${x}px; bottom: ${y}px;"></div>`;
         html2 += `<div class="stats-miss" style="left: ${x2}px; bottom: ${y2}px;"></div>`;

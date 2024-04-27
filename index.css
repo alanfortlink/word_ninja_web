@@ -188,6 +188,7 @@ div.stats-hit, div.stats-miss {
 }
 
 #bubble1, #bubble2 {
+  display: none;
   font-size: 20px;
   color: #aaa;
   position: absolute;
@@ -197,18 +198,26 @@ div.stats-hit, div.stats-miss {
   margin: 5px;
 }
 
-/*
 div.stats-hit:hover {
+  width: 8px;
+  height: 6px;
+  font-size: 2px;
   opacity: 1;
-  width: 30px;
-  height: 30px;
+  transform: scale(5);
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border: 0.04px solid white;
+  border-radius: 4px;
   color: #ffffff;
   transition: all 0.2s;
   z-index: 10000000;
   cursor: pointer;
-  font-size: 20px;
+  box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 }
-*/
 
 div.stats-hit {
 }
@@ -244,7 +253,7 @@ div.stats-miss {
   right: 0;
   color: #888;
   font-size: 20px;
-  padding: 4px;
+  padding: 8px;
   font-weight: bold;
 }
 
@@ -255,7 +264,7 @@ div.stats-miss {
   right: 0;
   color: #888;
   font-size: 20px;
-  padding: 4px;
+  padding: 8px;
   font-weight: bold;
 }
 
