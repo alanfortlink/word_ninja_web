@@ -46,6 +46,46 @@ function getFormattedTime(elapsed) {
   return t_str;
 }
 
+function _getRankInfo(score, game) {
+  // ranks based on speed
+  const ranks = ['🐢', '🐇', '🐕', '🐎', '🐆', '🦅', '🚀', '⚡️', '👑', '🔥', '🌟', '🏅', '🥉', '🥈', '🥇'];
+  const rankNamesEn = ['Turtle', 'Rabbit', 'Dog', 'Horse', 'Cheetah', 'Eagle', 'Rocket', 'Lightning', 'King', 'Fire', 'Star', 'Medalist', 'Bronze', 'Silver', 'Gold'];
+  const rankNamesPtbr = ['Tartaruga', 'Coelho', 'Cachorro', 'Cavalo', 'Guepardo', 'Águia', 'Foguete', 'Raio', 'Rei', 'Fogo', 'Estrela', 'Medalhista', 'Bronze', 'Prata', 'Ouro'];
+
+  const rankNames = language == 'en' ? rankNamesEn : rankNamesPtbr;
+
+  const scorePerRank = 500;
+  const rank = Math.floor(score / scorePerRank);
+
+  const nranks = 5;
+  const windows = windows_fn(ranks, nranks);
+
+  let ranksAlt = [];
+  ranksAlt.push(`<table id='ranks'>`);
+
+  for (let window of windows) {
+    ranksAlt.push(`<tr>`);
+    for (let r of window) {
+      ranksAlt.push(`<td class="td-value">${r}</td>`);
+      if (r != window[window.length - 1]) {
+        ranksAlt.push(`<td class="td-info">→</td>`);
+      }
+    }
+    ranksAlt.push(`</tr>`);
+  }
+
+  ranksAlt.push(`<tr><td class='big-value' colspan='${nranks * 2 - 1}'>🏆</td></tr>`);
+
+  ranksAlt.push(`</table>`);
+
+  const c = Math.max(1, Math.ceil((score % scorePerRank) / 100));
+
+  const rankIcon = rank < ranks.length ? ranks[rank] : '🏆';
+  const rankName = rank < rankNames.length ? rankNames[rank] : 'Master';
+
+  return { rankIcon, rankName, c, ranksAlt };
+}
+
 async function _showLeaderboard() {
   $leaderboardModal.classList.add('visible');
 
@@ -77,7 +117,11 @@ async function _showLeaderboard() {
     let gameplayHtml = `<div class="leaderboard-entry">`;
 
     let infoColumn = `<div class="leaderboard-entry-info">`;
-    infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight">#${i + 1}</div><div class="lb-value lb-highlight">${gameplay.username}</div></div>`;
+    
+    const { rankIcon, c } = _getRankInfo(gameplay.score, gameplay);
+    const alt = `${rankIcon.repeat(c)}`;
+
+    infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight">#${i + 1}</div><div class="lb-value lb-highlight">${gameplay.username} ${alt}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Score</div><div class="lb-value">${gameplay.score}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Streak</div><div class="lb-value">${streak}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Time</div><div class="lb-value">${time}</div></div>`;
@@ -115,8 +159,6 @@ async function _showLeaderboard() {
 
     $score.style.width = statsWidth + 'px';
     $score.style.height = statsHeight + 'px';
-
-    console.log($wpm);
 
     const events = gameplay.events;
 
@@ -157,45 +199,6 @@ const windows_fn = (L, wsz) => {
 }
 
 
-function _getRankInfo(score, game) {
-  // ranks based on speed
-  const ranks = ['🐢', '🐇', '🐕', '🐎', '🐆', '🦅', '🚀', '⚡️', '👑', '🔥', '🌟', '🏅', '🥉', '🥈', '🥇'];
-  const rankNamesEn = ['Turtle', 'Rabbit', 'Dog', 'Horse', 'Cheetah', 'Eagle', 'Rocket', 'Lightning', 'King', 'Fire', 'Star', 'Medalist', 'Bronze', 'Silver', 'Gold'];
-  const rankNamesPtbr = ['Tartaruga', 'Coelho', 'Cachorro', 'Cavalo', 'Guepardo', 'Águia', 'Foguete', 'Raio', 'Rei', 'Fogo', 'Estrela', 'Medalhista', 'Bronze', 'Prata', 'Ouro'];
-
-  const rankNames = language == 'en' ? rankNamesEn : rankNamesPtbr;
-
-  const scorePerRank = 500;
-  const rank = Math.floor(score / scorePerRank);
-
-  const nranks = 5;
-  const windows = windows_fn(ranks, nranks);
-
-  let ranksAlt = [];
-  ranksAlt.push(`<table id='ranks'>`);
-
-  for (let window of windows) {
-    ranksAlt.push(`<tr>`);
-    for (let r of window) {
-      ranksAlt.push(`<td class="td-value">${r}</td>`);
-      if (r != window[window.length - 1]) {
-        ranksAlt.push(`<td class="td-info">→</td>`);
-      }
-    }
-    ranksAlt.push(`</tr>`);
-  }
-
-  ranksAlt.push(`<tr><td class='big-value' colspan='${nranks * 2 - 1}'>🏆</td></tr>`);
-
-  ranksAlt.push(`</table>`);
-
-  const c = Math.max(1, Math.ceil((score % scorePerRank) / 100));
-
-  const rankIcon = rank < ranks.length ? ranks[rank] : '🏆';
-  const rankName = rank < rankNames.length ? rankNames[rank] : 'Master';
-
-  return { rankIcon, rankName, c, ranksAlt };
-}
 
 function _buildInfo(title, value, alt) {
   const hover = alt ? `<div class="result-hover">${alt}</div>` : '';

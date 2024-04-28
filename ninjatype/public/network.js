@@ -14,7 +14,6 @@ class Network {
 
     try {
       const response = await p;
-      console.log(response);
       return true;
     } catch (e) {
       console.error(e);
