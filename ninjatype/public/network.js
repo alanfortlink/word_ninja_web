@@ -1,5 +1,5 @@
-// const baseUrl = 'https://ninjaty.pe/api'
-const baseUrl = 'http://localhost:8080/api'
+const baseUrl = 'https://ninjaty.pe/api'
+// const baseUrl = 'http://localhost:8080/api'
 
 class Network {
 
