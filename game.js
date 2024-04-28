@@ -5,6 +5,7 @@ import Particle from './particle.js';
 import Border from './border.js';
 import { canvas, context } from './utils.js';
 import { loadSounds } from './sounds.js';
+import { language } from './language.js';
 
 class GameEvent {
   constructor(type, duration, multiplier) {
@@ -291,11 +292,20 @@ class Game {
       context.fillStyle = 'white';
       context.font = '30px regular';
 
-      const resumeText = 'Press <Space> to resume';
+      const resumeTexts = {
+        'en': 'Press "Space" to resume',
+        'ptbr': 'Pressione "Espaço" para continuar',
+      };
+
+      const resumeText = resumeTexts[language];
       const resumeTextWidth = context.measureText(resumeText).width;
       context.fillText(resumeText, canvas.width / 2 - resumeTextWidth / 2, canvas.height / 2 - 20);
 
-      const backText = 'Press <b> to go back to menu';
+      const backTexts = {
+        'en': 'Press "B" to go back to menu',
+        'ptbr': 'Pressione "B" para voltar ao menu',
+      };
+      const backText = backTexts[language];
       const backTextWidth = context.measureText(backText).width;
 
       context.fillText(backText, canvas.width / 2 - backTextWidth / 2, canvas.height / 2 + 20);
