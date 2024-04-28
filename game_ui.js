@@ -81,85 +81,59 @@ class GameUI {
     return wpm.toFixed(0);
   }
 
-  static async processStats(game) {
-    const events = game.events;
-    let totalDuration = 0;
-    let totalHits = 0;
+  static async generateStats($div, events, yMaxValue, yMapper) {
+    let duration = 0;
+    let totalDuration = events.reduce((acc, e) => acc + e.duration, 0);
 
-    $stats1.innerHTML = '';
-    $stats2.innerHTML = '';
-
-    $stats1.style.display = 'block';
-    $stats2.style.display = 'block';
-
-    let k = 0;
-    let c = 0;
+    $div.innerHTML = '';
+    $div.style.display = 'block';
 
     if (events.length > 0) events[0].duration *= 0.9;
-    const durSum = events.reduce((acc, e) => acc + e.duration, 0);
 
-    let maxWpm = 0;
-    for (let i = 0; i < events.length; i++) {
-      maxWpm = Math.max(maxWpm, this.getWpm(events, i));
-    }
-
-    const totalScore = events.reduce((acc, e) => acc + e.multiplier, 0);
-    let score = 0;
-
-    let html = `<div id='bubble1' class='bubble'>${maxWpm}</div>`;
-    let html2 = `<div id='bubble2' class='bubble'>${totalScore}</div>`;
+    let html = `<div class='bubble'>${yMaxValue}</div>`;
 
     for (let i = 0; i < events.length; i++) {
-      c += 1;
       const event = events[i];
-      if (event.type == 'hit') {
-        totalHits++;
-        score += event.multiplier;
-      }
+      duration += event.duration;
 
-      totalDuration += event.duration;
-
-      // if(i % 4 != 0) continue;
-
-      const wpm = this.getWpm(events, i);
-
-      const x = Math.floor((totalDuration / durSum) * statsWidth * 0.8);
-      const y = Math.floor((wpm / maxWpm) * statsHeight * 0.8);
-
-      const x2 = Math.floor((totalDuration / durSum) * statsWidth * 0.8);
-      const y2 = Math.floor((score / totalScore) * statsHeight * 0.8);
+      const x = Math.floor((duration / totalDuration) * statsWidth * 0.8);
+      const yValue = yMapper(events, i);
+      const y = Math.floor(yValue * statsHeight * 0.8);
 
       const multiplierClass = `multiplier-${event.multiplier}`;
 
       if (event.type == 'hit') {
-        html += `<div class="stats-hit ${multiplierClass}" style="left: ${x}px; bottom: ${y}px;">${wpm}</div>`;
-        html2 += `<div class="stats-hit ${multiplierClass}" style="left: ${x2}px; bottom: ${y2}px;">${score}</div>`;
+        html += `<div class="stats-hit ${multiplierClass}" style="left: ${x}px; bottom: ${y}px;">${(yValue * yMaxValue).toFixed(0)}</div>`;
       } else {
         html += `<div class="stats-miss" style="left: ${x}px; bottom: ${y}px;"></div>`;
-        html2 += `<div class="stats-miss" style="left: ${x2}px; bottom: ${y2}px;"></div>`;
       }
-
-      k += 1;
     }
 
-    const stats1_30pLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8 * 0.3)}px;">${(maxWpm * 0.3).toFixed(0)}</div>`;
-    const stats1_60pLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8 * 0.6)}px;">${(maxWpm * 0.6).toFixed(0)}</div>`;
-    const stats1_maxLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8)}px;">${(maxWpm).toFixed(0)}</div>`;
+    const stats_30pLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8 * 0.3)}px;">${(yMaxValue * 0.3).toFixed(0)}</div>`;
+    const stats_60pLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8 * 0.6)}px;">${(yMaxValue * 0.6).toFixed(0)}</div>`;
+    const stats_maxLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8)}px;">${(yMaxValue).toFixed(0)}</div>`;
 
-    html += stats1_30pLine;
-    html += stats1_60pLine;
-    html += stats1_maxLine;
+    html += stats_30pLine;
+    html += stats_60pLine;
+    html += stats_maxLine;
 
-    const stats2_30pLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8 * 0.3)}px;">${(totalScore * 0.3).toFixed(0)}</div>`;
-    const stats2_60pLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8 * 0.6)}px;">${(totalScore * 0.6).toFixed(0)}</div>`;
-    const stats2_maxLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8)}px;">${(totalScore).toFixed(0)}</div>`;
+    $div.innerHTML = html;
+  }
 
-    html2 += stats2_30pLine;
-    html2 += stats2_60pLine;
-    html2 += stats2_maxLine;
+  static async processStats(game) {
+    const events = game.events;
 
-    $stats1.innerHTML = html;
-    $stats2.innerHTML = html2;
+    const maxWpm = events.map((_, i) => this.getWpm(events, i)).reduce((acc, wpm) => Math.max(acc, wpm), 0);
+
+    this.generateStats($stats1, events, maxWpm, (events, i) => {
+      return (this.getWpm(events, i) / maxWpm);
+    });
+
+    const totalScore = events.reduce((acc, e) => acc + e.multiplier, 0);
+
+    this.generateStats($stats2, events, totalScore, (events, i) => {
+      return events.slice(0, i + 1).reduce((acc, e) => acc + e.multiplier, 0) / totalScore;
+    });
   }
 
   static showEndScreen(game) {
