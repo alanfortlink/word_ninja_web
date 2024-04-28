@@ -184,7 +184,7 @@ div.stats-hit, div.stats-miss {
   width: 8px;
   height: 8px;
   border-radius: 30%;
-  opacity: 1.0;
+  opacity: 0.5;
   transition: all 0.2s;
   font-size: 0;
 }
@@ -217,6 +217,8 @@ div.stats-hit > .bubble-content, div.stats-miss > .bubble-content {
 
 div.stats-hit:hover, div.stats-miss:hover {
   z-index: 9999999 !important;
+  opacity: 1;
+  transition: all 0.2s;
 }
 
 div.stats-hit:hover > .bubble-content, div.stats-miss:hover > .bubble-content {
