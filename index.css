@@ -219,6 +219,7 @@ div.stats-hit > .bubble-content, div.stats-miss > .bubble-content {
 div.stats-hit:hover, div.stats-miss:hover {
   z-index: 9999999 !important;
   opacity: 1;
+  transform: scale(2);
   transition: all 0.2s;
 }
 
@@ -229,7 +230,7 @@ div.stats-hit:hover > .bubble-content, div.stats-miss:hover > .bubble-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(-30px) scale(5);
+  transform: translateY(-20px) scale(3);
   transition: all 0.2s;
   z-index: 9999999 !important;
 }
