@@ -58,7 +58,6 @@ void main() async {
 
   final gameplaysCollection = db.collection('gameplays');
 
-  app.all("*", cors());
   app.get("/*", (req, res) => Directory("public"));
 
   app.post("/api/publish", (HttpRequest req, HttpResponse res) async {
