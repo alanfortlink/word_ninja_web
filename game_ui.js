@@ -97,13 +97,13 @@ class GameUI {
       duration += event.duration;
 
       const x = Math.floor((duration / totalDuration) * statsWidth * 0.8);
-      const yValue = yMapper(events, i);
-      const y = Math.floor(yValue * statsHeight * 0.8);
+      const yValue = Math.min(Math.floor(yMapper(events, i)), yMaxValue);
+      const y = Math.floor((yValue / yMaxValue) * statsHeight * 0.8);
 
       const multiplierClass = `multiplier-${event.multiplier}`;
 
       if (event.type == 'hit') {
-        html += `<div class="stats-hit ${multiplierClass}" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${Math.floor(yValue * yMaxValue).toFixed(0)}</div></div>`;
+        html += `<div class="stats-hit ${multiplierClass}" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${Math.floor(yValue).toFixed(0)}</div></div>`;
       } else {
         html += `<div class="stats-miss" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${Math.floor(yValue * yMaxValue).toFixed(0)}</div></div>`;
       }
@@ -126,13 +126,13 @@ class GameUI {
     const maxWpm = events.map((_, i) => this.getWpm(events, i)).reduce((acc, wpm) => Math.max(acc, wpm), 0);
 
     this.generateStats($stats1, events, maxWpm, (events, i) => {
-      return (this.getWpm(events, i) / maxWpm);
+      return this.getWpm(events, i);
     });
 
     const totalScore = events.reduce((acc, e) => acc + e.multiplier, 0);
 
     this.generateStats($stats2, events, totalScore, (events, i) => {
-      return events.slice(0, i + 1).reduce((acc, e) => acc + e.multiplier, 0) / totalScore;
+      return events.slice(0, i + 1).reduce((acc, e) => acc + e.multiplier, 0);
     });
   }
 

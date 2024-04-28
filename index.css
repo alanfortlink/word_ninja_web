@@ -273,7 +273,8 @@ div.stats-miss {
   right: 0;
   color: #888;
   font-size: 20px;
-  padding: 8px;
+  padding: 0px;
+  margin-right: 4px;
   font-weight: bold;
 }
 
@@ -284,7 +285,8 @@ div.stats-miss {
   right: 0;
   color: #888;
   font-size: 20px;
-  padding: 8px;
+  padding: 0px;
+  margin-right: 4px;
   font-weight: bold;
 }
 
