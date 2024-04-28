@@ -127,7 +127,7 @@ class GameUI {
 
     if (events.length > 0) events[0].duration *= 0.9;
 
-    let html = `<div class='bubble'>${yMaxValue}</div>`;
+    let html = ``;
 
     for (let i = 0; i < events.length; i++) {
       const event = events[i];
