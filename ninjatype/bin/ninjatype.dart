@@ -1,5 +1,11 @@
-import 'package:ninjatype/ninjatype.dart' as ninjatype;
+import 'dart:io';
 
-void main(List<String> arguments) {
-  print('Hello world: ${ninjatype.calculate()}!');
+import 'package:alfred/alfred.dart';
+
+void main() async {
+  final app = Alfred();
+
+  app.get("/*", (req, res) => Directory("bin/public"));
+
+  await app.listen(3000);
 }
