@@ -103,9 +103,9 @@ class GameUI {
       const multiplierClass = `multiplier-${event.multiplier}`;
 
       if (event.type == 'hit') {
-        html += `<div class="stats-hit ${multiplierClass}" style="left: ${x}px; bottom: ${y}px;">${(yValue * yMaxValue).toFixed(0)}</div>`;
+        html += `<div class="stats-hit ${multiplierClass}" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${(yValue * yMaxValue).toFixed(0)}</div></div>`;
       } else {
-        html += `<div class="stats-miss" style="left: ${x}px; bottom: ${y}px;"></div>`;
+        html += `<div class="stats-miss" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${(yValue * yMaxValue).toFixed(0)}</div></div>`;
       }
     }
 

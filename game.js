@@ -22,7 +22,9 @@ class Game {
     this.maxCombo = 0;
     this.gameElapsed = 0;
     this.gameRunning = false;
+    this.gameEnded = false;
     this.wordShooter = new WordShooter(this);
+    this.timeSinceEnd = 0;
     this.multiplier = 1;
     this.lastSecondChecked = 0;
     this.slows = 2;
@@ -51,11 +53,17 @@ class Game {
   }
 
   endGame() {
+    this.gameEnded = true;
     this.gameRunning = false;
+    this.timeSinceEnd = 0;
     GameUI.showEndScreen(this);
   }
 
   onkeydown(e) {
+    if (this.gameEnded && this.timeSinceEnd < 2) {
+      return;
+    }
+
     const ignoreKeys = ['Shift', 'Alt', 'Control', 'Meta', 'Dead'];
     if (ignoreKeys.includes(e.key)) {
       return;
@@ -187,7 +195,9 @@ class Game {
   reset() {
     this.slows = 2;
     this.wordShooter.reset();
+    this.timeSinceEnd = 0;
     this.gameRunning = true;
+    this.gameEnded = false;
     this.gameElapsed = 0;
     this.lastSecondChecked = 0;
     this.score = 0;
@@ -231,6 +241,8 @@ class Game {
       for (let particle of this.particles) {
         particle.update(dt);
       }
+    } else {
+      this.timeSinceEnd += dt;
     }
 
     this.updateOverlay();
