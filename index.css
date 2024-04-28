@@ -28,7 +28,7 @@ body {
   margin: auto;
   background-image: url("misc/bg.jpeg");
   background-size: 100% 100%;
-  box-shadow: 0 0 5px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 5px 0 rgba(100, 100, 100, 0.5);
   border-radius: 20px;
 }
 
@@ -104,7 +104,7 @@ body {
   background-color: rgba(0, 0, 0, 0.9);
   border-radius: 10px;
   border: 1px solid #333;
-  box-shadow: inset 0 0 5px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 5px 0 rgba(120, 120, 120, 0.5);
   padding: 20px;
 }
 
@@ -182,10 +182,10 @@ div.stats {
 
 div.stats-hit, div.stats-miss {
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 30%;
-  opacity: 0.5;
+  opacity: 0.35;
   transition: all 0.2s;
   font-size: 0;
 }
