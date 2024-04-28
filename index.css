@@ -178,10 +178,6 @@ td.big-value {
   right: 10px;
 }
 
-#instructions tr td {
-  padding: 5px;
-}
-
 div.stats-row {
   display: flex;
   align-items: center;
@@ -350,6 +346,26 @@ div.stats-graph-line {
   font-size: 20px;
   color: #ffffff;
 }
+
+.key-row {
+}
+
+.key-style {
+  border-radius: 8px;
+  box-shadow: inset 0px 0px 10px 0 rgba(80, 80, 80, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  color: #ccc;
+  font-size: 12px;
+}
+
+#instructions {
+  border-collapse: separate;
+  border-spacing: 10px;
+}
+
 
 #initialInfo {
   display: flex;

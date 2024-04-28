@@ -181,8 +181,17 @@ class GameUI {
     $initialInfo.innerHTML = "";
     $lastScore.innerHTML = _buildInfo(language == 'en' ? 'Score' : 'Pontuação', score);
     $streak.innerHTML = _buildInfo(language == 'en' ? 'Max Streak' : 'Maior Sequência', maxCombo);
-    $status.innerHTML = '<div class="divider"></div>' + _buildInfo(language == 'en' ? 'Press "Space" to play again' : 'Pressione "Espaço" para jogar novamente', "");
-    $back.innerHTML = _buildInfo(language == 'en' ? 'Press "B" go back to main menu' : 'Pressione "B" para voltar ao menu principal', "");
+
+    let optionsTable = "<table id='instructions'>";
+    optionsTable += `<tr class="key-row"><td class="key-style" style="text-align: right;">Space</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'Play Again' : 'Jogar Novamente'}</td></tr>`;
+    optionsTable += `<tr class="key-row"><td class="key-style" style="text-align: right;">B</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'Back to Menu' : 'Voltar ao Menu'}</td></tr>`;
+    optionsTable += "</table>";
+
+    $status.innerHTML = optionsTable;
+    $back.innerHTML = "";
+
+    // $status.innerHTML = '<div class="divider"></div>' + _buildInfo(language == 'en' ? 'Press "Space" to play again' : 'Pressione "Espaço" para jogar novamente', "");
+    // $back.innerHTML = _buildInfo(language == 'en' ? 'Press "B" go back to main menu' : 'Pressione "B" para voltar ao menu principal', "");
 
     this.processStats(game);
 
@@ -226,7 +235,7 @@ class GameUI {
     let $table = "<table id='instructions'>";
 
     for (let [key, value] of options) {
-      $table += `<tr><td style="text-align: right;">${key}</td><td>→</td><td style="text-align: left; font-weight: bold;">${value}</td></tr>`;
+      $table += `<tr class="key-row"><td class="key-style" style="text-align: right;">${key}</td><td>→</td><td style="text-align: left; font-weight: bold;">${value}</td></tr>`;
     }
 
     $table += "</table>";
