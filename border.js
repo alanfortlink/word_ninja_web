@@ -98,17 +98,22 @@ class Border {
       //   context.fillRect(0, 0, padding * factor, canvas.height - 2 * padding);
       //   break;
       case 'bottom':
-        context.beginPath();
-        context.lineWidth = 2;
-        context.strokeStyle = isWordBeingDestroyed ? '#f00' : '#444';
-        context.moveTo(0, canvas.height - 10);
-        for (let i = 0; i < steps; i++) {
-          const x = (i) * canvas.width / steps + (i == 0 ? -canvas.height * 0.02 : 0);
-          const y = Math.sin(Math.PI * ((4 * this.elapsed) % 2) + i / 10) * 4.5 + canvas.height - 2.5 * padding;
-          context.lineTo(x, y - canvas.height * 0.02);
+        const c = 20;
+        for (let j = 0; j < c; j++) {
+          const diff = (canvas.height / c) * j;
+
+          context.beginPath();
+          context.lineWidth = 1;
+          context.strokeStyle = isWordBeingDestroyed ? '#800' : '#333';
+          context.moveTo(0, canvas.height - 10);
+          for (let i = 0; i < steps; i++) {
+            const x = -(canvas.width / steps) * (j) + (i) * canvas.width / steps + (i == 0 ? -canvas.height * 0.02 : 0);
+            const y = -diff + Math.sin(Math.PI * ((2 * this.elapsed) % 2) + i / 10) * 1.5 + canvas.height - 2.5 * padding;
+            context.lineTo(x, y - canvas.height * 0.02);
+          }
+          context.lineTo(canvas.width * 1.02, -diff + canvas.height - canvas.height * 0.02);
+          context.stroke();
         }
-        context.lineTo(canvas.width * 1.02, canvas.height - canvas.height * 0.02);
-        context.stroke();
         break;
     }
     context.restore();
