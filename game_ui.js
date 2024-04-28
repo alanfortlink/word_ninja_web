@@ -105,7 +105,7 @@ class GameUI {
       if (event.type == 'hit') {
         html += `<div class="stats-hit ${multiplierClass}" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${Math.floor(yValue).toFixed(0)}</div></div>`;
       } else {
-        html += `<div class="stats-miss" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${Math.floor(yValue * yMaxValue).toFixed(0)}</div></div>`;
+        html += `<div class="stats-miss" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${Math.floor(yValue).toFixed(0)}</div></div>`;
       }
     }
 
