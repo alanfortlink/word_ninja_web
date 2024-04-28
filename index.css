@@ -127,32 +127,38 @@ body {
   position: relative;
   font-size: 40px;
   font-weight: bold;
-}
-
-.result-value .result-hover {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) translateY(-100%);
-
+  width: 100%;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+}
 
-  width: 200px;
+.result-value > .result-value-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
 
-  font-size: 20px;
-  font-weight: normal;
+.result-value > .result-value-content > .result-hover {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  font-size: 0px;
+}
 
-  opacity: 0.0;
-
-  color: #fff;
-
-  background-color: rgba(20, 20, 20, 1.0);
-
+.result-value > .result-value-content:hover > .result-hover {
+  opacity: 1;
   padding: 5px;
   border-radius: 5px;
-  box-shadow: 0 0 5px 0 rgba(255, 255, 255, 0.5);
-  transition: all 0.2s;
+  background-color: #222;
+  box-shadow: 0 0 5px 0 rgba(20, 20, 20, 0.5);
+  position: absolute;
+  transform: translateY(-80px);
+  width: auto;
+  height: auto;
+  font-size: 20px;
 }
 
 .td-info {
@@ -161,11 +167,6 @@ body {
 
 td.big-value {
   font-size: 30px;
-}
-
-.result-value:hover .result-hover {
-  opacity: 1.0;
-  transition: all 0.2s;
 }
 
 #currentRank {

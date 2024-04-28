@@ -84,7 +84,7 @@ function _getRankInfo(score, game) {
 
 function _buildInfo(title, value, alt) {
   const hover = alt ? `<div class="result-hover">${alt}</div>` : '';
-  return `<div class="result-title">${title}</div><div class="result-value">${hover}${value}</div>`;
+  return `<div class="result-title">${title}</div><div class="result-value"><div class="result-value-content">${hover}${value}</div></div>`;
 }
 
 class GameUI {
