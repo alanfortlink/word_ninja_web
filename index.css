@@ -130,24 +130,42 @@ body {
 }
 
 .result-value .result-hover {
-  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 200px;
+
   font-size: 20px;
   font-weight: normal;
-  color: #ffffff;
-  background-color: #333333;
+
+  opacity: 0.0;
+
+  color: #fff;
+
+  background-color: rgba(20, 20, 20, 1.0);
+
   padding: 5px;
   border-radius: 5px;
-  position: absolute;
-  z-index: 100;
-  border: 1px solid #ffffff;
-  width: 480px;
-  left: 50%;
-  top: 100%;
-  transform: translateX(-50%);
+  box-shadow: 0 0 5px 0 rgba(255, 255, 255, 0.5);
+  transition: all 0.2s;
+}
+
+.td-info {
+  color: #444;
+}
+
+td.big-value {
+  font-size: 30px;
 }
 
 .result-value:hover .result-hover {
-  display: block;
+  opacity: 1.0;
+  transition: all 0.2s;
 }
 
 #currentRank {
@@ -202,9 +220,8 @@ div.stats-hit, div.stats-miss {
 }
 
 div.stats-hit > .bubble-content, div.stats-miss > .bubble-content {
-  border-radius: 4px;
-  border: 0.04px solid white;
-  box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 0.5px;
+  box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.6);
   color: #ffffff;
   display: none;
   font-size: 0;
@@ -224,9 +241,9 @@ div.stats-hit:hover, div.stats-miss:hover {
 }
 
 div.stats-hit:hover > .bubble-content, div.stats-miss:hover > .bubble-content {
-  width: 10px;
+  width: 12px;
   height: 7px;
-  font-size: 4px;
+  font-size: 3px;
   display: flex;
   align-items: center;
   justify-content: center;

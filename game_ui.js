@@ -35,7 +35,44 @@ function _getRankInfo(score, game) {
   const scorePerRank = 500;
   const rank = Math.floor(score / scorePerRank);
 
-  const ranksAlt = [...ranks.map(r => (r + ' ')), '🏆'];
+  const windows_fn = (L, wsz) => {
+    const windows = [];
+    let current = [];
+    for (let rank of L) {
+      current.push(rank);
+      if (current.length == wsz) {
+        windows.push(current);
+        current = [];
+      }
+    }
+
+    if (current.length > 0) {
+      windows.push(current);
+    }
+
+    return windows;
+  }
+
+  const nranks = 5;
+  const windows = windows_fn(ranks, nranks);
+
+  let ranksAlt = [];
+  ranksAlt.push(`<table id='ranks'>`);
+
+  for (let window of windows) {
+    ranksAlt.push(`<tr>`);
+    for (let r of window) {
+      ranksAlt.push(`<td class="td-value">${r}</td>`);
+      if (r != window[window.length - 1]) {
+        ranksAlt.push(`<td class="td-info">→</td>`);
+      }
+    }
+    ranksAlt.push(`</tr>`);
+  }
+
+  ranksAlt.push(`<tr><td class='big-value' colspan='${nranks * 2 - 1}'>🏆</td></tr>`);
+
+  ranksAlt.push(`</table>`);
 
   const c = Math.max(1, Math.ceil((score % scorePerRank) / 100));
 
@@ -156,7 +193,7 @@ class GameUI {
 
     const { rankIcon, rankName, c, ranksAlt } = _getRankInfo(score, game);
 
-    $rank.innerHTML = _buildInfo('<div class="divider" id="secondDivider"></div>', rankIcon.repeat(c) + ' ' + rankName, ranksAlt.join(''));
+    $rank.innerHTML = _buildInfo('<div class="divider" id="secondDivider"></div>' + rankName, rankIcon.repeat(c), ranksAlt.join(''));
     $finalTime.innerHTML = _buildInfo(language == 'en' ? 'Time' : 'Duração', time_s);
 
     GameUI.showButtons();
