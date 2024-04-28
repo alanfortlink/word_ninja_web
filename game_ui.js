@@ -21,7 +21,7 @@ const $currentRank = document.getElementById('currentRank');
 const $stats1 = document.getElementById('stats1');
 const $stats2 = document.getElementById('stats2');
 
-const statsHeight = canvas.height * 0.25;
+const statsHeight = canvas.height * 0.20;
 const statsWidth = canvas.width * 0.45;
 
 function _getRankInfo(score, game) {
@@ -103,9 +103,9 @@ class GameUI {
       const multiplierClass = `multiplier-${event.multiplier}`;
 
       if (event.type == 'hit') {
-        html += `<div class="stats-hit ${multiplierClass}" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${(yValue * yMaxValue).toFixed(0)}</div></div>`;
+        html += `<div class="stats-hit ${multiplierClass}" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${Math.floor(yValue * yMaxValue).toFixed(0)}</div></div>`;
       } else {
-        html += `<div class="stats-miss" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${(yValue * yMaxValue).toFixed(0)}</div></div>`;
+        html += `<div class="stats-miss" style="left: ${x}px; bottom: ${y}px;"><div class='bubble-content ${multiplierClass}'>${Math.floor(yValue * yMaxValue).toFixed(0)}</div></div>`;
       }
     }
 
