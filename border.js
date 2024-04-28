@@ -98,11 +98,9 @@ class Border {
       //   context.fillRect(0, 0, padding * factor, canvas.height - 2 * padding);
       //   break;
       case 'bottom':
-        context.fillStyle = isWordBeingDestroyed ? '#f00' : '#fff';
-
         context.beginPath();
         context.lineWidth = 2;
-        context.strokeStyle = isWordBeingDestroyed ? '#f00' : '#fff';
+        context.strokeStyle = isWordBeingDestroyed ? '#f00' : '#444';
         context.moveTo(0, canvas.height - 10);
         for (let i = 0; i < steps; i++) {
           const x = (i) * canvas.width / steps + (i == 0 ? -canvas.height * 0.02 : 0);
