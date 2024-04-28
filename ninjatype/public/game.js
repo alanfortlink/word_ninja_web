@@ -6,10 +6,11 @@ import Border from './border.js';
 import { canvas, context } from './utils.js';
 import { loadSounds } from './sounds.js';
 import { language } from './language.js';
+import { Network } from './network.js';
 
 class GameEvent {
   constructor(type, duration, multiplier) {
-    this.type = type;
+    this.type = type; // hit, miss, skull
     this.duration = duration;
     this.multiplier = multiplier;
   }
@@ -60,7 +61,7 @@ class Game {
     GameUI.showEndScreen(this);
   }
 
-  onkeydown(e) {
+  async onkeydown(e) {
     if (this.gameEnded && this.timeSinceEnd < 2) {
       return;
     }
@@ -91,6 +92,31 @@ class Game {
         this.start();
       } else if (c == "b") {
         this.goBack();
+      } else if (c == "l") {
+        GameUI.showLeaderboard();
+      } else if (c == "s") {
+        const username = prompt(language == 'en' ? 'Choose a nickname' : 'Escolha um apelido');
+
+        if (username == null) {
+          return;
+        }
+
+        if (username.length == 0) {
+          return;
+        }
+
+        const gameplay = {
+          username,
+          score: this.events.reduce((acc, e) => acc + e.multiplier, 0),
+          events: this.events.map(e => ({ type: e.type, duration: e.duration, multiplier: e.multiplier })),
+        };
+
+        const success = await Network.publish(gameplay);
+        if (success) {
+          alert(language == 'en' ? 'Gameplay shared' : 'Gameplay compartilhado');
+        } else {
+          alert(language == 'en' ? 'Failed to share gameplay' : 'Falha ao compartilhar gameplay');
+        }
       }
 
       return;

@@ -20,7 +20,7 @@ function gameLoop(timestamp) {
 }
 
 document.onkeydown = (e) => {
-  if (e.key == 'k' && !game.gameRunning && game.gameElapsed == 0 && !game.paused) {
+  if (e.key == 's' && !game.gameRunning && game.gameElapsed == 0 && !game.paused) {
     updateSoundProfile();
     game = new Game(goBack);
     return;

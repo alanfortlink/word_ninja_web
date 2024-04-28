@@ -140,7 +140,7 @@ body {
   justify-content: center;
 }
 
-#lastScore > .result-value > .result-value-content {
+#lastScore>.result-value>.result-value-content {
   font-size: 80px;
 }
 
@@ -387,4 +387,226 @@ div.stats-graph-line {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.home-screen {
+  width: 100%;
+}
+
+.home-screen-title {
+  font-size: 40px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.home-screen-footer {
+  margin-top: 20px;
+}
+
+.home-screen-divider {
+  background: #444;
+  height: 1px;
+}
+
+.rank-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.rank-button:hover {
+  background-color: #555;
+  cursor: pointer;
+}
+
+#about-us-div {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #444;
+  color: #aaa;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+a {
+  color: #fff;
+}
+
+a:visted {
+  color: #fff;
+}
+
+.leaderboard-modal {
+  position: absolute;
+  padding: 20px;
+  background: #222;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(20, 20, 20, 0.5);
+
+  width: 700px;
+  height: 800px;
+
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+  overflow: auto;
+
+  /* Hides the scrollbar */
+  scrollbar-width: none;
+  /* For Firefox */
+  -ms-overflow-style: none;
+  /* For Internet Explorer and Edge */
+
+  /* For Webkit browsers like Safari and Chrome */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+}
+
+.leaderboard-content {
+}
+
+#leaderboard-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #fff;
+  border-radius: 50%;
+  padding: 5px;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #444;
+  box-shadow: 1px 1px 5px 0 rgba(20, 20, 20, 0.5);
+  transition: all 0.2s;
+}
+
+#leaderboard-modal-close:hover {
+  transform: scale(1.1);
+  transition: all 0.2s;
+}
+
+.visible {
+  display: block;
+}
+
+.leaderboard-entry {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background: rgba(10, 10, 10, 0.5);
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 0 rgba(100, 100, 100, 0.5);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.leaderboard-entry-info {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.leaderboard-entry-info-item {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.lb-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.lb-value {
+  font-size: 20px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb-first {
+  flex: 2;
+}
+
+.lb-other {
+  flex: 1;
+}
+
+.lb-highlight {}
+
+.leaderboard-entry-charts {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+}
+
+.leaderboard-entry-chart {
+  display: flex;
+  position: relative;
+}
+
+.chart-div {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  display: block;
+  position: relative;
+}
+
+
+.chart-wpm:after {
+  content: "WPM";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #888;
+  font-size: 16px;
+  padding: 0px;
+  margin-right: 4px;
+}
+
+.chart-score:after {
+  content: "SCORE";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #888;
+  font-size: 16px;
+  padding: 0px;
+  margin-right: 4px;
 }
