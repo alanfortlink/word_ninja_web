@@ -180,7 +180,7 @@ class GameUI {
 
     $initialInfo.innerHTML = "";
     $lastScore.innerHTML = _buildInfo(language == 'en' ? 'Score' : 'Pontuação', score);
-    $streak.innerHTML = _buildInfo(language == 'en' ? 'Max Streak' : 'Maior Sequência', maxCombo);
+    $streak.innerHTML = _buildInfo(language == 'en' ? 'Streak' : 'Maior Sequência', maxCombo);
 
     let optionsTable = "<table id='instructions'>";
     optionsTable += `<tr class="key-row"><td class="key-style" style="text-align: right;">Space</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'Play Again' : 'Jogar Novamente'}</td></tr>`;
