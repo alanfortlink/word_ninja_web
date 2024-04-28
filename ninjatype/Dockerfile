@@ -19,6 +19,6 @@ COPY --from=build /app/bin/server /app/bin/server
 COPY --from=build /app/bin/public /public
 COPY --from=build /app/bin/.env /.env
 
-EXPOSE 9000
+EXPOSE 8080
 
 CMD ["/app/bin/server"]
