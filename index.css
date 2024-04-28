@@ -5,6 +5,13 @@
 
 * {
   font-family: 'regular', monospace;
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
+
 }
 
 body {
@@ -133,21 +140,21 @@ body {
   justify-content: center;
 }
 
-.result-value > .result-value-content {
+.result-value>.result-value-content {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
-.result-value > .result-value-content > .result-hover {
+.result-value>.result-value-content>.result-hover {
   opacity: 0;
   width: 0;
   height: 0;
   font-size: 0px;
 }
 
-.result-value > .result-value-content:hover > .result-hover {
+.result-value>.result-value-content:hover>.result-hover {
   opacity: 1;
   padding: 5px;
   border-radius: 5px;
@@ -194,7 +201,8 @@ div.stats {
   position: relative;
 }
 
-div.stats-hit, div.stats-miss {
+div.stats-hit,
+div.stats-miss {
   position: absolute;
   width: 6px;
   height: 6px;
@@ -204,13 +212,15 @@ div.stats-hit, div.stats-miss {
   font-size: 0;
 }
 
-#bubble1, #bubble2 {
+#bubble1,
+#bubble2 {
   display: none;
   font-size: 0;
   color: transparent;
 }
 
-div.stats-hit > .bubble-content, div.stats-miss > .bubble-content {
+div.stats-hit>.bubble-content,
+div.stats-miss>.bubble-content {
   border-radius: 0.5px;
   box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.6);
   color: #ffffff;
@@ -224,14 +234,16 @@ div.stats-hit > .bubble-content, div.stats-miss > .bubble-content {
   width: 0;
 }
 
-div.stats-hit:hover, div.stats-miss:hover {
+div.stats-hit:hover,
+div.stats-miss:hover {
   z-index: 9999999 !important;
   opacity: 1;
   transform: scale(2);
   transition: all 0.2s;
 }
 
-div.stats-hit:hover > .bubble-content, div.stats-miss:hover > .bubble-content {
+div.stats-hit:hover>.bubble-content,
+div.stats-miss:hover>.bubble-content {
   width: 12px;
   height: 7px;
   font-size: 3px;
@@ -243,31 +255,30 @@ div.stats-hit:hover > .bubble-content, div.stats-miss:hover > .bubble-content {
   z-index: 9999999 !important;
 }
 
-div.stats-miss:hover > .bubble-content {
+div.stats-miss:hover>.bubble-content {
   background-color: #f00;
 }
 
-div.stats-hit {
-}
+div.stats-hit {}
 
 div.multiplier-1 {
-      background-color: rgb(200, 200, 200);
+  background-color: rgb(200, 200, 200);
 }
 
 div.multiplier-2 {
-      background-color: rgb(255, 255, 4);
+  background-color: rgb(255, 255, 4);
 }
 
 div.multiplier-3 {
-      background-color: rgb(4, 217, 255);
+  background-color: rgb(4, 217, 255);
 }
 
 div.multiplier-4 {
-      background-color: rgb(255, 16, 240);
+  background-color: rgb(255, 16, 240);
 }
 
 div.multiplier-5 {
-      background-color: rgb(116, 255, 21);
+  background-color: rgb(116, 255, 21);
 }
 
 div.stats-miss {
@@ -317,27 +328,27 @@ div.stats-graph-line {
   text-align: center;
 }
 
-.info-table > tr {
+.info-table>tr {
   text-align: center;
   width: 100wv;
   border: 1px solid #333;
   padding: 5px;
 }
 
-.info-table > tr > td {
+.info-table>tr>td {
   border: 1px solid #333;
   padding: 5px;
   text-align: center;
 }
 
-.info-table > tr > th {
+.info-table>tr>th {
   border-radius: 5px 5px 0px 0px;
   border: 1px solid #333;
   padding: 5px;
   text-align: center;
 }
 
-.info-table > tr:last-child > td {
+.info-table>tr:last-child>td {
   border-radius: 0px 0px 5px 5px;
 }
 
@@ -347,8 +358,7 @@ div.stats-graph-line {
   color: #ffffff;
 }
 
-.key-row {
-}
+.key-row {}
 
 .key-style {
   background-color: #ddd;

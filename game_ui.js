@@ -133,7 +133,7 @@ class GameUI {
       const event = events[i];
       duration += event.duration;
 
-      const x = Math.floor((duration / totalDuration) * statsWidth * 0.8);
+      const x = Math.floor((duration / totalDuration) * statsWidth * 0.7);
       const yValue = Math.min(Math.floor(yMapper(events, i)), yMaxValue);
       const y = Math.floor((yValue / yMaxValue) * statsHeight * 0.8);
 
