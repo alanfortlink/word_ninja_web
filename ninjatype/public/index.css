@@ -193,7 +193,7 @@ td.big-value {
 div.stats-row {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: row;
 }
 
