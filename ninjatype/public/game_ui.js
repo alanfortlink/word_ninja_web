@@ -34,8 +34,19 @@ const statsWidth = canvas.width * 0.40;
 
 function getFormattedTime(elapsed) {
   let t_str = "";
-  let minutes = Math.floor(elapsed / 60);
-  let seconds = Math.floor(elapsed % 60);
+
+  const days = Math.floor(elapsed / (3600 * 24));
+  const hours = Math.floor((elapsed % (3600 * 24)) / 3600);
+  const minutes = Math.floor((elapsed % 3600) / 60);
+  const seconds = Math.floor(elapsed % 60);
+
+  if (days > 0) {
+    t_str += days + 'd';
+  }
+
+  if (hours > 0) {
+    t_str += hours + 'h';
+  }
 
   if (minutes > 0) {
     t_str += minutes + 'm';
@@ -140,8 +151,12 @@ async function _showLeaderboard() {
     }
 
     time = getFormattedTime(time);
+    const created = gameplay.createdAt;
+    const diff = new Date() - new Date(created);
+    const timestamp = getFormattedTime(diff / 1000) + " ago";
 
     let gameplayHtml = `<div class="leaderboard-entry">`;
+    gameplayHtml += `<div class="leaderboard-entry-created">${timestamp}</div>`;
 
     let infoColumn = `<div class="leaderboard-entry-info">`;
 

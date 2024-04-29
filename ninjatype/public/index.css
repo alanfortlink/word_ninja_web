@@ -554,6 +554,15 @@ a:visted {
   border-radius: 5px;
   box-shadow: inset 0px 0px 5px 0 rgba(100, 100, 100, 0.5);
   margin-bottom: 40px;
+  position: relative;
+}
+
+.leaderboard-entry-created {
+  position: absolute;
+  bottom: -20px;
+  right: 10px;
+  font-size: 11px;
+  color: #444;
 }
 
 .leaderboard-entry-info {
