@@ -346,7 +346,7 @@ class GameUI {
         ["Space", "Play"],
         ["Esc", "Pause"],
         ["Enter", "Power-up"],
-        ["Backspace", "Unselected Word"],
+        ["Backspace", "Unselect Word"],
         ["L", "Language"],
         ["S", `Sound (${sound_profile})`],
       ],
