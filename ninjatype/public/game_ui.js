@@ -98,6 +98,7 @@ function _getRankInfo(score, game) {
 }
 
 let isLoadingLeaderboard = false;
+let isLoadingStats = false;
 
 async function updateLoading() {
   const loadingWord = language == "en" ? "LOADING..." : "CARREGANDO...";
@@ -117,6 +118,47 @@ async function updateLoading() {
 
     await new Promise((resolve) => setTimeout(resolve, 5 * stepDuration * 1000));
   }
+}
+
+async function updateLoadingStats() {
+  const loadingWord = language == "en" ? "LOADING..." : "CARREGANDO...";
+
+  const totalDuration = 0.8;
+  const stepDuration = totalDuration / loadingWord.length;
+
+  while (isLoadingStats) {
+    for (let i = 0; i < loadingWord.length; i++) {
+      await new Promise((resolve) => setTimeout(resolve, stepDuration * 1000));
+      if (!isLoadingStats) {
+        return;
+      }
+
+      $back.innerHTML = `<div class="loading-stats">${loadingWord.substring(0, i + 1)}</div>`;
+    }
+  }
+
+  await new Promise((resolve) => setTimeout(resolve, 5 * stepDuration * 1000));
+}
+
+async function loadStats(game) {
+  isLoadingStats = true;
+  updateLoadingStats();
+  const score = game.events.reduce((acc, e) => acc + e.multiplier, 0);
+  const stats = await Network.getStats(score);
+  const { topPercentage, isTop10 } = stats;
+
+  isLoadingStats = false;
+
+  let content = `<div class="stats-content">`;
+  const text = language == 'en' ? `You are in the top <b>${topPercentage.toFixed(2)}%</b> of players` : `Você está no top ${topPercentage.toFixed(2)}% dos jogadores`;
+  content += `<div class="stats-content-percentage">${text}</div>`;
+  if (isTop10) {
+    const text = language == 'en' ? 'You are in the top 10. Press "S" to share' : 'Você está no top 10. Pressione "S" para compartilhar';
+    content += `<div class="stats-content-top10">${text}</div>`;
+  }
+
+  content += `</div>`;
+  $back.innerHTML = content;
 }
 
 async function _showLeaderboard() {
@@ -340,47 +382,73 @@ class GameUI {
   }
 
   static showEndScreen(game) {
+    loadStats(game);
+
     const score = game.events.reduce((acc, e) => acc + e.multiplier, 0);
     const maxCombo = game.maxCombo;
     const time = game.gameElapsed;
 
     $initialInfo.innerHTML = "";
-    $lastScore.innerHTML = _buildInfo(language == 'en' ? 'SCORE' : 'PONTUAÇÃO', score);
-    $streak.innerHTML = _buildInfo(language == 'en' ? 'STREAK' : 'MAIOR SEQUÊNCIA', maxCombo);
+    //  $lastScore.innerHTML = _buildInfo(language == 'en' ? 'SCORE' : 'PONTUAÇÃO', score);
+    //  $streak.innerHTML = _buildInfo(language == 'en' ? 'STREAK' : 'MAIOR SEQUÊNCIA', maxCombo);
 
-    let optionsTable = "<table id='instructions'>";
+    const scoreTxt = language == 'en' ? 'SCORE' : 'PONTUAÇÃO';
+    $lastScore.innerHTML = `<div class="info-div-entry-title">${scoreTxt}</div><div class="info-div-entry-value">${score}</div>`;
 
-    optionsTable += "<tr class='key-row'>";
-    optionsTable += `<td class="key-style" style="text-align: right;">SPACE</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'PLAY AGAIN' : 'JOGAR NOVAMENTE'}</td>`;
-    optionsTable += `<td class="separator"></td>`;
-    optionsTable += `<td class="key-style" style="text-align: right;">B</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'BACK TO MENU' : 'VOLTAR AO MENU'}</td>`;
-    optionsTable += "</tr>";
+    const streakTxt = language == 'en' ? 'STREAK' : 'MAIOR SEQUÊNCIA';
+    $streak.innerHTML = `<div class="info-div-entry-title">${streakTxt}</div><div class="info-div-entry-value">${maxCombo}</div>`;
 
-    optionsTable += "<tr class='key-row'>";
-    optionsTable += `<td class="key-style" style="text-align: right;">S</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'SHARE' : 'COMPARTILHAR'}</td>`;
-    optionsTable += `<td class="separator"></td>`;
-    optionsTable += `<td class="key-style" style="text-align: right;">L</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'LEADERBOARD' : 'LEADERBOARD'}</td>`;
-    optionsTable += "</tr>";
+    const timeTxt = language == 'en' ? 'TIME' : 'DURAÇÃO';
+    $finalTime.innerHTML = `<div class="info-div-entry-title">${timeTxt}</div><div class="info-div-entry-value">${getFormattedTime(time)}</div>`;
 
-    optionsTable += "</table>";
+    const { rankIcon, rankName, c, ranksAlt } = _getRankInfo(score, game);
 
-    $status.innerHTML = optionsTable;
+    $rank.innerHTML = `<div class="info-div-entry-title">${rankName}</div><div class="info-div-entry-value">${rankIcon.repeat(c)}</div>`;
+
+    const allOptions = {
+      'en': [
+        ["SPACE", "RESTART"],
+        ["B", "BACK"],
+        ["S", "SHARE"],
+        ["L", "LEADERBOARD"],
+      ],
+      'ptbr': [
+        ["ESPAÇO", "REINICIAR"],
+        ["B", "VOLTAR"],
+        ["S", "COMPARTILHAR"],
+        ["L", "RANKING"],
+      ]
+    };
+
+    const options = allOptions[language];
+    let $div = `<div class='buttons' style="">`;
+
+    const windows = windows_fn(options, 2);
+
+    for (let window of windows) {
+      $div += "<div class='button-row'>";
+
+      for (let [key, value] of window) {
+        $div += `<div class="button-row-item"><div class="button-row-item-title">${key}</div><div class="button-row-item-value">> ${value}</div></div>`;
+      }
+
+      $div += "</div>";
+    }
+
+    $div += "</div>";
+
+    let home = `<div style="display:flex; align-items: center; justify-content: center;">`;
+    home += $div;
+    home += `<div class="divider"></div>`;
+    home += `</div>`;
+    $status.innerHTML = home;
+
     $back.innerHTML = "";
 
     // $status.innerHTML = '<div class="divider"></div>' + _buildInfo(language == 'en' ? 'Press "Space" to play again' : 'Pressione "Espaço" para jogar novamente', "");
     // $back.innerHTML = _buildInfo(language == 'en' ? 'Press "B" go back to main menu' : 'Pressione "B" para voltar ao menu principal', "");
 
     this.processStats(game);
-
-    const min = Math.floor(time / 60);
-    const sec = Math.floor(time % 60);
-
-    const time_s = (min > 0 ? min + 'm' : '') + sec + 's';
-
-    const { rankIcon, rankName, c, ranksAlt } = _getRankInfo(score, game);
-
-    $rank.innerHTML = _buildInfo('<div class="divider" id="secondDivider"></div>' + rankName, rankIcon.repeat(c), ranksAlt.join(''));
-    $finalTime.innerHTML = _buildInfo(language == 'en' ? 'TIME' : 'DURAÇÃO', time_s);
 
     GameUI.showButtons();
   }
@@ -412,29 +480,29 @@ class GameUI {
 
     let home = `<div class="home-screen">`;
 
-    let title = `<div class="home-screen-title"><img src='banner.jpg'/><div>NINJA TYPE</div><img class='rotated' src='banner.jpg'/></div>`;
+    let title = `<div class="home-screen-title"><img src='banner.jpg'/><div style="color: #eee;">NINJA TYPE</div><img class='rotated' src='banner.jpg'/></div>`;
 
     home += title;
 
     home += homeDivider;
 
-    let $table = "<table id='instructions'>";
+    let $div = "<div class='buttons'>";
 
     const windows = windows_fn(options, 2);
 
     for (let window of windows) {
-      $table += "<tr class='key-row'>";
-      $table += window.map(([key, value]) => `<td class="key-style" style="text-align: right;">${key}</td><td>></td><td style="text-align: left; font-weight: bold;">${value}</td>`).join('<td class="vertical-divider"></td>');
-      $table += "</tr>";
+      $div += "<div class='button-row'>";
+
+      for (let [key, value] of window) {
+        $div += `<div class="button-row-item"><div class="button-row-item-title">${key}</div><div class="button-row-item-value">> ${value}</div></div>`;
+      }
+
+      $div += "</div>";
     }
 
-    // for (let [key, value] of options) {
-    //   $table += `<tr class="key-row"><td class="key-style" style="text-align: right;">${key}</td><td>→</td><td style="text-align: left; font-weight: bold;">${value}</td></tr>`;
-    // }
+    $div += "</div>";
 
-    $table += "</table>";
-
-    home += $table;
+    home += $div;
 
     home += homeDivider;
 

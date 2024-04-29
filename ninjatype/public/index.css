@@ -108,19 +108,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(10, 10, 10, 0.8);
+  background-color: rgba(5, 5, 5, 0.99);
   border-radius: 10px;
   box-shadow: 0 0 5px 0 rgba(40, 40, 40, 0.5);
   padding: 20px;
-}
-
-.info-div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 20px;
-  color: #ffffff;
+  height: 500px;
 }
 
 .divider {
@@ -129,55 +121,12 @@ body {
   background-color: #222;
 }
 
-.result-value {
-  position: relative;
-  font-size: 40px;
-  font-weight: bold;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-#lastScore>.result-value>.result-value-content {
-  font-size: 80px;
-}
-
-.result-value>.result-value-content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.result-value>.result-value-content>.result-hover {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  font-size: 0px;
-}
-
-.result-value>.result-value-content:hover>.result-hover {
-  opacity: 1;
-  padding: 5px;
-  border-radius: 5px;
-  background-color: #222;
-  box-shadow: 0 0 5px 0 rgba(20, 20, 20, 0.5);
-  text-shadow: 0 0 2px rgba(20, 20, 20, 0.8);
-  position: absolute;
-  transform: translateY(-80px);
-  width: auto;
-  height: auto;
-  font-size: 20px;
-}
-
 .td-info {
   color: #444;
 }
 
 td.big-value {
-  font-size: 30px;
+  font-size: 20px;
 }
 
 #currentRank {
@@ -355,14 +304,6 @@ div.stats-graph-line {
   border-radius: 0px 0px 5px 5px;
 }
 
-.info-info {
-  text-align: center;
-  font-size: 20px;
-  color: #ffffff;
-}
-
-.key-row {}
-
 .key-style {
   background-color: #222;
   font-weight: bold;
@@ -406,10 +347,11 @@ div.stats-graph-line {
 
 
 .home-screen {
-  width: 100%;
+  width: 700px;
+  height: 500px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -429,6 +371,7 @@ div.stats-graph-line {
   height: 50px;
   margin-right: 20px;
   margin-left: 20px;
+  border-radius: 50%;
 }
 
 .rotated {
@@ -680,4 +623,111 @@ a:visted {
 
 .separator {
   width: 20px;
+}
+
+.loading-stats {
+  color: #fff;
+}
+
+
+
+
+
+
+
+
+.info-div {
+  color: #fff;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: center;
+}
+
+.info-div-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-div-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  font-size: 30px;
+}
+
+.info-div-entry:first-child .info-div-entry-value {
+  font-size: 50px;
+}
+
+.stats-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 4px;
+  padding: 4px;
+}
+
+.info-div-entry-title {}
+
+.info-div-entry-value {}
+
+
+
+
+
+
+
+
+
+
+
+
+.buttons {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 5px;
+}
+
+.button-row-item {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-grow: 1;
+  padding: 10px;
+  align-items: center;
+  justify-content: start;
+}
+
+.button-row-item-title {
+  background-color: #222;
+  font-weight: bold;
+  color: #ccc;
+  width: 80px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px 0 rgba(200, 200, 200, 0.75);
+  text-shadow: 1px 1px 8px rgba(20, 20, 20, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.button-row-item-value {
+  color: white;
+  margin: 10px;
 }

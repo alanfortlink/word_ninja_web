@@ -83,6 +83,25 @@ void main() async {
     return top10HighestScoresOfLastWeek;
   });
 
+  app.get("/api/stats/:score", (HttpRequest req, HttpResponse res) async {
+    final score = req.params['score'];
+
+    final numberOfGameplaysWithGreaterScore =
+        await gameplaysCollection.count(where.gt('score', double.parse(score)));
+
+    final totalNumberOfGameplays = await gameplaysCollection.count();
+
+    final topPercentage =
+        100.0 * (numberOfGameplaysWithGreaterScore / totalNumberOfGameplays);
+
+    final isTop10 = numberOfGameplaysWithGreaterScore <= 10;
+
+    return {
+      'topPercentage': topPercentage,
+      'isTop10': isTop10,
+    };
+  });
+
   final port = int.tryParse(env['PORT'] ?? '$_defaultPort') ?? _defaultPort;
   await app.listen(port);
 }

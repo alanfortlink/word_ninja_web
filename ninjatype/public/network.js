@@ -27,6 +27,12 @@ class Network {
     return gameplays;
   }
 
+  static async getStats(score){
+    const response = await fetch(`${baseUrl}/stats/${score}`);
+    const stats = await response.json();
+    return stats;
+  }
+
 }
 
 export { Network }
