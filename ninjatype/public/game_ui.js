@@ -129,7 +129,7 @@ async function _showLeaderboard() {
 
     let chartsColumn = `<div class="leaderboard-entry-charts">`;
     chartsColumn += `<div class="leaderboard-entry-chart chart-div chart-wpm" id="chart-wpm-${i}"></div>`;
-    chartsColumn += `<div style="width: 10px;"></div>`;
+    chartsColumn += `<div style="width: 20px;"></div>`;
     chartsColumn += `<div class="leaderboard-entry-chart chart-div chart-score" id="chart-score-${i}"></div>`;
     chartsColumn += `</div>`;
 
