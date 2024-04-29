@@ -30,7 +30,7 @@ const $leaderboardModalClose = document.getElementById('leaderboard-modal-close'
 $leaderboardModalClose.onclick = hideLeaderboard;
 
 const statsHeight = canvas.height * 0.20;
-const statsWidth = canvas.width * 0.45;
+const statsWidth = canvas.width * 0.40;
 
 function getFormattedTime(elapsed) {
   let t_str = "";
@@ -380,7 +380,7 @@ class GameUI {
 
     for (let window of windows) {
       $table += "<tr class='key-row'>";
-      $table += window.map(([key, value]) => `<td class="key-style" style="text-align: right;">${key}</td><td>→</td><td style="text-align: left; font-weight: bold;">${value}</td>`).join('');
+      $table += window.map(([key, value]) => `<td class="key-style" style="text-align: right;">${key}</td><td>→</td><td style="text-align: left; font-weight: bold;">${value}</td>`).join('<td></td>');
       $table += "</tr>";
     }
 

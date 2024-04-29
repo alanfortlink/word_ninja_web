@@ -100,7 +100,7 @@ body {
 
 #resultDiv {
   position: absolute;
-  width: 70%;
+  width: 700px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -406,6 +406,10 @@ div.stats-graph-line {
 
 .home-screen {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .home-screen-title {
@@ -437,6 +441,8 @@ div.stats-graph-line {
 .home-screen-divider {
   background: #444;
   height: 1px;
+  width: 600px;
+  margin: 4px;
 }
 
 .rank-button {
@@ -597,6 +603,9 @@ a:visted {
   display: flex;
   flex-grow: 1;
   position: relative;
+  flex-direction: row;
+  align-items: middle;
+  justify-content: space-between;
 }
 
 .leaderboard-entry-chart {
