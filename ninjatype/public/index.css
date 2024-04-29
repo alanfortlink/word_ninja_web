@@ -502,7 +502,7 @@ a:visted {
     display: none;
   }
 
-  height: 620px;
+  height: 560px;
 }
 
 #leaderboard-modal-close {
@@ -546,8 +546,7 @@ a:visted {
   background: rgba(10, 10, 10, 0.5);
   border-radius: 5px;
   box-shadow: inset 0px 0px 5px 0 rgba(100, 100, 100, 0.5);
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .leaderboard-entry-info {
@@ -590,7 +589,9 @@ a:visted {
   flex: 1;
 }
 
-.lb-highlight {}
+.lb-highlight {
+  font-size: 40px;
+}
 
 .leaderboard-entry-charts {
   display: flex;
@@ -632,4 +633,15 @@ a:visted {
   font-size: 16px;
   padding: 0px;
   margin-right: 4px;
+}
+
+#leaderboard-modal-title {
+  color: #fff;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(20, 20, 20, 0.5);
+  margin-bottom: 10px;
 }

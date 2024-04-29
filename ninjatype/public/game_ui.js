@@ -121,7 +121,7 @@ async function _showLeaderboard() {
     const { rankIcon, c } = _getRankInfo(gameplay.score, gameplay);
     const alt = `${rankIcon.repeat(c)}`;
 
-    infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight">#${i + 1}</div><div class="lb-value lb-highlight">${gameplay.username}</div><div class="lb-value">${alt}</div></div>`;
+    infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight">#${i + 1}</div><div class="lb-value">${gameplay.username}</div><div class="lb-value">${alt}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Score</div><div class="lb-value">${gameplay.score}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Streak</div><div class="lb-value">${maxStreak}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Time</div><div class="lb-value">${time}</div></div>`;
