@@ -212,16 +212,17 @@ async function generateStats($div, events, yMaxValue, yMapper) {
   $div.innerHTML = '';
   $div.style.display = 'block';
 
-  if (events.length > 0) events[0].duration *= 0.9;
-
   let html = ``;
+
+  const diffX = statsWidth * 0.05;
+  const diffY = statsHeight * 0.05;
 
   for (let i = 0; i < events.length; i++) {
     const event = events[i];
     duration += event.duration;
 
-    const x = Math.floor((duration / totalDuration) * statsWidth * 0.7);
-    const yValue = Math.min(Math.floor(yMapper(events, i)), yMaxValue);
+    const x = diffX + Math.floor((duration / totalDuration) * statsWidth * 0.8);
+    const yValue = -diffY + Math.min(Math.floor(yMapper(events, i)), yMaxValue);
     const y = Math.floor((yValue / yMaxValue) * statsHeight * 0.8);
 
     const multiplierClass = `multiplier-${event.multiplier}`;
