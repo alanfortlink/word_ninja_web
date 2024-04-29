@@ -86,10 +86,37 @@ function _getRankInfo(score, game) {
   return { rankIcon, rankName, c, ranksAlt };
 }
 
+let isLoadingLeaderboard = false;
+
+async function updateLoading() {
+  const loadingWord = language == "en" ? "Loading..." : "Carregando...";
+
+  const totalDuration = 0.8;
+  const stepDuration = totalDuration / loadingWord.length;
+
+  while (isLoadingLeaderboard) {
+    for (let i = 0; i < loadingWord.length; i++) {
+      await new Promise((resolve) => setTimeout(resolve, stepDuration * 1000));
+      if (!isLoadingLeaderboard) {
+        return;
+      }
+
+      $leaderboardModalContent.innerHTML = `<div class="leaderboard-content"><div class="loading-leaderboard">${loadingWord.substring(0, i + 1)}</div></div>`;
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 5 * stepDuration * 1000));
+  }
+}
+
 async function _showLeaderboard() {
   $leaderboardModal.classList.add('visible');
+  $leaderboardModalContent.innerHTML = '';
+
+  isLoadingLeaderboard = true;
+  updateLoading();
 
   const gameplays = await Network.getGameplays();
+  isLoadingLeaderboard = false;
 
   let leaderboard = `<div class="leaderboard-content">`;
 
