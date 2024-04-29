@@ -305,12 +305,12 @@ class Game {
     context.fillStyle = 'rgba(20, 20, 20, 0.85)';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    for (let particle of this.particles) {
-      particle.render();
-    }
-
     for (let border of this.borders) {
       border.render();
+    }
+
+    for (let particle of this.particles) {
+      particle.render();
     }
 
     if (this.paused) {
