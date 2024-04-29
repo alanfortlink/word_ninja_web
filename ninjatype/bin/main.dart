@@ -35,14 +35,14 @@ class Gameplay {
         username = json['username'],
         score = 1.0 * (json['score'] ?? 0.0),
         createdAt = DateTime.parse(
-            json['createdAt'] ?? DateTime.now().toIso8601String()),
+            json['createdAt'] ?? DateTime.now().toUtc().toIso8601String()),
         events =
             (json['events'] as List).map((e) => GameEvent.fromJson(e)).toList();
 
   Map<String, dynamic> toJson() => {
         'username': username,
         'score': score,
-        'createdAt': createdAt.toIso8601String(),
+        'createdAt': createdAt.toUtc().toIso8601String(),
         'events': events.map((e) => e.toJson()).toList(),
       };
 }

@@ -35,10 +35,21 @@ const statsWidth = canvas.width * 0.40;
 function getFormattedTime(elapsed) {
   let t_str = "";
 
-  const days = Math.floor(elapsed / (3600 * 24));
-  const hours = Math.floor((elapsed % (3600 * 24)) / 3600);
-  const minutes = Math.floor((elapsed % 3600) / 60);
-  const seconds = Math.floor(elapsed % 60);
+  let remaining = elapsed;
+
+  const days = Math.floor(elapsed / (60 * 60 * 24));
+
+  remaining -= days * (60 * 60 * 24);
+
+  const hours = remaining > 0 ? Math.floor(remaining / (60 * 60)) : 0;
+
+  remaining -= hours * (60 * 60);
+
+  const minutes = remaining > 0 ? Math.floor(remaining / 60) : 0;
+
+  remaining -= minutes * 60;
+
+  const seconds = Math.floor(remaining);
 
   if (days > 0) {
     t_str += days + 'd';
