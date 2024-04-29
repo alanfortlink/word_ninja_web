@@ -95,13 +95,18 @@ class Game {
       } else if (c == "l") {
         GameUI.showLeaderboard();
       } else if (c == "s") {
-        const username = prompt(language == 'en' ? 'Choose a nickname' : 'Escolha um apelido');
+        const username = prompt(language == 'en' ? 'Choose a nickname (16 characters max)' : 'Escolha um apelido: (máximo 16 caracteres)');
 
         if (username == null) {
           return;
         }
 
         if (username.length == 0) {
+          return;
+        }
+
+        if (username.length > 16) {
+          alert(language == 'en' ? 'Nickname too long' : 'Apelido muito longo');
           return;
         }
 

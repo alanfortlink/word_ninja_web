@@ -117,11 +117,13 @@ async function _showLeaderboard() {
     let gameplayHtml = `<div class="leaderboard-entry">`;
 
     let infoColumn = `<div class="leaderboard-entry-info">`;
-    
+
     const { rankIcon, c } = _getRankInfo(gameplay.score, gameplay);
     const alt = `${rankIcon.repeat(c)}`;
 
-    infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight">#${i + 1}</div><div class="lb-value">${gameplay.username}</div><div class="lb-value">${alt}</div></div>`;
+    const username = gameplay.username.length > 16 ? gameplay.username.substring(0, 13) + '...' : gameplay.username;
+
+    infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight">#${i + 1}</div><div class="lb-value" title="${gameplay.username}">${username}</div><div class="lb-value">${alt}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Score</div><div class="lb-value">${gameplay.score}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Streak</div><div class="lb-value">${maxStreak}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Time</div><div class="lb-value">${time}</div></div>`;
@@ -222,8 +224,8 @@ async function generateStats($div, events, yMaxValue, yMapper) {
     duration += event.duration;
 
     const x = diffX + Math.floor((duration / totalDuration) * statsWidth * 0.8);
-    const yValue = -diffY + Math.min(Math.floor(yMapper(events, i)), yMaxValue);
-    const y = Math.floor((yValue / yMaxValue) * statsHeight * 0.8);
+    const yValue = Math.min(Math.floor(yMapper(events, i)), yMaxValue);
+    const y = -diffY + Math.floor((yValue / yMaxValue) * statsHeight * 0.8);
 
     const multiplierClass = `multiplier-${event.multiplier}`;
 
@@ -234,9 +236,9 @@ async function generateStats($div, events, yMaxValue, yMapper) {
     }
   }
 
-  const stats_30pLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8 * 0.3)}px;">${(yMaxValue * 0.3).toFixed(0)}</div>`;
-  const stats_60pLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8 * 0.6)}px;">${(yMaxValue * 0.6).toFixed(0)}</div>`;
-  const stats_maxLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8)}px;">${(yMaxValue).toFixed(0)}</div>`;
+  const stats_30pLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8 * 0.3 - diffY)}px;">${(yMaxValue * 0.3).toFixed(0)}</div>`;
+  const stats_60pLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8 * 0.6 - diffY)}px;">${(yMaxValue * 0.6).toFixed(0)}</div>`;
+  const stats_maxLine = `<div class="stats-graph-line" style="bottom: ${Math.floor(statsHeight * 0.8 - diffY)}px;">${(yMaxValue).toFixed(0)}</div>`;
 
   html += stats_30pLine;
   html += stats_60pLine;
