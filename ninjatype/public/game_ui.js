@@ -49,8 +49,8 @@ function getFormattedTime(elapsed) {
 function _getRankInfo(score, game) {
   // ranks based on speed
   const ranks = ['🐢', '🐇', '🐕', '🐎', '🐆', '🦅', '🚀', '⚡️', '👑', '🔥', '🌟', '🏅', '🥉', '🥈', '🥇'];
-  const rankNamesEn = ['Turtle', 'Rabbit', 'Dog', 'Horse', 'Cheetah', 'Eagle', 'Rocket', 'Lightning', 'King', 'Fire', 'Star', 'Medalist', 'Bronze', 'Silver', 'Gold'];
-  const rankNamesPtbr = ['Tartaruga', 'Coelho', 'Cachorro', 'Cavalo', 'Guepardo', 'Águia', 'Foguete', 'Raio', 'Rei', 'Fogo', 'Estrela', 'Medalhista', 'Bronze', 'Prata', 'Ouro'];
+  const rankNamesEn = ['TURTLE', 'RABBIT', 'DOG', 'HORSE', 'CHEETAH', 'EAGLE', 'ROCKET', 'LIGHTNING', 'KING', 'FIRE', 'STAR', 'MEDALIST', 'BRONZE', 'SILVER', 'GOLD'];
+  const rankNamesPtbr = ['TARTARUGA', 'COELHO', 'CACHORRO', 'CAVALO', 'GUEPARDO', 'ÁGUIA', 'FOGUETE', 'RAIO', 'REI', 'FOGO', 'ESTRELA', 'MEDALHISTA', 'BRONZE', 'PRATA', 'OURO'];
 
   const rankNames = language == 'en' ? rankNamesEn : rankNamesPtbr;
 
@@ -81,7 +81,7 @@ function _getRankInfo(score, game) {
   const c = Math.max(1, Math.ceil((score % scorePerRank) / 100));
 
   const rankIcon = rank < ranks.length ? ranks[rank] : '🏆';
-  const rankName = rank < rankNames.length ? rankNames[rank] : 'Master';
+  const rankName = rank < rankNames.length ? rankNames[rank] : 'MASTER';
 
   return { rankIcon, rankName, c, ranksAlt };
 }
@@ -89,7 +89,7 @@ function _getRankInfo(score, game) {
 let isLoadingLeaderboard = false;
 
 async function updateLoading() {
-  const loadingWord = language == "en" ? "Loading..." : "Carregando...";
+  const loadingWord = language == "en" ? "LOADING..." : "CARREGANDO...";
 
   const totalDuration = 0.8;
   const stepDuration = totalDuration / loadingWord.length;
@@ -151,9 +151,9 @@ async function _showLeaderboard() {
     const username = gameplay.username.length > 16 ? gameplay.username.substring(0, 13) + '...' : gameplay.username;
 
     infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight">#${i + 1}</div><div class="lb-value" title="${gameplay.username}">${username}</div><div class="lb-value">${alt}</div></div>`;
-    infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Score</div><div class="lb-value">${gameplay.score}</div></div>`;
-    infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Streak</div><div class="lb-value">${maxStreak}</div></div>`;
-    infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">Time</div><div class="lb-value">${time}</div></div>`;
+    infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">SCORE</div><div class="lb-value">${gameplay.score}</div></div>`;
+    infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">STREAK</div><div class="lb-value">${maxStreak}</div></div>`;
+    infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">TIME</div><div class="lb-value">${time}</div></div>`;
     infoColumn += `</div>`;
 
     let chartsColumn = `<div class="leaderboard-entry-charts">`;
@@ -330,19 +330,21 @@ class GameUI {
     const time = game.gameElapsed;
 
     $initialInfo.innerHTML = "";
-    $lastScore.innerHTML = _buildInfo(language == 'en' ? 'Score' : 'Pontuação', score);
-    $streak.innerHTML = _buildInfo(language == 'en' ? 'Streak' : 'Maior Sequência', maxCombo);
+    $lastScore.innerHTML = _buildInfo(language == 'en' ? 'SCORE' : 'PONTUAÇÃO', score);
+    $streak.innerHTML = _buildInfo(language == 'en' ? 'STREAK' : 'MAIOR SEQUÊNCIA', maxCombo);
 
     let optionsTable = "<table id='instructions'>";
 
     optionsTable += "<tr class='key-row'>";
-    optionsTable += `<td class="key-style" style="text-align: right;">Space</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'Play Again' : 'Jogar Novamente'}</td>`;
-    optionsTable += `<td class="key-style" style="text-align: right;">B</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'Back to Menu' : 'Voltar ao Menu'}</td>`;
+    optionsTable += `<td class="key-style" style="text-align: right;">SPACE</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'PLAY AGAIN' : 'JOGAR NOVAMENTE'}</td>`;
+    optionsTable += `<td class="separator"></td>`;
+    optionsTable += `<td class="key-style" style="text-align: right;">B</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'BACK TO MENU' : 'VOLTAR AO MENU'}</td>`;
     optionsTable += "</tr>";
 
     optionsTable += "<tr class='key-row'>";
-    optionsTable += `<td class="key-style" style="text-align: right;">S</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'Share' : 'Compartilhar'}</td>`;
-    optionsTable += `<td class="key-style" style="text-align: right;">L</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'Leaderboard' : 'Leaderboard'}</td>`;
+    optionsTable += `<td class="key-style" style="text-align: right;">S</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'SHARE' : 'COMPARTILHAR'}</td>`;
+    optionsTable += `<td class="separator"></td>`;
+    optionsTable += `<td class="key-style" style="text-align: right;">L</td><td>→</td><td style="text-align: left; font-weight: bold;">${language == 'en' ? 'LEADERBOARD' : 'LEADERBOARD'}</td>`;
     optionsTable += "</tr>";
 
     optionsTable += "</table>";
@@ -363,7 +365,7 @@ class GameUI {
     const { rankIcon, rankName, c, ranksAlt } = _getRankInfo(score, game);
 
     $rank.innerHTML = _buildInfo('<div class="divider" id="secondDivider"></div>' + rankName, rankIcon.repeat(c), ranksAlt.join(''));
-    $finalTime.innerHTML = _buildInfo(language == 'en' ? 'Time' : 'Duração', time_s);
+    $finalTime.innerHTML = _buildInfo(language == 'en' ? 'TIME' : 'DURAÇÃO', time_s);
 
     GameUI.showButtons();
   }
@@ -373,20 +375,20 @@ class GameUI {
 
     const allOptions = {
       'en': [
-        ["Space", "Play"],
-        ["Esc", "Pause"],
-        ["Enter", "Power-up"],
-        ["Backspace", "Unselect Word"],
-        ["L", "Language"],
-        ["S", `Sound (${sound_profile})`],
+        ["SPACE", "PLAY"],
+        ["ESC", "PAUSE"],
+        ["ENTER", "POWER-UP"],
+        ["BACKSPACE", "UNSELECT WORD"],
+        ["'I' IDIOM", ` 🇬🇧 EN`],
+        ["'S' SOUND", `${sound_profile}`],
       ],
       'ptbr': [
-        ["Espaço", "Jogar"],
-        ["Esc", "Pausar"],
-        ["Enter", "Especial"],
-        ["Backspace", "Trocar"],
-        ["L", "Idioma"],
-        ["K", `Som do Teclado (${sound_profile})`],
+        ["ESPAÇO", "JOGAR"],
+        ["ESC", "PAUSAR"],
+        ["ENTER", "ESPECIAL"],
+        ["BACKSPACE", "TROCAR PALAVRA"],
+        ["'I' IDIOMA", "🇧🇷 PTBR"],
+        ["'S' SOM", `${sound_profile}`],
       ]
     };
 
@@ -395,7 +397,7 @@ class GameUI {
 
     let home = `<div class="home-screen">`;
 
-    let title = `<div class="home-screen-title"><img src='banner.jpg'/><div>Ninja Type</div><img class='rotated' src='banner.jpg'/></div>`;
+    let title = `<div class="home-screen-title"><img src='banner.jpg'/><div>NINJA TYPE</div><img class='rotated' src='banner.jpg'/></div>`;
 
     home += title;
 
@@ -407,7 +409,7 @@ class GameUI {
 
     for (let window of windows) {
       $table += "<tr class='key-row'>";
-      $table += window.map(([key, value]) => `<td class="key-style" style="text-align: right;">${key}</td><td>→</td><td style="text-align: left; font-weight: bold;">${value}</td>`).join('<td></td>');
+      $table += window.map(([key, value]) => `<td class="key-style" style="text-align: right;">${key}</td><td>></td><td style="text-align: left; font-weight: bold;">${value}</td>`).join('<td class="vertical-divider"></td>');
       $table += "</tr>";
     }
 
@@ -423,7 +425,7 @@ class GameUI {
 
     let footer = `<div class="home-screen-footer">`;
 
-    footer += `<div class="rank-button" id="open-rank">🏆 Leaderboard</div>`;
+    footer += `<div class="rank-button" id="open-rank">🏆  LEADERBOARD</div>`;
 
     footer += `</div>`;
 

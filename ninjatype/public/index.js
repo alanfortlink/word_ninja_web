@@ -28,7 +28,7 @@ document.onkeydown = (e) => {
 
   playSound();
 
-  if (e.key == 'l' && !game.gameRunning && game.gameElapsed == 0 && !game.paused) {
+  if (e.key == 'i' && !game.gameRunning && game.gameElapsed == 0 && !game.paused) {
     updateLanguage(language == 'en' ? 'ptbr' : 'en');
     game = new Game(goBack);
     return;

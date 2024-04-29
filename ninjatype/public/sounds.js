@@ -1,4 +1,4 @@
-var sound_profile = 'default';
+var sound_profile = 'mx-brown';
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
