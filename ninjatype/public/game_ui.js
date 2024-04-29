@@ -365,7 +365,7 @@ class GameUI {
 
     let home = `<div class="home-screen">`;
 
-    let title = `<div class="home-screen-title">Ninja Type</div>`;
+    let title = `<div class="home-screen-title"><img src='banner.jpg'/><div>Ninja Type</div><img class='rotated' src='banner.jpg'/></div>`;
 
     home += title;
 
