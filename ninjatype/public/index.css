@@ -112,7 +112,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 5px 0 rgba(40, 40, 40, 0.5);
   padding: 20px;
-  height: 500px;
+  height: 380px;
 }
 
 .divider {
@@ -348,7 +348,7 @@ div.stats-graph-line {
 
 .home-screen {
   width: 700px;
-  height: 500px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -379,7 +379,6 @@ div.stats-graph-line {
 }
 
 .home-screen-footer {
-  margin-top: 20px;
 }
 
 .home-screen-divider {
@@ -397,7 +396,6 @@ div.stats-graph-line {
   padding: 10px 20px;
   font-size: 20px;
   cursor: pointer;
-  margin-top: 10px;
 }
 
 .rank-button:hover {
@@ -430,8 +428,8 @@ a:visted {
   border-radius: 20px;
   box-shadow: 0 0 10px 0 rgba(20, 20, 20, 0.5);
 
-  width: 750px;
-  height: 620px;
+  width: 720px;
+  height: 700px;
 
   top: 50%;
   transform: translateY(-50%);
@@ -452,7 +450,7 @@ a:visted {
     display: none;
   }
 
-  height: 560px;
+  height: 660px;
 }
 
 #leaderboard-modal-close {
@@ -492,17 +490,17 @@ a:visted {
 .leaderboard-entry {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px;
   background: rgba(10, 10, 10, 0.5);
   border-radius: 5px;
   box-shadow: inset 0px 0px 5px 0 rgba(100, 100, 100, 0.5);
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   position: relative;
 }
 
 .leaderboard-entry-created {
   position: absolute;
-  bottom: -20px;
+  bottom: -14px;
   right: 10px;
   font-size: 11px;
   color: #444;
@@ -523,7 +521,7 @@ a:visted {
 }
 
 .lb-title {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
   color: #fff;
   display: flex;
@@ -532,8 +530,12 @@ a:visted {
   flex-grow: 1;
 }
 
+.lb-index {
+  font-size: 36px;
+}
+
 .lb-value {
-  font-size: 20px;
+  font-size: 18px;
   color: #fff;
   display: flex;
   align-items: center;
@@ -549,7 +551,7 @@ a:visted {
 }
 
 .lb-highlight {
-  font-size: 40px;
+  font-size: 18px;
 }
 
 .leaderboard-entry-charts {
@@ -707,7 +709,7 @@ a:visted {
   flex-direction: row;
   flex: 1;
   flex-grow: 1;
-  padding: 10px;
+  padding: 5px;
   align-items: center;
   justify-content: start;
 }
@@ -723,7 +725,7 @@ a:visted {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 5px;
   font-size: 12px;
 }
 

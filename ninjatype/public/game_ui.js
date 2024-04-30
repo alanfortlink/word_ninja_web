@@ -29,7 +29,7 @@ const $leaderboardModalClose = document.getElementById('leaderboard-modal-close'
 
 $leaderboardModalClose.onclick = hideLeaderboard;
 
-const statsHeight = canvas.height * 0.20;
+const statsHeight = canvas.height * 0.15;
 const statsWidth = canvas.width * 0.40;
 
 function getFormattedTime(elapsed) {
@@ -218,7 +218,8 @@ async function _showLeaderboard() {
 
     const username = gameplay.username.length > 16 ? gameplay.username.substring(0, 13) + '...' : gameplay.username;
 
-    infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight">#${i + 1}</div><div class="lb-value" title="${gameplay.username}">${username}</div><div class="lb-value">${alt}</div></div>`;
+    infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title lb-index">#${i + 1}</div></div>`;
+    infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight">${alt}</div><div class="lb-value" title="${gameplay.username}">${username}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">SCORE</div><div class="lb-value">${gameplay.score}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">STREAK</div><div class="lb-value">${maxStreak}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">TIME</div><div class="lb-value">${time}</div></div>`;
@@ -455,9 +456,6 @@ class GameUI {
     $status.innerHTML = home;
 
     $back.innerHTML = "";
-
-    // $status.innerHTML = '<div class="divider"></div>' + _buildInfo(language == 'en' ? 'Press "Space" to play again' : 'Pressione "Espaço" para jogar novamente', "");
-    // $back.innerHTML = _buildInfo(language == 'en' ? 'Press "B" go back to main menu' : 'Pressione "B" para voltar ao menu principal', "");
 
     this.processStats(game);
 
