@@ -219,7 +219,7 @@ async function _showLeaderboard() {
     const username = gameplay.username.length > 16 ? gameplay.username.substring(0, 13) + '...' : gameplay.username;
 
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title lb-index">#${i + 1}</div></div>`;
-    infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight">${alt}</div><div class="lb-value" title="${gameplay.username}">${username}</div></div>`;
+    infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight" title="${gameplay.username}">${username}</div><div class="lb-value">${alt}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">SCORE</div><div class="lb-value">${gameplay.score}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">STREAK</div><div class="lb-value">${maxStreak}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">TIME</div><div class="lb-value">${time}</div></div>`;
