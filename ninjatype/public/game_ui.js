@@ -213,14 +213,16 @@ async function _showLeaderboard() {
 
     let infoColumn = `<div class="leaderboard-entry-info">`;
 
-    const { rankIcon, c } = _getRankInfo(gameplay.score, gameplay);
+    const score = gameplay.events.reduce((acc, e) => acc + e.multiplier, 0);
+
+    const { rankIcon, c } = _getRankInfo(score, gameplay);
     const alt = `${rankIcon.repeat(c)}`;
 
     const username = gameplay.username.length > 16 ? gameplay.username.substring(0, 13) + '...' : gameplay.username;
 
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title lb-index">#${i + 1}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-first"><div class="lb-title lb-highlight" title="${gameplay.username}">${username}</div><div class="lb-value">${alt}</div></div>`;
-    infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">SCORE</div><div class="lb-value">${gameplay.score}</div></div>`;
+    infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">SCORE</div><div class="lb-value">${score}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">STREAK</div><div class="lb-value">${maxStreak}</div></div>`;
     infoColumn += `<div class="leaderboard-entry-info-item lb-other"><div class="lb-title">TIME</div><div class="lb-value">${time}</div></div>`;
     infoColumn += `</div>`;
