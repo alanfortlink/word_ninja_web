@@ -36,8 +36,14 @@ class Gameplay {
         score = 1.0 * (json['score'] ?? 0.0),
         createdAt = DateTime.parse(
             json['createdAt'] ?? DateTime.now().toUtc().toIso8601String()),
-        events =
-            (json['events'] as List).map((e) => GameEvent.fromJson(e)).toList();
+        events = (json['events'] as List)
+            .map((e) => GameEvent.fromJson(e))
+            .toList() {
+    score = 0.0;
+    for (final event in events) {
+      score += event.multiplier;
+    }
+  }
 
   Map<String, dynamic> toJson() => {
         'username': username,
@@ -112,7 +118,14 @@ void main() async {
     final topPercentage =
         100.0 * (numberOfGameplaysWithGreaterScore / totalNumberOfGameplays);
 
-    final isTop10 = numberOfGameplaysWithGreaterScore <= 10;
+    final now = DateTime.now();
+    final weekAgo = now.subtract(Duration(days: 7));
+
+    final higherScoresLastWeek = await gameplaysCollection.count(where
+        .gte('createdAt', weekAgo.toIso8601String())
+        .gt('score', double.parse(score)));
+
+    final isTop10 = higherScoresLastWeek < 10;
 
     return {
       'topPercentage': topPercentage,
