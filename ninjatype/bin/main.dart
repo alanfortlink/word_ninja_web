@@ -91,22 +91,6 @@ void main() async {
     return top10HighestScoresOfLastWeek;
   });
 
-  app.get("/api/fix", (HttpRequest req, HttpResponse res) async {
-    // for each gameplay, calculate the score
-    final gameplays = await gameplaysCollection.find().toList();
-    for (final gameplay in gameplays) {
-      final score = gameplay['events']
-          .map((e) => e['multiplier'])
-          .map((e) => 1.0 * e)
-          .reduce((a, b) => a + b);
-
-      await gameplaysCollection.update(
-        where.id(gameplay['_id']),
-        modify.set('score', score),
-      );
-    }
-  });
-
   app.get("/api/stats/:score", (HttpRequest req, HttpResponse res) async {
     final score = req.params['score'];
 
