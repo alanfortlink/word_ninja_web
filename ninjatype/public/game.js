@@ -161,7 +161,7 @@ class Game {
         const particle = new Particle(this, new Vec2(canvas.width / 2, canvas.height / 2), new Vec2(0, 0), '', false, 0);
         this.particles.push(particle);
         this.timeSinceLastEvent -= this.wordShooter.timeWasted;
-        this.events.push(new GameEvent('miss', this.timeSinceLastEvent, 0));
+        this.events.push(new GameEvent('miss', Math.max(0.001, this.timeSinceLastEvent), 0));
         this.timeSinceLastEvent = 0;
         this.wordShooter.timeWasted = 0;
         this.resetCombo();
@@ -173,7 +173,7 @@ class Game {
         const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false, 0);
         this.particles.push(particle);
         this.timeSinceLastEvent -= this.wordShooter.timeWasted;
-        this.events.push(new GameEvent('skull', this.timeSinceLastEvent, 0));
+        this.events.push(new GameEvent('skull', Math.max(0.001, this.timeSinceLastEvent), 0));
         this.wordShooter.timeWasted = 0;
         this.timeSinceLastEvent = 0;
         this.wordShooter.words = this.wordShooter.words.filter(w => w !== selectedWord);
@@ -198,7 +198,7 @@ class Game {
         const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', true, this.multiplier);
         this.particles.push(particle);
         this.timeSinceLastEvent -= this.wordShooter.timeWasted;
-        this.events.push(new GameEvent('hit', this.timeSinceLastEvent, this.multiplier));
+        this.events.push(new GameEvent('hit', Math.max(0.001, this.timeSinceLastEvent), this.multiplier));
         this.wordShooter.timeWasted = 0;
         this.timeSinceLastEvent = 0;
 
@@ -210,7 +210,7 @@ class Game {
       } else {
         const particle = new Particle(this, selectedWord.position, new Vec2(0, 0), '', false, 0);
         this.timeSinceLastEvent -= this.wordShooter.timeWasted;
-        this.events.push(new GameEvent('miss', this.timeSinceLastEvent, 0));
+        this.events.push(new GameEvent('miss', Math.max(0.001, this.timeSinceLastEvent), 0));
         this.wordShooter.timeWasted = 0;
         this.timeSinceLastEvent = 0;
         this.particles.push(particle);

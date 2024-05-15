@@ -28,7 +28,7 @@ class Network {
     for (let i = 0; i < gameplays.length; i++) {
       for (let j = 0; j < gameplays[i].events.length; j++) {
         const event = gameplays[i].events[j];
-        event.duration = Math.max(0.016, event.duration);
+        event.duration = Math.max(0.001, event.duration);
       }
     }
 
