@@ -298,7 +298,7 @@ class Game {
     }
 
     this.lastSecondChecked = currentSecond;
-    if (currentSecond % 10 == 0) {
+    if (currentSecond % 9 == 0) {
       this.wordShooter.increaseDifficulty();
     }
     // assis

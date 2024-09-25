@@ -17,6 +17,7 @@ const $time = document.getElementById('time');
 const $combo = document.getElementById('combo');
 const $result = document.getElementById('resultDiv');
 const $lives = document.getElementById('lives');
+const $stage = document.getElementById('stage');
 const $slows = document.getElementById('slows');
 const $rank = document.getElementById('rank');
 const $currentRank = document.getElementById('currentRank');
@@ -565,6 +566,7 @@ class GameUI {
     const combo = game.combo;
     const elapsed = game.gameElapsed;
 
+    $stage.innerHTML = `Stage ${game.wordShooter.difficulty}`;
     $lives.innerHTML = '❤️'.repeat(game.lives);
     $slows.innerHTML = '⏳'.repeat(game.slows);
 

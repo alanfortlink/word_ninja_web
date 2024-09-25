@@ -124,15 +124,15 @@ class WordShooter {
     this.words = [];
     this.wordsWaiting = 0;
     this.timeSinceLastWord = 0;
-    this.simultaneousWords = 1;
+    this.simultaneousWords = 2;
     this.maxChars = 4;
-    this.timeBetweenWords = 1.5;
+    this.timeBetweenWords = 1.0;
     this.difficulty = 1;
   }
 
   increaseDifficulty() {
     this.difficulty++;
-    this.timeBetweenWords -= 0.08;
+    this.timeBetweenWords -= 0.10;
     if (this.timeBetweenWords < 0.08) {
       this.timeBetweenWords = 0.08;
     }
@@ -140,7 +140,7 @@ class WordShooter {
     if (this.simultaneousWords <= 4) {
       this.simultaneousWords++;
     }
-    if (this.difficulty % 3 == 0) {
+    if (this.difficulty % 2 == 0) {
       this.maxChars++;
     }
   }
