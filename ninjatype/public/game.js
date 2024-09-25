@@ -61,6 +61,37 @@ class Game {
     GameUI.showEndScreen(this);
   }
 
+  async share(message) {
+    const username = prompt((message || "") + "\n\n" + (language == 'en' ? 'Choose a nickname (16 characters max)' : 'Escolha um apelido: (máximo 16 caracteres)'));
+
+    if (username == null) {
+      return;
+    }
+
+    if (username.length == 0) {
+      return;
+    }
+
+    if (username.length > 16) {
+      alert(language == 'en' ? 'Nickname too long' : 'Apelido muito longo');
+      return;
+    }
+
+    const gameplay = {
+      username,
+      score: this.events.reduce((acc, e) => acc + e.multiplier, 0),
+      events: this.events.map(e => ({ type: e.type, duration: e.duration, multiplier: e.multiplier })),
+    };
+
+    const success = await Network.publish(gameplay);
+    if (success) {
+      alert(language == 'en' ? 'Gameplay shared' : 'Gameplay compartilhado');
+      GameUI.showLeaderboard();
+    } else {
+      alert(language == 'en' ? 'Failed to share gameplay' : 'Falha ao compartilhar gameplay');
+    }
+  }
+
   async onkeydown(e) {
     if (this.gameEnded && this.timeSinceEnd < 2) {
       return;
@@ -95,33 +126,7 @@ class Game {
       } else if (c == "l") {
         GameUI.showLeaderboard();
       } else if (c == "s") {
-        const username = prompt(language == 'en' ? 'Choose a nickname (16 characters max)' : 'Escolha um apelido: (máximo 16 caracteres)');
-
-        if (username == null) {
-          return;
-        }
-
-        if (username.length == 0) {
-          return;
-        }
-
-        if (username.length > 16) {
-          alert(language == 'en' ? 'Nickname too long' : 'Apelido muito longo');
-          return;
-        }
-
-        const gameplay = {
-          username,
-          score: this.events.reduce((acc, e) => acc + e.multiplier, 0),
-          events: this.events.map(e => ({ type: e.type, duration: e.duration, multiplier: e.multiplier })),
-        };
-
-        const success = await Network.publish(gameplay);
-        if (success) {
-          alert(language == 'en' ? 'Gameplay shared' : 'Gameplay compartilhado');
-        } else {
-          alert(language == 'en' ? 'Failed to share gameplay' : 'Falha ao compartilhar gameplay');
-        }
+        this.share();
       }
 
       return;

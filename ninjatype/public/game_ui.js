@@ -162,8 +162,8 @@ async function loadStats(game) {
   isLoadingStats = false;
 
   let content = `<div class="stats-content">`;
-  const text = language == 'en' ? `You are in the top <b>${topPercentage.toFixed(2)}%</b> of players` : `Você está no top ${topPercentage.toFixed(2)}% dos jogadores`;
-  content += `<div class="stats-content-percentage">${text}</div>`;
+  const rankingText = language == 'en' ? `You are in the top <b>${topPercentage.toFixed(2)}%</b> of players` : `Você está no top ${topPercentage.toFixed(2)}% dos jogadores`;
+  content += `<div class="stats-content-percentage">${rankingText}</div>`;
   if (isTop10) {
     const text = language == 'en' ? 'You are in the top 10. Press "S" to share' : 'Você está no top 10. Pressione "S" para compartilhar';
     content += `<div class="stats-content-top10">${text}</div>`;
@@ -171,6 +171,10 @@ async function loadStats(game) {
 
   content += `</div>`;
   $back.innerHTML = content;
+
+  if (isTop10) {
+    game.share(`You are in the top ${topPercentage.toFixed(2)}% of our players.\nSubmit your result to our global ranking!`);
+  }
 }
 
 async function _showLeaderboard() {
