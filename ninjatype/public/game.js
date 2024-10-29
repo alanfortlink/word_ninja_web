@@ -1,4 +1,4 @@
-import GameUI from './game_ui.js';
+import { GameUI, hideLeaderboard, isModalOpen } from './game_ui.js';
 import Vec2 from './vec2.js';
 import WordShooter from './word_shooter.js';
 import Particle from './particle.js';

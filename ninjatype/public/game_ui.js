@@ -177,6 +177,10 @@ async function loadStats(game) {
   }
 }
 
+function isModalOpen(){
+  return $leaderboardModal.classList.contains("visible");
+}
+
 async function _showLeaderboard() {
   $leaderboardModal.classList.add('visible');
   $leaderboardModalContent.innerHTML = '';
@@ -589,4 +593,4 @@ class GameUI {
   }
 }
 
-export default GameUI;
+export { GameUI, hideLeaderboard, isModalOpen };

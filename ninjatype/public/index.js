@@ -1,6 +1,7 @@
 import Game from './game.js';
 import { language, updateLanguage } from './language.js';
 import { updateSoundProfile, playSound } from './sounds.js';
+import { hideLeaderboard, isModalOpen } from './game_ui.js';
 
 function goBack(){
   game = new Game(goBack);
@@ -20,6 +21,11 @@ function gameLoop(timestamp) {
 }
 
 document.onkeydown = (e) => {
+  if ((e.key == "Escape" || e.key == "Backspace") && isModalOpen()) {
+    hideLeaderboard();
+    return;
+  }
+
   if (e.key == 's' && !game.gameRunning && game.gameElapsed == 0 && !game.paused) {
     updateSoundProfile();
     game = new Game(goBack);
